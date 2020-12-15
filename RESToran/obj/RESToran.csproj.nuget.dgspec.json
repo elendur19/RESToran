@@ -1,0 +1,65 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran\\RESToran.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran\\RESToran.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran\\RESToran.csproj",
+        "projectName": "RESToran",
+        "projectPath": "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran\\RESToran.csproj",
+        "packagesPath": "C:\\Users\\misla\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\misla\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
