@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using RESToran.DataAccess;
+using Microsoft.AspNetCore.Routing;
 
 namespace RESToran
 {
@@ -46,7 +47,7 @@ namespace RESToran
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -56,5 +57,7 @@ namespace RESToran
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
+       
     }
 }

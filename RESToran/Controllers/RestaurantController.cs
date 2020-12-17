@@ -10,6 +10,8 @@ using RESToran.Models;
 
 namespace RESToran.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class RestaurantController : Controller
     {
         private readonly PostgreSqlContext _context;
@@ -19,13 +21,15 @@ namespace RESToran.Controllers
             _context = context;
         }
 
-        // GET: Restaurant
+        // GET: api/Restaurant
+        [HttpGet("all")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Restaurants.ToListAsync());
         }
 
-        // GET: Restaurant/Details/5
+        // GET: api/Restaurant/5
+        [HttpGet("{id}")]
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -44,6 +48,8 @@ namespace RESToran.Controllers
         }
 
         // GET: Restaurant/Create
+        //[HttpGet("Restaurant/Create")]
+        [HttpGet("create")]
         public IActionResult Create()
         {
             return View();
@@ -52,9 +58,10 @@ namespace RESToran.Controllers
         // POST: Restaurant/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+       
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Location,Rating")] Restaurant restaurant)
+        [HttpPost("create")]
+        public async Task<IActionResult> Create([FromForm] Restaurant restaurant)
         {
             if (ModelState.IsValid)
             {
@@ -66,6 +73,7 @@ namespace RESToran.Controllers
         }
 
         // GET: Restaurant/Edit/5
+        [HttpGet("edit/{id}")]
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -84,9 +92,9 @@ namespace RESToran.Controllers
         // POST: Restaurant/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost("edit/{id}"), ActionName("Update")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Location,Rating")] Restaurant restaurant)
+        public async Task<IActionResult> Edit(long id, [FromForm] Restaurant restaurant)
         {
             if (id != restaurant.Id)
             {
@@ -117,6 +125,7 @@ namespace RESToran.Controllers
         }
 
         // GET: Restaurant/Delete/5
+        [HttpGet("delete/{id}")]
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -135,7 +144,7 @@ namespace RESToran.Controllers
         }
 
         // POST: Restaurant/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost("delete/{id}"), ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
