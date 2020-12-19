@@ -182,3 +182,8 @@ C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\ref\RESToran.dll
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\RESToran.pdb
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\RESToran.genruntimeconfig.cache
+C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\Table\Create.cshtml.g.cs
+C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\Table\Delete.cshtml.g.cs
+C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\Table\Details.cshtml.g.cs
+C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\Table\Edit.cshtml.g.cs
+C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\Table\Index.cshtml.g.cs

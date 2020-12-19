@@ -15,6 +15,6 @@ namespace RESToran.Models
 
         public double Rating { get; set; }
 
-        public ICollection<Table> Tables { get; set; }
+        public List<Table> Tables { get; set; }
     }
 }

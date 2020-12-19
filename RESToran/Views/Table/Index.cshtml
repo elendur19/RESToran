@@ -1,0 +1,47 @@
+﻿@model IEnumerable<RESToran.Models.Table>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@{
+    Restaurant restaurant = ViewBag.Restaurant;
+
+    <h2>@restaurant.Name tables</h2>
+
+}
+
+<p>
+    <a class="float-right" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfSeats)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfSeats)
+                </td>
+                <td class="float-right">
+                    <a href="/api/Table/Restaurant/@restaurant.Id/Edit/@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-ids="">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

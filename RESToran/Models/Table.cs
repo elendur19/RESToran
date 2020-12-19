@@ -8,15 +8,15 @@ namespace RESToran.Models
 {
     public class Table
     {
+        public long Id { get; set; }
+
         [ForeignKey("Restaurant_Id")]
         public long RestaurantId { get; set; }
 
-        public long Id { get; set; }
-
         public string Location { get; set; }
 
-        public double Rating { get; set; }
+        public double NumberOfSeats{ get; set; }
 
-        public ICollection<ReservationPeriod> ReservationPeriod { get; set; }
+        public List<ReservationPeriod> ReservationPeriod { get; set; }
     }
 }
