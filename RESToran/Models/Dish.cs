@@ -19,6 +19,8 @@ namespace RESToran.Models
 
         public double Price { get; set; }
 
+        public bool HouseSpecial { get; set; }
+
         // TODO lista sastojaka
 
         public List<ReservationPeriod> ReservationPeriod { get; set; }

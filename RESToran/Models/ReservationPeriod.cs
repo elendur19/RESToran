@@ -8,10 +8,11 @@ namespace RESToran.Models
 {
     public class ReservationPeriod
     {
+        public long Id { get; set; }
+
         [ForeignKey("Table_Id")]
         public long TableId { get; set; }
 
-        public long Id { get; set; }
 
         public DateTime Datum { get; set; }
 

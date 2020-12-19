@@ -13,6 +13,10 @@ namespace RESToran.Models
 
         public string Location { get; set; }
 
+        public string PhoneNumber { get; set; }
+
+        public string HoursOpened { get; set; }
+
         public double Rating { get; set; }
 
         public List<Table> Tables { get; set; }

@@ -24,6 +24,7 @@ namespace RESToran
         {
             services.AddControllersWithViews();
 
+
             services.AddDbContext<PostgreSqlContext>(options =>
                             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
