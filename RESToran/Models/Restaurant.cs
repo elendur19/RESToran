@@ -16,5 +16,7 @@ namespace RESToran.Models
         public double Rating { get; set; }
 
         public List<Table> Tables { get; set; }
+
+        public List<Dish> Dishes { get; set; }
     }
 }

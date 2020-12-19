@@ -24,5 +24,7 @@ namespace RESToran.DataAccess
             ChangeTracker.DetectChanges();
             return base.SaveChanges();
         }
+
+        public DbSet<RESToran.Models.Dish> Dish { get; set; }
     }
 }
