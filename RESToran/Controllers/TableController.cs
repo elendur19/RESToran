@@ -36,7 +36,7 @@ namespace RESToran.Controllers
             return View(RestaurantTables);
         }
 
-        // GET: Table/Details/5
+        // GET: api/Table/Restaurant/1/Table/1/Info
         [HttpGet("Restaurant/{restId}/Table/{id}/Info")]
         public async Task<IActionResult> Details(long restId, long? id)
         {
@@ -67,7 +67,7 @@ namespace RESToran.Controllers
             return View();
         }
 
-        // POST: Table/Create
+        // POST: Restaurant/{restId}/Table/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost("Restaurant/{id}/Table/Create"), ActionName("Update")]
@@ -85,7 +85,7 @@ namespace RESToran.Controllers
             return View(table);
         }
 
-        // GET: Table/Edit/5
+        // GET: api/Table/Restaurant/1/Edit/1
         [HttpGet("Restaurant/{restId}/Edit/{id}")]
         public async Task<IActionResult> Edit(long restId, long? id)
         {
@@ -107,7 +107,7 @@ namespace RESToran.Controllers
             return View(table);
         }
 
-        // POST: Table/Edit/5
+        // POST: api/Table/Restaurant/1/Edit/1
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost("Restaurant/{restId}/Edit/{id}"), ActionName("Update")]
@@ -144,9 +144,9 @@ namespace RESToran.Controllers
             return View(table);
         }
 
-        // GET: Restaurant/{restId}/Table/Delete
-        [HttpGet("Restaurant/{restId}/Table/Delete")]
-        public async Task<IActionResult> Delete(long? id)
+        // GET: api/Restaurant/{restId}/Table/Delete/{id}
+        [HttpGet("Restaurant/{restId}/Table/Delete/{id}")]
+        public async Task<IActionResult> Delete(long? id, long restId)
         {
             if (id == null)
             {
@@ -159,19 +159,21 @@ namespace RESToran.Controllers
             {
                 return NotFound();
             }
-
+            var restaurant = await _context.Restaurants
+                .FirstOrDefaultAsync(m => m.Id == restId);
+            ViewBag.Restaurant = restaurant;
             return View(table);
         }
 
         // POST: Table/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost("Restaurant/{restId}/Table/Delete/{id}"), ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(long id, long restId)
         {
             var table = await _context.Table.FindAsync(id);
             _context.Table.Remove(table);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { id = restId });
         }
 
         private bool TableExists(long id)
