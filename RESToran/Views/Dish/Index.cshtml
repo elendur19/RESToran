@@ -8,7 +8,8 @@
 <h2>@restaurant.Name Dishes </h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="float-right ml-2" asp-controller="Restaurant" asp-action="Details" asp-route-id="@restaurant.Id">Restaurant homepage</a>
+    <a class="float-right" asp-controller="Dish" asp-action="Create" asp-route-id="@restaurant.Id">Create New Table</a>
 </p>
 <table class="table">
     <thead>
@@ -38,9 +39,9 @@
                 @Html.DisplayFor(modelItem => item.HouseSpecial)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a href="/api/Dish/Restaurant/@restaurant.Id/Edit/@item.Id">Edit</a> |
+                <a href="/api/Dish/Restaurant/@restaurant.Id/Dish/@item.Id/Info">Details</a> |
+                <a href="/api/Dish/Restaurant/@restaurant.Id/Dish/Delete/@item.Id">Delete</a>
             </td>
         </tr>
 }
