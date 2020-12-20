@@ -13,12 +13,11 @@ namespace RESToran.Models
         [ForeignKey("Table_Id")]
         public long TableId { get; set; }
 
+        public DateTime Date { get; set; }
 
-        public DateTime Datum { get; set; }
+        public DateTime StartTime { get; set; }
 
-        public DateTime startTime { get; set; }
-
-        public DateTime endTime { get; set; }
+        public DateTime EndTime { get; set; }
 
     }
 }

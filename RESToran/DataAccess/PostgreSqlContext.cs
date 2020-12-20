@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RESToran.Models;
+﻿using RESToran.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace RESToran.DataAccess
 { 
@@ -13,6 +13,8 @@ namespace RESToran.DataAccess
 
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Table> Table { get; set; }
+        public DbSet<Dish> Dish { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -25,6 +27,7 @@ namespace RESToran.DataAccess
             return base.SaveChanges();
         }
 
-        public DbSet<RESToran.Models.Dish> Dish { get; set; }
+        public DbSet<RESToran.Models.ReservationPeriod> ReservationPeriod { get; set; }
+
     }
 }

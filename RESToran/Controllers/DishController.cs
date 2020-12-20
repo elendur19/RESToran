@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using RESToran.DataAccess;
 using RESToran.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace RESToran.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class DishController : Controller
     {
         private readonly PostgreSqlContext _context;
@@ -59,8 +57,10 @@ namespace RESToran.Controllers
 
         // GET: Restaurant/{id}/Dish/Create
         [HttpGet("Restaurant/{id}/Dish/Create")]
-        public IActionResult Create()
+        public IActionResult Create(long id)
         {
+           
+            ViewBag.RestId = id;
             return View();
         }
 
@@ -71,6 +71,9 @@ namespace RESToran.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(long id, [FromForm] Dish dish)
         {
+            
+
+
             if (ModelState.IsValid)
             {
                 dish.RestaurantId = id;

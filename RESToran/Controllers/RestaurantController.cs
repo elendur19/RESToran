@@ -11,7 +11,7 @@ using RESToran.Models;
 namespace RESToran.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class RestaurantController : Controller
     {
         private readonly PostgreSqlContext _context;

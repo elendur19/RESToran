@@ -4,14 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using RESToran.DataAccess;
 using RESToran.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace RESToran.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class TableController : Controller
     {
         private readonly PostgreSqlContext _context;

@@ -52,20 +52,20 @@ namespace RESToran.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityByDefaultColumn();
 
-                    b.Property<DateTime>("Datum")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<long?>("DishId")
                         .HasColumnType("bigint");
 
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<long>("TableId")
                         .HasColumnType("bigint");
-
-                    b.Property<DateTime>("endTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("startTime")
-                        .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
 
