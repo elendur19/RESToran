@@ -54,7 +54,7 @@ namespace RESToran.Controllers
                 return NotFound();
             }
             var restaurant = await _context.Restaurants
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == restId);
             ViewBag.Restaurant = restaurant;
 
             return View(table);
