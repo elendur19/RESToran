@@ -13,7 +13,7 @@ namespace RESToran.Models
         [ForeignKey("Restaurant_Id")]
         public long RestaurantId { get; set; }
 
-        public string Location { get; set; }
+        public string Description { get; set; }
 
         public double NumberOfSeats{ get; set; }
 

@@ -27,7 +27,7 @@ namespace RESToran.Controllers
                 .Where(t => t.RestaurantId == id)
                 .ToList();
 
-            var restaurant = await _context.Restaurants
+            var restaurant = await _context.Restaurant
                 .FirstOrDefaultAsync(m => m.Id == id);
             ViewBag.Restaurant = restaurant;
 
@@ -49,7 +49,7 @@ namespace RESToran.Controllers
             {
                 return NotFound();
             }
-            var restaurant = await _context.Restaurants
+            var restaurant = await _context.Restaurant
                 .FirstOrDefaultAsync(m => m.Id == restId);
             ViewBag.Restaurant = restaurant;
             return View(dish);
@@ -98,7 +98,7 @@ namespace RESToran.Controllers
             {
                 return NotFound();
             }
-            var restaurant = await _context.Restaurants
+            var restaurant = await _context.Restaurant
                 .FirstOrDefaultAsync(m => m.Id == restId);
             ViewBag.Restaurant = restaurant;
             return View(dish);
@@ -155,7 +155,7 @@ namespace RESToran.Controllers
             {
                 return NotFound();
             }
-            var restaurant = await _context.Restaurants
+            var restaurant = await _context.Restaurant
                 .FirstOrDefaultAsync(m => m.Id == restId);
             ViewBag.Restaurant = restaurant;
             return View(dish);

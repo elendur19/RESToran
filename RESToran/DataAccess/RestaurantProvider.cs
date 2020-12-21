@@ -15,33 +15,33 @@ namespace RESToran.DataAccess
         }
         public void AddRestaurantRecord(Restaurant restaurant)
         {
-            _context.Restaurants.Add(restaurant);
+            _context.Restaurant.Add(restaurant);
             _context.SaveChanges();
         }
 
         public void DeletePatientRecord(string id)
         {
             long res_id = long.Parse(id);
-            var entity = _context.Restaurants.FirstOrDefault(r => r.Id == res_id);
-            _context.Restaurants.Remove(entity);
+            var entity = _context.Restaurant.FirstOrDefault(r => r.Id == res_id);
+            _context.Restaurant.Remove(entity);
             _context.SaveChanges();
         }
 
         public List<Restaurant> GetRestaurantRecords()
         {
-            return _context.Restaurants.ToList();
+            return _context.Restaurant.ToList();
         }
 
         public Restaurant GetRestaurantSingleRecord(string id)
         {
             long res_id = long.Parse(id);
-            return _context.Restaurants.FirstOrDefault(r => r.Id == res_id);
+            return _context.Restaurant.FirstOrDefault(r => r.Id == res_id);
            
         }
 
         public void UpdateRestaurantRecord(Restaurant restaurant)
         {
-            _context.Restaurants.Update(restaurant);
+            _context.Restaurant.Update(restaurant);
             _context.SaveChanges();
         }
     }

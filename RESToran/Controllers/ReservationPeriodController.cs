@@ -25,11 +25,16 @@ namespace RESToran.Controllers
         [HttpGet("Restaurant/{id}/all")]
         public async Task<IActionResult> Index(long id)
         {
-            var restaurant = await _context.Restaurants
+            var restaurant = await _context.Restaurant
                 .FirstOrDefaultAsync(m => m.Id == id);
             ViewBag.Restaurant = restaurant;
 
-            return View(await _context.ReservationPeriod.ToListAsync());
+            // get reservation periods for restaurant with id from url
+            var restaurantReservationPeriods = await _context.ReservationPeriod
+                        .Where(rp => rp.RestaurantId == id)
+                        .ToListAsync();
+
+            return View(restaurantReservationPeriods);
         }
 
         // GET: ReservationPeriod/Details/5
@@ -58,15 +63,17 @@ namespace RESToran.Controllers
             var restaurantTables = await _context.Table
                 .Where(t => t.RestaurantId == id)
                 .ToListAsync();
+
             var tables = restaurantTables
                          .Select(x =>
                                     new SelectListItem
                                     {
-                                        Value = x.Id.ToString(),
-                                        Text = "Table number " + x.Id.ToString()
+                                        Value = x.Description,
+                                        Text = x.Description
                                     });
 
-            ViewData["Tables"] = new SelectList(tables, "Value", "Text");
+            ViewData["Tables"] = new SelectList(tables, "Value", "Text").GroupBy(x => x.Text)
+                                                .Select(x => x.FirstOrDefault());
             //IEnumerable<long> RestaurantTableIds = RestaurantTables.Select(x => x.Id).ToList();
             //ViewBag.TableIds = RestaurantTableIds;
             return View();
@@ -79,8 +86,25 @@ namespace RESToran.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(long id, [FromForm] ReservationPeriod reservationPeriod)
         {
+            string description = reservationPeriod.TableDescription;
+
+            var restaurant = await _context.Restaurant
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            List<Table> tables = await _context.Table
+                    .Where(t => t.RestaurantId == id)
+                    .Where(t => t.Description.Equals(description))
+                    .ToListAsync();
+
+            List<long> tableIds = tables.Select(t => t.Id).ToList();
+
+            // TODO : implement reservation logic
+
+
             if (ModelState.IsValid)
             {
+                
+        
                 _context.Add(reservationPeriod);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), new { id = id });

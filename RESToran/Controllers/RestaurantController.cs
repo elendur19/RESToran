@@ -25,7 +25,7 @@ namespace RESToran.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Restaurants.ToListAsync());
+            return View(await _context.Restaurant.ToListAsync());
         }
 
         // GET: api/Restaurant/5
@@ -37,7 +37,7 @@ namespace RESToran.Controllers
                 return NotFound();
             }
 
-            var restaurant = await _context.Restaurants
+            var restaurant = await _context.Restaurant
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (restaurant == null)
             {
@@ -81,7 +81,7 @@ namespace RESToran.Controllers
                 return NotFound();
             }
 
-            var restaurant = await _context.Restaurants.FindAsync(id);
+            var restaurant = await _context.Restaurant.FindAsync(id);
             if (restaurant == null)
             {
                 return NotFound();
@@ -133,7 +133,7 @@ namespace RESToran.Controllers
                 return NotFound();
             }
 
-            var restaurant = await _context.Restaurants
+            var restaurant = await _context.Restaurant
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (restaurant == null)
             {
@@ -148,15 +148,15 @@ namespace RESToran.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var restaurant = await _context.Restaurants.FindAsync(id);
-            _context.Restaurants.Remove(restaurant);
+            var restaurant = await _context.Restaurant.FindAsync(id);
+            _context.Restaurant.Remove(restaurant);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RestaurantExists(long id)
         {
-            return _context.Restaurants.Any(e => e.Id == id);
+            return _context.Restaurant.Any(e => e.Id == id);
         }
     }
 }

@@ -11,9 +11,10 @@ namespace RESToran.DataAccess
         {
         }
 
-        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<Restaurant> Restaurant { get; set; }
         public DbSet<Table> Table { get; set; }
         public DbSet<Dish> Dish { get; set; }
+        public DbSet<ReservationPeriod> ReservationPeriod { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -26,8 +27,6 @@ namespace RESToran.DataAccess
             ChangeTracker.DetectChanges();
             return base.SaveChanges();
         }
-
-        public DbSet<RESToran.Models.ReservationPeriod> ReservationPeriod { get; set; }
 
     }
 }

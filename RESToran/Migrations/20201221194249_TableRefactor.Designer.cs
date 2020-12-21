@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RESToran.DataAccess;
@@ -9,9 +10,10 @@ using RESToran.DataAccess;
 namespace RESToran.Migrations
 {
     [DbContext(typeof(PostgreSqlContext))]
-    partial class PostgreSqlContextModelSnapshot : ModelSnapshot
+    [Migration("20201221194249_TableRefactor")]
+    partial class TableRefactor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,14 +63,8 @@ namespace RESToran.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<long>("RestaurantId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("TableDescription")
-                        .HasColumnType("text");
 
                     b.Property<long>("TableId")
                         .HasColumnType("bigint");
@@ -106,7 +102,7 @@ namespace RESToran.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Restaurant");
+                    b.ToTable("Restaurants");
                 });
 
             modelBuilder.Entity("RESToran.Models.Table", b =>
