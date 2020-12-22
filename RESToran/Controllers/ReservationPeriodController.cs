@@ -91,20 +91,77 @@ namespace RESToran.Controllers
             var restaurant = await _context.Restaurant
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            List<Table> tables = await _context.Table
+            List<Table> tables =  _context.Table
                     .Where(t => t.RestaurantId == id)
                     .Where(t => t.Description.Equals(description))
-                    .ToListAsync();
+                    .ToList();
 
             List<long> tableIds = tables.Select(t => t.Id).ToList();
 
+            List<long> reservationPeriodTablesIds = _context.ReservationPeriod
+                                    .Where(rp => rp.RestaurantId == id)
+                                    .Where(rp => rp.TableDescription.Equals(reservationPeriod.TableDescription))
+                                    .Select(rp => rp.TableId)
+                                    .Distinct()
+                                    .ToList();
+
             // TODO : implement reservation logic
+            bool found = false;
+             foreach (var table in tables) {
+                if (reservationPeriodTablesIds.Contains(table.Id))
+                {
+                    // vec postoji rezervacija za stol sa id-om table.Id, provjeri jel se moze napraviti nova rez.
+                    List<ReservationPeriod> reservationPeriods = _context.ReservationPeriod
+                                                .Where(rp => rp.RestaurantId == id)
+                                                .Where(rp => rp.TableId == table.Id)
+                                                .ToList();
+                    foreach (ReservationPeriod period in reservationPeriods)
+                    {
+                        if (period.Date.Equals(reservationPeriod.Date))
+                        {
+                            if ((reservationPeriod.StartTime < period.StartTime && reservationPeriod.EndTime > period.StartTime) 
+                                || (reservationPeriod.StartTime < period.EndTime && reservationPeriod.EndTime > period.EndTime) 
+                                || (reservationPeriod.StartTime < period.StartTime && reservationPeriod.EndTime > period.EndTime))
+                            {
+                                // preklapa se sa postojecim terminom
+                                continue;
+                            } else
+                            {
+                                // termin je slobodan za stol 
+                                found = true;
+                                reservationPeriod.TableId = table.Id;
+                                break;
+                            }
+                        } else
+                        {
+                            // termini imaju razlicite datume, rezerviraj termin odmah
+                            reservationPeriod.TableId = table.Id;
+                            found = true;
+                            break;
+                        }
+                    }
+                    // ako si rezervirao termin , izadi
+                    if (found == true)
+                    {
+                        break;
+                    }
+                } else
+                {
+                    // uopce ne postoji rezervation period za ovaj stol, odmah rezerviraj stol
+                    reservationPeriod.TableId = table.Id;
+                    break;
+                }
+             }
 
-
+            //reservationPeriod.TableId = 19;
+            reservationPeriod.RestaurantId = id;
+            string date = reservationPeriod.Date.ToString("MM/dd/yyyy");
+  
             if (ModelState.IsValid)
             {
-                
-        
+                // format date 
+                reservationPeriod.Date = DateTime.Parse(date);
+
                 _context.Add(reservationPeriod);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), new { id = id });

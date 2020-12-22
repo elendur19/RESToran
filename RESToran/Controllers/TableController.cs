@@ -78,6 +78,14 @@ namespace RESToran.Controllers
             if (ModelState.IsValid)
             {
                 table.RestaurantId = id;
+                var restaurant = await _context.Restaurant
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+                long NbrOfRestaurantTables = _context.Table
+                                .Where(t => t.RestaurantId == id).Count();
+                // set RestName with restaurant name and  number of tables in it +1
+                int number = (int) NbrOfRestaurantTables + 1;
+                table.RestName_Number = restaurant.Name + " " + number.ToString();
 
                 _context.Add(table);
                 await _context.SaveChangesAsync();

@@ -345,3 +345,4 @@ C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\ref\RESToran.dll
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\RESToran.pdb
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\RESToran.genruntimeconfig.cache
+C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\RESToran.csprojAssemblyReference.cache

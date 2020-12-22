@@ -20,6 +20,11 @@ namespace RESToran.DataAccess
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            // postavi unique constraint nad tableNumber field-om Table-a
+            builder.Entity<Table>()
+            .HasIndex(t => t.RestName_Number)
+            .IsUnique();
         }
 
         public override int SaveChanges()

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RESToran.DataAccess;
@@ -9,9 +10,10 @@ using RESToran.DataAccess;
 namespace RESToran.Migrations
 {
     [DbContext(typeof(PostgreSqlContext))]
-    partial class PostgreSqlContextModelSnapshot : ModelSnapshot
+    [Migration("20201222162309_Table_ref_2")]
+    partial class Table_ref_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,16 +124,13 @@ namespace RESToran.Migrations
                     b.Property<double>("NumberOfSeats")
                         .HasColumnType("double precision");
 
-                    b.Property<string>("RestName_Number")
-                        .HasColumnType("text");
-
                     b.Property<long>("RestaurantId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("Id");
+                    b.Property<int>("TableNumber")
+                        .HasColumnType("integer");
 
-                    b.HasIndex("RestName_Number")
-                        .IsUnique();
+                    b.HasKey("Id");
 
                     b.HasIndex("RestaurantId");
 
