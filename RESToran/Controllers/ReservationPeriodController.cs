@@ -125,18 +125,20 @@ namespace RESToran.Controllers
                         int NewDays = int.Parse(pom.Substring(0, 2)) + 100 * int.Parse(pom.Substring(3, 2)) + 10000 * int.Parse(pom.Substring(6, 4));
                         pom=period.Date.ToString("dd/MM/yyyy");
                         int DbDays= int.Parse(pom.Substring(0, 2)) + 100 * int.Parse(pom.Substring(3, 2)) + 10000 * int.Parse(pom.Substring(6, 4));
+                        pom = reservationPeriod.StartTime.ToString("HH/mm");
+                        int NewPeriodMinuteStart = int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
+                        pom = reservationPeriod.EndTime.ToString("HH/mm");
+                        int NewPeriodMinuteEnd = int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
+
+                        if (NewPeriodMinuteStart >= NewPeriodMinuteEnd) break;
 
                         if (NewDays==DbDays)
                         {
-                            pom = reservationPeriod.StartTime.ToString("HH/mm");
-                            int NewPeriodMinuteStart = int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3,2));
                             pom=period.StartTime.ToString("HH/mm");
                             int DbPeriodMinuteStart= int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2)); 
-
-                            pom=reservationPeriod.EndTime.ToString("HH/mm");
-                            int NewPeriodMinuteEnd= int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
                             pom=period.EndTime.ToString("HH/mm");
                             int DbPeriodMinuteEnd= int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
+
                             if ((NewPeriodMinuteEnd>=DbPeriodMinuteStart && NewPeriodMinuteEnd<=DbPeriodMinuteEnd)||
                                 (NewPeriodMinuteStart>=DbPeriodMinuteStart && NewPeriodMinuteStart<=DbPeriodMinuteEnd)||
                                 (NewPeriodMinuteStart<=DbPeriodMinuteStart && NewPeriodMinuteEnd>=DbPeriodMinuteEnd)||
