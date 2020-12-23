@@ -209,9 +209,10 @@ namespace RESToran.Controllers
         // POST: ReservationPeriod/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        // Edit funkcija ne provjerava preklapanja u terminima na istom stolu. Može se dodati, ali za sada nema potrebe.
+        [HttpPost("Restaurant/{restId}/ReservationPeriod/Edit/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,TableId,Date,StartTime,EndTime")] ReservationPeriod reservationPeriod)
+        public async Task<IActionResult> Edit(long restId, long id, [FromForm] ReservationPeriod reservationPeriod)
         {
             if (id != reservationPeriod.Id)
             {
@@ -220,6 +221,7 @@ namespace RESToran.Controllers
 
             if (ModelState.IsValid)
             {
+                reservationPeriod.RestaurantId = restId;
                 try
                 {
                     _context.Update(reservationPeriod);
@@ -236,7 +238,7 @@ namespace RESToran.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new {id= restId });
             }
             return View(reservationPeriod);
         }
