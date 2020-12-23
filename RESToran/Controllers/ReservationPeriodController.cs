@@ -39,8 +39,8 @@ namespace RESToran.Controllers
         }
 
         // GET: ReservationPeriod/Details/5
-        [HttpGet("Restaurant/{restId}/info/{id}")]
-        public async Task<IActionResult> Details(long? id)
+        [HttpGet("Restaurant/{restId}/ReservationPeriod/{id}/Info")]
+        public async Task<IActionResult> Details(long? id, long restId)
         {
             if (id == null)
             {
@@ -53,12 +53,14 @@ namespace RESToran.Controllers
             {
                 return NotFound();
             }
-
+            var restaurant = await _context.Restaurant
+                .FirstOrDefaultAsync(m => m.Id == restId);
+            ViewBag.Restaurant = restaurant;
             return View(reservationPeriod);
         }
 
         // GET: create form for new reservation period
-        [HttpGet("Restaurant/{id}/new-reservation")]
+        [HttpGet("Restaurant/{id}/ReservationPeriod/new-reservation")]
         public async Task<IActionResult> Create(long id)
         {
             var restaurantTables = await _context.Table
@@ -77,13 +79,14 @@ namespace RESToran.Controllers
                                                 .Select(x => x.FirstOrDefault());
             //IEnumerable<long> RestaurantTableIds = RestaurantTables.Select(x => x.Id).ToList();
             //ViewBag.TableIds = RestaurantTableIds;
+            ViewBag.RestId = id;    
             return View();
         }
 
         // POST: ReservationPeriod/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost("Restaurant/{id}/new-reservation"), ActionName("Create")]
+        [HttpPost("Restaurant/{id}/ReservationPeriod/new-reservation"), ActionName("Create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(long id, [FromForm] ReservationPeriod reservationPeriod)
         {
@@ -184,8 +187,8 @@ namespace RESToran.Controllers
         }
 
         // GET: ReservationPeriod/Edit/5
-        [HttpGet("Restaurant/{restId}/edit/{id}")]
-        public async Task<IActionResult> Edit(long? id)
+        [HttpGet("Restaurant/{restId}/ReservationPeriod/Edit/{id}")]
+        public async Task<IActionResult> Edit(long? id, long restId)
         {
             if (id == null)
             {
@@ -197,6 +200,9 @@ namespace RESToran.Controllers
             {
                 return NotFound();
             }
+            var restaurant = await _context.Restaurant
+                .FirstOrDefaultAsync(m => m.Id == restId);
+            ViewBag.Restaurant = restaurant;
             return View(reservationPeriod);
         }
 
@@ -236,8 +242,8 @@ namespace RESToran.Controllers
         }
 
         // GET: ReservationPeriod/Delete/5
-        [HttpGet("Restaurant/{restId}/delete/{id}")]
-        public async Task<IActionResult> Delete(long? id)
+        [HttpGet("Restaurant/{restId}/ReservationPeriod/Delete/{id}")]
+        public async Task<IActionResult> Delete(long? id, long restId)
         {
             if (id == null)
             {
@@ -250,7 +256,9 @@ namespace RESToran.Controllers
             {
                 return NotFound();
             }
-
+            var restaurant = await _context.Restaurant
+                .FirstOrDefaultAsync(m => m.Id == restId);
+            ViewBag.Restaurant = restaurant;
             return View(reservationPeriod);
         }
 

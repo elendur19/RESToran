@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    long restId = ViewBag.RestId;
 
 }
 
@@ -39,7 +40,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-id="@restId">Back to List</a>
 </div>
 
 @section Scripts {

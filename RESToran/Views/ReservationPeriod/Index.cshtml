@@ -6,6 +6,7 @@
 }
 <h2>@restaurant.Name Reservations</h2>
 <p>
+    <a class="float-right ml-2" asp-controller="Restaurant" asp-action="Details" asp-route-id="@restaurant.Id">Restaurant homepage</a>
     <a class="float-right" asp-action="Create" asp-route-id="@restaurant.Id">New Reservation</a>
 </p>
 <table class="table">
@@ -36,9 +37,9 @@
                 @Html.DisplayFor(modelItem => item.EndTime)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a href="ReservationPeriod/Edit/@item.Id">Edit</a> |
+                <a href="ReservationPeriod/@item.Id/Info">Details</a> |
+                <a href="ReservationPeriod/Delete/@item.Id">Delete</a>
             </td>
         </tr>
 }
