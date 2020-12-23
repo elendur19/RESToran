@@ -13,10 +13,12 @@ namespace RESToran.Models
         [ForeignKey("Restaurant_Id")]
         public long RestaurantId { get; set; }
 
+        [Required]
         public string Description { get; set; }
         
         public string RestName_Number { get; set; }
 
+        [Required]
         public double NumberOfSeats{ get; set; }
 
         public List<ReservationPeriod> ReservationPeriod { get; set; }

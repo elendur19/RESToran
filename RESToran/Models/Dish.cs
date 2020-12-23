@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace RESToran.Models
 {
@@ -15,8 +16,10 @@ namespace RESToran.Models
         [ForeignKey("Restaurant_Id")]
         public long RestaurantId { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public double Price { get; set; }
 
         public bool HouseSpecial { get; set; }
