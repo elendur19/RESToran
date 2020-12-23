@@ -1,5 +1,6 @@
 ﻿ using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -117,11 +118,26 @@ namespace RESToran.Controllers
                                                 .ToList();
                     foreach (ReservationPeriod period in reservationPeriods)
                     {
-                        if (period.Date.Equals(reservationPeriod.Date))
+                        string pom = reservationPeriod.Date.ToString("dd/MM/yyyy");
+                        int NewDays = int.Parse(pom.Substring(0, 2)) + 100 * int.Parse(pom.Substring(3, 2)) + 10000 * int.Parse(pom.Substring(6, 4));
+                        pom=period.Date.ToString("dd/MM/yyyy");
+                        int DbDays= int.Parse(pom.Substring(0, 2)) + 100 * int.Parse(pom.Substring(3, 2)) + 10000 * int.Parse(pom.Substring(6, 4));
+
+                        if (NewDays==DbDays)
                         {
-                            if ((reservationPeriod.StartTime < period.StartTime && reservationPeriod.EndTime > period.StartTime) 
-                                || (reservationPeriod.StartTime < period.EndTime && reservationPeriod.EndTime > period.EndTime) 
-                                || (reservationPeriod.StartTime < period.StartTime && reservationPeriod.EndTime > period.EndTime))
+                            pom = reservationPeriod.StartTime.ToString("HH/mm");
+                            int NewPeriodMinuteStart = int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3,2));
+                            pom=period.StartTime.ToString("HH/mm");
+                            int DbPeriodMinuteStart= int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2)); 
+
+                            pom=reservationPeriod.EndTime.ToString("HH/mm");
+                            int NewPeriodMinuteEnd= int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
+                            pom=period.EndTime.ToString("HH/mm");
+                            int DbPeriodMinuteEnd= int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
+                            if ((NewPeriodMinuteEnd>=DbPeriodMinuteStart && NewPeriodMinuteEnd<=DbPeriodMinuteEnd)||
+                                (NewPeriodMinuteStart>=DbPeriodMinuteStart && NewPeriodMinuteStart<=DbPeriodMinuteEnd)||
+                                (NewPeriodMinuteStart<=DbPeriodMinuteStart && NewPeriodMinuteEnd>=DbPeriodMinuteEnd)||
+                                (NewPeriodMinuteStart>=DbPeriodMinuteStart && NewPeriodMinuteEnd<=DbPeriodMinuteEnd))
                             {
                                 // preklapa se sa postojecim terminom
                                 continue;
@@ -143,7 +159,7 @@ namespace RESToran.Controllers
                     // ako si rezervirao termin , izadi
                     if (found == true)
                     {
-                        break;
+                        break; 
                     }
                 } else
                 {
@@ -155,16 +171,14 @@ namespace RESToran.Controllers
 
             //reservationPeriod.TableId = 19;
             reservationPeriod.RestaurantId = id;
-            string date = reservationPeriod.Date.ToString("MM/dd/yyyy");
-  
+
             if (ModelState.IsValid)
             {
-                // format date 
-                reservationPeriod.Date = DateTime.Parse(date);
 
                 _context.Add(reservationPeriod);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), new { id = id });
+    
             }
             return View(reservationPeriod);
         }
