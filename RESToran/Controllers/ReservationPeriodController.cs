@@ -263,14 +263,14 @@ namespace RESToran.Controllers
         }
 
         // POST: ReservationPeriod/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost("Restaurant/{restId}/ReservationPeriod/Delete/{id}"), ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(long id, long restId)
         {
             var reservationPeriod = await _context.ReservationPeriod.FindAsync(id);
             _context.ReservationPeriod.Remove(reservationPeriod);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { id = restId });
         }
 
         private bool ReservationPeriodExists(long id)
