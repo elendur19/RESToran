@@ -77,9 +77,14 @@ namespace RESToran.Controllers
 
             ViewData["Tables"] = new SelectList(tables, "Value", "Text").GroupBy(x => x.Text)
                                                 .Select(x => x.FirstOrDefault());
+
+            var restaurant = await _context.Restaurant
+                .FirstOrDefaultAsync(m => m.Id == id);
+            ViewBag.Restaurant = restaurant;
             //IEnumerable<long> RestaurantTableIds = RestaurantTables.Select(x => x.Id).ToList();
             //ViewBag.TableIds = RestaurantTableIds;
-            ViewBag.RestId = id;    
+            ViewBag.RestId = id;  
+            
             return View();
         }
 
@@ -123,7 +128,7 @@ namespace RESToran.Controllers
                     {
                         string pom = reservationPeriod.Date.ToString("dd/MM/yyyy");
                         int NewDays = int.Parse(pom.Substring(0, 2)) + 100 * int.Parse(pom.Substring(3, 2)) + 10000 * int.Parse(pom.Substring(6, 4));
-                        pom=period.Date.ToString("dd/MM/yyyy");
+                        pom = period.Date.ToString("dd/MM/yyyy");
                         int DbDays= int.Parse(pom.Substring(0, 2)) + 100 * int.Parse(pom.Substring(3, 2)) + 10000 * int.Parse(pom.Substring(6, 4));
                         pom = reservationPeriod.StartTime.ToString("HH/mm");
                         int NewPeriodMinuteStart = int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
@@ -174,6 +179,17 @@ namespace RESToran.Controllers
                 }
              }
 
+             if (found == false)
+            {
+                // odi na bad request view i posalji potrebne paramtre
+                return RedirectToAction(nameof(BadRequest), new {
+                    id = id,
+                    date = reservationPeriod.Date,
+                    startTime = reservationPeriod.StartTime,
+                    endTime = reservationPeriod.EndTime
+                });
+            }
+
             //reservationPeriod.TableId = 19;
             reservationPeriod.RestaurantId = id;
 
@@ -186,6 +202,29 @@ namespace RESToran.Controllers
     
             }
             return View(reservationPeriod);
+        }
+
+        // GET Bad Request
+        [HttpGet("Restaurant/{id}/ReservationPeriod/TryAgain")]
+        public async Task<IActionResult> BadRequest(long id, DateTime date, DateTime startTime, DateTime endTime)
+        {
+            var restaurant = await _context.Restaurant
+                .FirstOrDefaultAsync(m => m.Id == id);
+            ViewBag.Restaurant = restaurant;
+
+            string dateString = date.ToString("D",
+                  CultureInfo.CreateSpecificCulture("en-US"));
+            string startTimeString  = startTime.ToString("t",
+                  CultureInfo.CreateSpecificCulture("en-us"));
+            string endTimeString = endTime.ToString("t",
+                  CultureInfo.CreateSpecificCulture("en-us"));
+
+            ViewBag.Date = dateString;
+
+            ViewBag.StartTime = startTimeString;
+            ViewBag.EndStart = endTimeString;
+
+            return View();
         }
 
         // GET: ReservationPeriod/Edit/5

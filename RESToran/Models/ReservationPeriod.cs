@@ -19,10 +19,11 @@ namespace RESToran.Models
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
-        [Required(ErrorMessage = "Enter the time.")]
+        [Required(ErrorMessage = "Enter start time.")]
         [DataType(DataType.Time)]
         public DateTime StartTime { get; set; }
-        [Required(ErrorMessage = "Enter the time.")]
+
+        [Required(ErrorMessage = "Enter end time.")]
         [DataType(DataType.Time)]
         public DateTime EndTime { get; set; }
 

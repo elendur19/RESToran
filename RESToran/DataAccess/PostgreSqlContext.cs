@@ -25,6 +25,7 @@ namespace RESToran.DataAccess
             builder.Entity<Table>()
             .HasIndex(t => t.RestName_Number)
             .IsUnique();
+
         }
 
         public override int SaveChanges()

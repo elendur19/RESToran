@@ -1,0 +1,18 @@
+﻿@model RESToran.Models.ReservationPeriod
+
+@{
+    ViewData["Title"] = "Create";
+    Restaurant restaurant = ViewBag.Restaurant;
+    string date = ViewBag.Date;
+    string startTime = ViewBag.StartTime;
+    string endTime = ViewBag.EndStart;
+}
+
+<h3 class="text-center" style="color:blue">@restaurant.Name</h3>
+
+<p class="mt-40">All the tables on date: @date in period: @startTime  from: @endTime are alredy reserved, please try another period.</p>
+
+
+<div>
+    <a asp-action="Create" asp-route-id="@restaurant.Id" class="btn btn-primary float-right mt-5">Try again</a>
+</div>
