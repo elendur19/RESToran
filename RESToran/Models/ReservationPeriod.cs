@@ -16,15 +16,17 @@ namespace RESToran.Models
         public string TableDescription { get; set; }
 
         [Required(ErrorMessage ="Enter the date.")]
-        [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        public string Date { get; set; }
 
         [Required(ErrorMessage = "Enter start time.")]
+        [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Time)]
         public DateTime StartTime { get; set; }
 
         [Required(ErrorMessage = "Enter end time.")]
         [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime EndTime { get; set; }
 
     }

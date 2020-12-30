@@ -38,7 +38,7 @@ namespace RESToran.Controllers
         }
 
         // GET: api/Table/Restaurant/1/Table/1/Info
-        [HttpGet("Restaurant/{restId}/Table/{id}/Info")]
+        [HttpGet("Restaurant/{restId}/{id}/Info")]
         public async Task<IActionResult> Details(long restId, long? id)
         {
           
@@ -62,7 +62,7 @@ namespace RESToran.Controllers
         }
 
         // GET: Restaurant/{restId}/Table/Create
-        [HttpGet("Restaurant/{id}/Table/Create")]
+        [HttpGet("Restaurant/{id}/Create")]
         public IActionResult Create(long id)
         {
             return View();
@@ -71,7 +71,7 @@ namespace RESToran.Controllers
         // POST: Restaurant/{restId}/Table/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost("Restaurant/{id}/Table/Create"), ActionName("Update")]
+        [HttpPost("Restaurant/{id}/Create"), ActionName("Update")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(long id, [FromForm] Table table)
         {
@@ -154,7 +154,7 @@ namespace RESToran.Controllers
         }
 
         // GET: api/Restaurant/{restId}/Table/Delete/{id}
-        [HttpGet("Restaurant/{restId}/Table/Delete/{id}")]
+        [HttpGet("Restaurant/{restId}/Delete/{id}")]
         public async Task<IActionResult> Delete(long? id, long restId)
         {
             if (id == null)
@@ -175,7 +175,7 @@ namespace RESToran.Controllers
         }
 
         // POST: Table/Delete/5
-        [HttpPost("Restaurant/{restId}/Table/Delete/{id}"), ActionName("Delete")]
+        [HttpPost("Restaurant/{restId}/Delete/{id}"), ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id, long restId)
         {

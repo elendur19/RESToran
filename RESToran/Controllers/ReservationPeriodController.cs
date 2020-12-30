@@ -35,6 +35,7 @@ namespace RESToran.Controllers
                         .Where(rp => rp.RestaurantId == id)
                         .ToListAsync();
 
+
             return View(restaurantReservationPeriods);
         }
 
@@ -83,8 +84,8 @@ namespace RESToran.Controllers
             ViewBag.Restaurant = restaurant;
             //IEnumerable<long> RestaurantTableIds = RestaurantTables.Select(x => x.Id).ToList();
             //ViewBag.TableIds = RestaurantTableIds;
-            ViewBag.RestId = id;  
-            
+            ViewBag.RestId = id;
+       
             return View();
         }
 
@@ -95,7 +96,25 @@ namespace RESToran.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(long id, [FromForm] ReservationPeriod reservationPeriod)
         {
+
+            // provjeri je li start time veci od end time-a
+            string pom;
+            pom = reservationPeriod.StartTime.ToString("HH:mm");
+            int NewPeriodMinuteStart = int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
+            pom = reservationPeriod.EndTime.ToString("HH:mm");
+            int NewPeriodMinuteEnd = int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
             string description = reservationPeriod.TableDescription;
+
+            if (NewPeriodMinuteStart > NewPeriodMinuteEnd)
+            {
+                // odi na bad time request view i posalji potrebne parametre
+                return RedirectToAction(nameof(InvalidStartEndTimeRequest), new
+                {
+                    id = id,
+                    startTime = reservationPeriod.StartTime,
+                    endTime = reservationPeriod.EndTime
+                });
+            }
 
             var restaurant = await _context.Restaurant
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -126,28 +145,35 @@ namespace RESToran.Controllers
                                                 .ToList();
                     foreach (ReservationPeriod period in reservationPeriods)
                     {
-                        string pom = reservationPeriod.Date.ToString("dd/MM/yyyy");
-                        int NewDays = int.Parse(pom.Substring(0, 2)) + 100 * int.Parse(pom.Substring(3, 2)) + 10000 * int.Parse(pom.Substring(6, 4));
-                        pom = period.Date.ToString("dd/MM/yyyy");
-                        int DbDays= int.Parse(pom.Substring(0, 2)) + 100 * int.Parse(pom.Substring(3, 2)) + 10000 * int.Parse(pom.Substring(6, 4));
-                        pom = reservationPeriod.StartTime.ToString("HH/mm");
-                        int NewPeriodMinuteStart = int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
-                        pom = reservationPeriod.EndTime.ToString("HH/mm");
-                        int NewPeriodMinuteEnd = int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
 
-                        if (NewPeriodMinuteStart >= NewPeriodMinuteEnd) break;
+                       
 
-                        if (NewDays==DbDays)
+                        pom = reservationPeriod.Date;
+
+                        int year = int.Parse(pom.Substring(0, 4));
+                        int month = int.Parse(pom.Substring(5, 2));
+                        int day = int.Parse(pom.Substring(8, 2));
+
+                        string reservationPeriodDate = period.Date;
+                        int rpYear = int.Parse(reservationPeriodDate.Substring(0, 4));
+                        int rpMonth = int.Parse(reservationPeriodDate.Substring(5, 2));
+                        int rpDay = int.Parse(reservationPeriodDate.Substring(8, 2));
+
+                        bool sameDay = (year == rpYear && month == rpMonth && day == rpDay); 
+                        //if (NewPeriodMinuteStart >= NewPeriodMinuteEnd) break;
+
+                        // datum su jednaki, usporedi vremena
+                        if (sameDay)
                         {
-                            pom=period.StartTime.ToString("HH/mm");
+                            pom = period.StartTime.ToString("HH:mm");
                             int DbPeriodMinuteStart= int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2)); 
-                            pom=period.EndTime.ToString("HH/mm");
+                            pom = period.EndTime.ToString("HH:mm");
                             int DbPeriodMinuteEnd= int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
 
-                            if ((NewPeriodMinuteEnd>=DbPeriodMinuteStart && NewPeriodMinuteEnd<=DbPeriodMinuteEnd)||
-                                (NewPeriodMinuteStart>=DbPeriodMinuteStart && NewPeriodMinuteStart<=DbPeriodMinuteEnd)||
-                                (NewPeriodMinuteStart<=DbPeriodMinuteStart && NewPeriodMinuteEnd>=DbPeriodMinuteEnd)||
-                                (NewPeriodMinuteStart>=DbPeriodMinuteStart && NewPeriodMinuteEnd<=DbPeriodMinuteEnd))
+                            if ((NewPeriodMinuteStart >= DbPeriodMinuteStart && NewPeriodMinuteStart <= DbPeriodMinuteEnd) ||
+                                (NewPeriodMinuteEnd >= DbPeriodMinuteStart && NewPeriodMinuteEnd <= DbPeriodMinuteEnd) ||
+                                (NewPeriodMinuteStart <= DbPeriodMinuteStart && NewPeriodMinuteEnd >= DbPeriodMinuteEnd) ||
+                                (NewPeriodMinuteStart >= DbPeriodMinuteStart && NewPeriodMinuteEnd <= DbPeriodMinuteEnd))
                             {
                                 // preklapa se sa postojecim terminom
                                 continue;
@@ -175,6 +201,7 @@ namespace RESToran.Controllers
                 {
                     // uopce ne postoji rezervation period za ovaj stol, odmah rezerviraj stol
                     reservationPeriod.TableId = table.Id;
+                    found = true;
                     break;
                 }
              }
@@ -182,7 +209,7 @@ namespace RESToran.Controllers
              if (found == false)
             {
                 // odi na bad request view i posalji potrebne paramtre
-                return RedirectToAction(nameof(BadRequest), new {
+                return RedirectToAction(nameof(BadTimeRequest), new {
                     id = id,
                     date = reservationPeriod.Date,
                     startTime = reservationPeriod.StartTime,
@@ -204,20 +231,39 @@ namespace RESToran.Controllers
             return View(reservationPeriod);
         }
 
-        // GET Bad Request
-        [HttpGet("Restaurant/{id}/ReservationPeriod/TryAgain")]
-        public async Task<IActionResult> BadRequest(long id, DateTime date, DateTime startTime, DateTime endTime)
+        // GET Invalid Start End Time Request
+        [HttpGet("Restaurant/{id}/ReservationPeriod/InvalidStartEndTimeRequest")]
+        public async Task<IActionResult> InvalidStartEndTimeRequest(long id, DateTime startTime, DateTime endTime)
+        {
+            var restaurant = await _context.Restaurant
+                .FirstOrDefaultAsync(m => m.Id == id);
+            ViewBag.Restaurant = restaurant;
+
+            string startTimeString = startTime.ToString("t",
+                  CultureInfo.CreateSpecificCulture("hr-HR"));
+            string endTimeString = endTime.ToString("t",
+                  CultureInfo.CreateSpecificCulture("hr-HR"));
+
+            ViewBag.StartTime = startTimeString;
+            ViewBag.EndStart = endTimeString;
+
+            return View();
+        }
+
+        // GET Bad Time Request
+        [HttpGet("Restaurant/{id}/ReservationPeriod/BadTimeRequest")]
+        public async Task<IActionResult> BadTimeRequest(long id, DateTime date, DateTime startTime, DateTime endTime)
         {
             var restaurant = await _context.Restaurant
                 .FirstOrDefaultAsync(m => m.Id == id);
             ViewBag.Restaurant = restaurant;
 
             string dateString = date.ToString("D",
-                  CultureInfo.CreateSpecificCulture("en-US"));
+                  CultureInfo.CreateSpecificCulture("hr-HR"));
             string startTimeString  = startTime.ToString("t",
-                  CultureInfo.CreateSpecificCulture("en-us"));
+                  CultureInfo.CreateSpecificCulture("hr-HR"));
             string endTimeString = endTime.ToString("t",
-                  CultureInfo.CreateSpecificCulture("en-us"));
+                  CultureInfo.CreateSpecificCulture("hr-HR"));
 
             ViewBag.Date = dateString;
 
