@@ -16,7 +16,7 @@ namespace RESToran.Models
         public string TableDescription { get; set; }
 
         [Required(ErrorMessage ="Enter the date.")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public string Date { get; set; }
 
         [Required(ErrorMessage = "Enter start time.")]

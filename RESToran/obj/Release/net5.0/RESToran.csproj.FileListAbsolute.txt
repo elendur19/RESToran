@@ -168,11 +168,13 @@ C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\Dish\Index.cshtml.g.cs
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
+C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\ReservationPeriod\BadTimeRequest.cshtml.g.cs
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\ReservationPeriod\Create.cshtml.g.cs
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\ReservationPeriod\Delete.cshtml.g.cs
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\ReservationPeriod\Details.cshtml.g.cs
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\ReservationPeriod\Edit.cshtml.g.cs
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\ReservationPeriod\Index.cshtml.g.cs
+C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\ReservationPeriod\InvalidStartEndTimeRequest.cshtml.g.cs
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\Restaurant\Create.cshtml.g.cs
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\Restaurant\Delete.cshtml.g.cs
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\Restaurant\Details.cshtml.g.cs
@@ -197,5 +199,4 @@ C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\RESToran.pdb
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\RESToran.genruntimeconfig.cache
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\RESToran.csprojAssemblyReference.cache
-C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\ReservationPeriod\BadTimeRequest.cshtml.g.cs
-C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\ReservationPeriod\InvalidStartEndTimeRequest.cshtml.g.cs
+C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\ReservationPeriod\DateInPastRequest.cshtml.g.cs

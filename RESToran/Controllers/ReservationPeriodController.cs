@@ -97,6 +97,22 @@ namespace RESToran.Controllers
         public async Task<IActionResult> Create(long id, [FromForm] ReservationPeriod reservationPeriod)
         {
 
+            // provjeri je li datum u prošlosti
+            CultureInfo us = new CultureInfo("en-US");
+            string format = "yyyy-MM-dd";
+            DateTime dt1 = DateTime.ParseExact(reservationPeriod.Date, format, us);
+
+            if (dt1 < DateTime.Now)
+            {
+                //date is in the past, return bad date request 
+                return RedirectToAction(nameof(DateInPastRequest), new
+                {
+                    id = id,
+                    date = reservationPeriod.Date
+                });
+            }
+            
+
             // provjeri je li start time veci od end time-a
             string pom;
             pom = reservationPeriod.StartTime.ToString("HH:mm");
@@ -146,13 +162,15 @@ namespace RESToran.Controllers
                     foreach (ReservationPeriod period in reservationPeriods)
                     {
 
-                       
-
                         pom = reservationPeriod.Date;
 
                         int year = int.Parse(pom.Substring(0, 4));
                         int month = int.Parse(pom.Substring(5, 2));
                         int day = int.Parse(pom.Substring(8, 2));
+
+                        // formatiraj datum dd/MM/yyyy
+
+                        reservationPeriod.Date = day + "/" + month + "/" + year;
 
                         string reservationPeriodDate = period.Date;
                         int rpYear = int.Parse(reservationPeriodDate.Substring(0, 4));
@@ -229,6 +247,22 @@ namespace RESToran.Controllers
     
             }
             return View(reservationPeriod);
+        }
+
+        // GET Date in Past Request
+        [HttpGet("Restaurant/{id}/ReservationPeriod/DateInPastRequest")]
+        public async Task<IActionResult> DateInPastRequest(long id, DateTime date)
+        {
+            var restaurant = await _context.Restaurant
+                .FirstOrDefaultAsync(m => m.Id == id);
+            ViewBag.Restaurant = restaurant;
+
+            string dateString = date.ToString("D",
+                   CultureInfo.CreateSpecificCulture("hr-HR"));
+
+            ViewBag.Date = dateString;
+
+            return View();
         }
 
         // GET Invalid Start End Time Request
