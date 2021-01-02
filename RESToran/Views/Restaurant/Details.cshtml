@@ -14,12 +14,24 @@
 <div>
 
     <hr />
-    <dl class="row"> 
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EmailAddress)
+        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Location)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Location)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HoursOpened)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HoursOpened)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Rating)

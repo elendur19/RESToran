@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using RESToran.DataAccess;
 using Microsoft.AspNetCore.Routing;
 using System.Globalization;
+using RESToran.Handler;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 
 namespace RESToran
 {
@@ -23,13 +26,35 @@ namespace RESToran
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-
 
             services.AddDbContext<PostgreSqlContext>(options =>
                             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddControllersWithViews();
+
             services.AddScoped<IRestaurantProvider, RestaurantProvider>();
+
+            services.AddAuthentication("BasicAuthentication")
+                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
+            /*// AddIdentity registeres services (this allows us to authenticate the user, create Restaurant records, etc.)
+            services.AddIdentity<IdentityUser, IdentityRole>(config => 
+            {
+                config.Password.RequiredLength = 4;
+                config.Password.RequireDigit = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
+            })
+                .AddEntityFrameworkStores<PostgreSqlContext>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.Cookie.Name = "Identity.Cookie";
+                config.LoginPath = "/Home/Login";
+            });*/
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,15 +66,28 @@ namespace RESToran
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            /*app.UseStatusCodePages(async context =>
+            {
+                if (context.HttpContext.Response.StatusCode == 401)
+                {
+                    await context.HttpContext.Response.WriteAsync("Unauthorized request");
+                }
+            });*/
+
+            app.UseStatusCodePagesWithRedirects("/StatusCode/code={0}");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-            
+
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

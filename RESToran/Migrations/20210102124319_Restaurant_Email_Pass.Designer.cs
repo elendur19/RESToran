@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RESToran.DataAccess;
@@ -9,9 +10,10 @@ using RESToran.DataAccess;
 namespace RESToran.Migrations
 {
     [DbContext(typeof(PostgreSqlContext))]
-    partial class PostgreSqlContextModelSnapshot : ModelSnapshot
+    [Migration("20210102124319_Restaurant_Email_Pass")]
+    partial class Restaurant_Email_Pass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,7 +93,7 @@ namespace RESToran.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityByDefaultColumn();
 
-                    b.Property<string>("EmailAddress")
+                    b.Property<string>("EmailAdress")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -119,9 +121,6 @@ namespace RESToran.Migrations
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmailAddress")
-                        .IsUnique();
 
                     b.HasIndex("Name")
                         .IsUnique();

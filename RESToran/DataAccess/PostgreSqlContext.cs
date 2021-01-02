@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RESToran.DataAccess
 { 
+    // IdentityDbContext contains all the restaurant tables
     public class PostgreSqlContext: DbContext
     {
         //private readonly string _connectionString;
@@ -20,6 +21,15 @@ namespace RESToran.DataAccess
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            // postavi unique constraint nad Name field-om Restaurant-a
+            builder.Entity<Restaurant>()
+            .HasIndex(r => r.Name)
+            .IsUnique();
+            // i email adresu
+            builder.Entity<Restaurant>()
+            .HasIndex(r => r.EmailAddress)
+            .IsUnique();
 
             // postavi unique constraint nad tableNumber field-om Table-a
             builder.Entity<Table>()

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RESToran.DataAccess;
@@ -9,9 +10,10 @@ using RESToran.DataAccess;
 namespace RESToran.Migrations
 {
     [DbContext(typeof(PostgreSqlContext))]
-    partial class PostgreSqlContextModelSnapshot : ModelSnapshot
+    [Migration("20210102120300_Name_Unique")]
+    partial class Name_Unique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,10 +93,6 @@ namespace RESToran.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityByDefaultColumn();
 
-                    b.Property<string>("EmailAddress")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("HoursOpened")
                         .IsRequired()
                         .HasColumnType("text");
@@ -107,10 +105,6 @@ namespace RESToran.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("text");
@@ -119,9 +113,6 @@ namespace RESToran.Migrations
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmailAddress")
-                        .IsUnique();
 
                     b.HasIndex("Name")
                         .IsUnique();

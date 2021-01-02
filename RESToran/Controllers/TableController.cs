@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using RESToran.DataAccess;
 using RESToran.Models;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace RESToran.Controllers
 {
@@ -23,15 +21,36 @@ namespace RESToran.Controllers
         }
 
         // GET: Tables from one of the restaurants
+        [Authorize]
         [HttpGet("Restaurant/{id}/all")]
         public async Task<IActionResult> Index(long id)
         {
+
+            string emailAddress = HttpContext.User.Identity.Name;
+
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.Id == id)
+                                        .FirstOrDefaultAsync();
+
+            if (restaurant == null)
+            {
+                return NotFound();
+            }
+
+            // jesu li ovo isti objekti ?
+            bool sameRestaurant = restaurant.EmailAddress.Equals(emailAddress);
+             
+            // ako nisu, vrati unauthorized
+            if (!sameRestaurant)
+                return Unauthorized();
+            //return RedirectToAction("Index", "ErrorController");
+
+
             var RestaurantTables = _context.Table
                 .Where(t => t.RestaurantId == id)
                 .ToList();
 
-            var restaurant = await _context.Restaurant
-                .FirstOrDefaultAsync(m => m.Id == id);
+            
             ViewBag.Restaurant = restaurant;
 
             return View(RestaurantTables);
@@ -62,6 +81,7 @@ namespace RESToran.Controllers
         }
 
         // GET: Restaurant/{restId}/Table/Create
+        [Authorize]
         [HttpGet("Restaurant/{id}/Create")]
         public IActionResult Create(long id)
         {
