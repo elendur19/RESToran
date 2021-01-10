@@ -51,13 +51,14 @@ namespace RESToran.Controllers
                 .ToList();
 
             
-            ViewBag.Restaurant = restaurant;
+             ViewBag.Restaurant = restaurant;
 
             return View(RestaurantTables);
         }
 
         // GET: api/Table/Restaurant/1/Table/1/Info
         [HttpGet("Restaurant/{restId}/{id}/Info")]
+        [Authorize]
         public async Task<IActionResult> Details(long restId, long? id)
         {
           
@@ -91,8 +92,9 @@ namespace RESToran.Controllers
         // POST: Restaurant/{restId}/Table/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost("Restaurant/{id}/Create"), ActionName("Update")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(long id, [FromForm] Table table)
         {
             if (ModelState.IsValid)
@@ -139,8 +141,8 @@ namespace RESToran.Controllers
         // POST: api/Table/Restaurant/1/Edit/1
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost("Restaurant/{restId}/Edit/{id}"), ActionName("Update")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long restId, long id, [FromForm] Table table)
         {
             if (id != table.Id)
@@ -174,6 +176,7 @@ namespace RESToran.Controllers
         }
 
         // GET: api/Restaurant/{restId}/Table/Delete/{id}
+        [Authorize]
         [HttpGet("Restaurant/{restId}/Delete/{id}")]
         public async Task<IActionResult> Delete(long? id, long restId)
         {
@@ -195,8 +198,8 @@ namespace RESToran.Controllers
         }
 
         // POST: Table/Delete/5
-        [HttpPost("Restaurant/{restId}/Delete/{id}"), ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [Authorize]
+        [HttpPost("Restaurant/{restId}/Delete/{id}"), ActionName("Delete")] 
         public async Task<IActionResult> DeleteConfirmed(long id, long restId)
         {
             var table = await _context.Table.FindAsync(id);

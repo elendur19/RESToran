@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RESToran.DataAccess;
@@ -46,6 +47,7 @@ namespace RESToran.Controllers
 
         // GET: Restaurant/Create
         //[HttpGet("Restaurant/Create")]
+        [Authorize]
         [HttpGet("create")]
         public IActionResult Create()
         {
@@ -55,8 +57,8 @@ namespace RESToran.Controllers
         // POST: Restaurant/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-       
-        [ValidateAntiForgeryToken]
+
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromForm] Restaurant restaurant)
         {
@@ -70,6 +72,7 @@ namespace RESToran.Controllers
         }
 
         // GET: Restaurant/Edit/5
+        [Authorize]
         [HttpGet("edit/{id}")]
         public async Task<IActionResult> Edit(long? id)
         {
@@ -89,8 +92,8 @@ namespace RESToran.Controllers
         // POST: Restaurant/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost("edit/{id}"), ActionName("Update")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, [FromForm] Restaurant restaurant)
         {
             if (id != restaurant.Id)
@@ -122,6 +125,7 @@ namespace RESToran.Controllers
         }
 
         // GET: Restaurant/Delete/5
+        [Authorize]
         [HttpGet("delete/{id}")]
         public async Task<IActionResult> Delete(long? id)
         {
@@ -141,8 +145,8 @@ namespace RESToran.Controllers
         }
 
         // POST: Restaurant/Delete/5
-        [HttpPost("delete/{id}"), ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [Authorize]
+        [HttpPost("delete/{id}"), ActionName("Delete")]  
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             var restaurant = await _context.Restaurant.FindAsync(id);

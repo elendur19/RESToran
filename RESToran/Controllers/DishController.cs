@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using RESToran.DataAccess;
 using RESToran.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RESToran.Controllers
 {
@@ -56,6 +57,7 @@ namespace RESToran.Controllers
         }
 
         // GET: Restaurant/{id}/Dish/Create
+        [Authorize]
         [HttpGet("Restaurant/{id}/Dish/Create")]
         public IActionResult Create(long id)
         {
@@ -67,8 +69,9 @@ namespace RESToran.Controllers
         // POST: Dishes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost("Restaurant/{id}/Dish/Create"), ActionName("Update")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(long id, [FromForm] Dish dish)
         {
             
@@ -85,6 +88,7 @@ namespace RESToran.Controllers
         }
 
         // GET: Dishes/Edit/5
+        [Authorize]
         [HttpGet("Restaurant/{restId}/Edit/{id}")]
         public async Task<IActionResult> Edit(long restId, long? id)
         {
@@ -107,8 +111,8 @@ namespace RESToran.Controllers
         // POST: Dishes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost("Restaurant/{restId}/Edit/{id}"), ActionName("Update")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long restId, long id, [FromForm] Dish dish)
         {
             if (id != dish.Id)
@@ -141,6 +145,7 @@ namespace RESToran.Controllers
         }
 
         // GET: Dishes/Delete/5
+        [Authorize]
         [HttpGet("Restaurant/{restId}/Dish/Delete/{id}")]
         public async Task<IActionResult> Delete(long? id, long restId)
         {
@@ -162,8 +167,8 @@ namespace RESToran.Controllers
         }
 
         // POST: Dishes/Delete/5
+        [Authorize]
         [HttpPost("Restaurant/{restId}/Dish/Delete/{id}"), ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id, long restId)
         {
             var dish = await _context.Dish.FindAsync(id);
