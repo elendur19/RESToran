@@ -1,0 +1,12 @@
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.Login.resources
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.Properties.Resources.resources
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.csproj.GenerateResource.cache
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.csproj.CoreCompileInputs.cache
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\bin\Debug\RESToran.PresentationLayer.exe.config
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\bin\Debug\RESToran.PresentationLayer.exe
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\bin\Debug\RESToran.PresentationLayer.pdb
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.exe
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.pdb
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.LoginControl.resources
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.RegisterControl.resources
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.MainWindow.resources
