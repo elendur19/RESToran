@@ -32,6 +32,8 @@ namespace RESToran
 
             services.AddControllersWithViews();
 
+            services.AddControllers().AddNewtonsoftJson();
+
             services.AddScoped<IRestaurantProvider, RestaurantProvider>();
 
             services.AddAuthentication("BasicAuthentication")
