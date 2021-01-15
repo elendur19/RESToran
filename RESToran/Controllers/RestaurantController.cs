@@ -47,7 +47,7 @@ namespace RESToran.Controllers
 
         // GET: Restaurant/Create
         //[HttpGet("Restaurant/Create")]
-        [Authorize]
+        //[Authorize]
         [HttpGet("create")]
         public IActionResult Create()
         {
@@ -58,9 +58,22 @@ namespace RESToran.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 
-        [Authorize]
+        /* //[Authorize]
+         [HttpPost("create")]
+         public async Task<IActionResult> Create([FromForm] Restaurant restaurant)
+         {
+             if (ModelState.IsValid)
+             {
+                 _context.Add(restaurant);
+                 await _context.SaveChangesAsync();
+                 return RedirectToAction(nameof(Index));
+             }
+             return View(restaurant);
+         }*/
+
+        //[Authorize]
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromForm] Restaurant restaurant)
+        public async Task<IActionResult> Create([FromBody] Restaurant restaurant)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +85,7 @@ namespace RESToran.Controllers
         }
 
         // GET: Restaurant/Edit/5
-        [Authorize]
+        //[Authorize]
         [HttpGet("edit/{id}")]
         public async Task<IActionResult> Edit(long? id)
         {
@@ -92,7 +105,7 @@ namespace RESToran.Controllers
         // POST: Restaurant/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+        //[Authorize]
         [HttpPost("edit/{id}"), ActionName("Update")]
         public async Task<IActionResult> Edit(long id, [FromForm] Restaurant restaurant)
         {
