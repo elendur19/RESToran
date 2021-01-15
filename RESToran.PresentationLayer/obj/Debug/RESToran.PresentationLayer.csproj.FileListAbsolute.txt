@@ -10,3 +10,4 @@ C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.
 C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.LoginControl.resources
 C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.RegisterControl.resources
 C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.MainWindow.resources
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.csprojAssemblyReference.cache
