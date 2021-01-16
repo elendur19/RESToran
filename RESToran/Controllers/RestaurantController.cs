@@ -50,7 +50,6 @@ namespace RESToran.Controllers
 
         // GET: Restaurant/Create
         //[HttpGet("Restaurant/Create")]
-        //[Authorize]
         [HttpGet("create")]
         public IActionResult Create()
         {
@@ -74,7 +73,6 @@ namespace RESToran.Controllers
              return View(restaurant);
          }*/
 
-        //[Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] Restaurant restaurant)
         {

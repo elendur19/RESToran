@@ -24,12 +24,19 @@ namespace RESToran.PresentationLayer
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // Textbox1 is password field
+            // Textbox2 is username field
             MessageBox.Show("Username: " + textBox1.Text);
             // TODO add atuh logic here
             Login parent = (Login)this.Parent;
             MainWindow newForm = new MainWindow();
             parent.Hide();
             newForm.Show();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
