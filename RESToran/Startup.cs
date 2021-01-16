@@ -83,7 +83,7 @@ namespace RESToran
 
             app.UseStatusCodePagesWithRedirects("/StatusCode/code={0}");
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

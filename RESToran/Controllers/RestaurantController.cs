@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,10 +24,12 @@ namespace RESToran.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Restaurant.ToListAsync());
+            List<Restaurant> restaurants = await _context.Restaurant.ToListAsync();
+            
+            return View(restaurants);
         }
 
-        // GET: api/Restaurant/5
+        // GET: Restaurant/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(long? id)
         {
@@ -84,9 +87,37 @@ namespace RESToran.Controllers
             return View(restaurant);
         }
 
-        // GET: Restaurant/Edit/5
         //[Authorize]
-        [HttpGet("edit/{id}")]
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] Restaurant_Auth restaurant)
+        {
+            /*if (ModelState.IsValid)
+            {
+                _context.Add(restaurant);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            */
+
+            List<Restaurant> restaurants = await _context.Restaurant.ToListAsync();
+            bool found = false;
+            // check if restaurant is in db
+            restaurants.ForEach(rest =>
+            {
+               if (rest.EmailAddress.Equals(restaurant.EmailAddress) &&
+                   rest.Password.Equals(restaurant.Password))
+               {
+                    found = true;
+               }
+            });
+
+            if (found) return View();
+
+            return NotFound();
+        }
+    
+    // GET: Restaurant/Edit/5
+    //[Authorize]
+    [HttpGet("edit/{id}")]
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
