@@ -606,3 +606,4 @@ C:\Users\ikoiv\Documents\RESToran\RESToran\obj\Debug\net5.0\RESToran.genruntimec
 C:\Users\ikoiv\Documents\RESToran\RESToran\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\ikoiv\Documents\RESToran\RESToran\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\ikoiv\Documents\RESToran\RESToran\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\ikoiv\Documents\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\Restaurant\Login.cshtml.g.cs

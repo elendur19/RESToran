@@ -31,11 +31,12 @@ namespace RESToran.PresentationLayer
         {
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.PasswordBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.EmailBox = new System.Windows.Forms.TextBox();
+            this.SubmitButton = new System.Windows.Forms.Button();
+            this.resultLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -48,13 +49,13 @@ namespace RESToran.PresentationLayer
             this.label1.TabIndex = 0;
             this.label1.Text = "Login";
             // 
-            // textBox1
+            // PasswordBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(108, 119);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.UseSystemPasswordChar = true;
+            this.PasswordBox.Location = new System.Drawing.Point(108, 119);
+            this.PasswordBox.Name = "PasswordBox";
+            this.PasswordBox.Size = new System.Drawing.Size(100, 20);
+            this.PasswordBox.TabIndex = 5;
+            this.PasswordBox.UseSystemPasswordChar = true;
             // 
             // label2
             // 
@@ -72,42 +73,51 @@ namespace RESToran.PresentationLayer
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
             this.label3.Location = new System.Drawing.Point(5, 83);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(97, 22);
+            this.label3.Size = new System.Drawing.Size(59, 22);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Username:";
+            this.label3.Text = "Email:";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // textBox2
+            // EmailBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(108, 87);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 4;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.EmailBox.Location = new System.Drawing.Point(108, 87);
+            this.EmailBox.Name = "EmailBox";
+            this.EmailBox.Size = new System.Drawing.Size(100, 20);
+            this.EmailBox.TabIndex = 4;
+            this.EmailBox.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
-            // button1
+            // SubmitButton
             // 
-            this.button1.Location = new System.Drawing.Point(81, 156);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Submit";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.SubmitButton.Location = new System.Drawing.Point(81, 156);
+            this.SubmitButton.Name = "SubmitButton";
+            this.SubmitButton.Size = new System.Drawing.Size(75, 23);
+            this.SubmitButton.TabIndex = 6;
+            this.SubmitButton.Text = "Submit";
+            this.SubmitButton.UseVisualStyleBackColor = true;
+            this.SubmitButton.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // resultLabel
+            // 
+            this.resultLabel.AutoSize = true;
+            this.resultLabel.Location = new System.Drawing.Point(80, 197);
+            this.resultLabel.Name = "resultLabel";
+            this.resultLabel.Size = new System.Drawing.Size(0, 13);
+            this.resultLabel.TabIndex = 7;
             // 
             // LoginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.resultLabel);
+            this.Controls.Add(this.SubmitButton);
+            this.Controls.Add(this.EmailBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.PasswordBox);
             this.Controls.Add(this.label1);
             this.Name = "LoginControl";
-            this.Size = new System.Drawing.Size(262, 214);
+            this.Size = new System.Drawing.Size(262, 259);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,10 +127,11 @@ namespace RESToran.PresentationLayer
 
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox PasswordBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox EmailBox;
+        private System.Windows.Forms.Button SubmitButton;
+        private System.Windows.Forms.Label resultLabel;
     }
 }

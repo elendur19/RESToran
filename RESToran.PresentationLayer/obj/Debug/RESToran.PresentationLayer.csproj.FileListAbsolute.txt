@@ -24,3 +24,6 @@ C:\Users\Tomislav\OO Seminar\RESToran\RESToran.PresentationLayer\obj\Debug\RESTo
 C:\Users\Tomislav\OO Seminar\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.csproj.CoreCompileInputs.cache
 C:\Users\Tomislav\OO Seminar\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.exe
 C:\Users\Tomislav\OO Seminar\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.pdb
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ikoiv\Documents\RESToran\RESToran.PresentationLayer\obj\Debug\RESToran.PresentationLayer.csproj.CopyComplete

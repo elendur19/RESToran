@@ -91,6 +91,7 @@ namespace RESToran.PresentationLayer
             this.registerControl1.Name = "registerControl1";
             this.registerControl1.Size = new System.Drawing.Size(708, 651);
             this.registerControl1.TabIndex = 2;
+            this.registerControl1.Load += new System.EventHandler(this.registerControl1_Load);
             // 
             // userControl11
             // 

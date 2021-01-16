@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,14 +26,37 @@ namespace RESToran.PresentationLayer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Textbox1 is password field
-            // Textbox2 is username field
-            MessageBox.Show("Username: " + textBox1.Text);
-            // TODO add atuh logic here
-            Login parent = (Login)this.Parent;
-            MainWindow newForm = new MainWindow();
-            parent.Hide();
-            newForm.Show();
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Restaurant/login");
+            httpWebRequest.ContentType = "text/json";
+            httpWebRequest.Accept = "*/*";
+            httpWebRequest.Method = "POST";
+
+            string json = "{" +
+                        "\"EmailAddress\" : \"" + EmailBox.Text + "\"," +
+                        "\"Password\" : \"" + PasswordBox.Text + "\"}";
+            httpWebRequest.ContentLength = Encoding.ASCII.GetBytes(json).Length;
+
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            {
+
+
+                streamWriter.Write(json);
+            }
+            try
+            {
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                if (httpResponse.StatusCode.ToString() == "OK")
+                {
+                    resultLabel.Text = "SUCCESS";
+                    MainWindow mainWindow = new MainWindow();
+                    this.Parent.Hide();
+                    mainWindow.Show();
+                }
+            }
+            catch (System.Net.WebException error)
+            {
+                resultLabel.Text = "Wrong credentials!";
+            }
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

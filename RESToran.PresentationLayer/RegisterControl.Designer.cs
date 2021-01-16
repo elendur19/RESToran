@@ -35,20 +35,19 @@ namespace RESToran.PresentationLayer
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.NameBox = new System.Windows.Forms.TextBox();
+            this.EmailBox = new System.Windows.Forms.TextBox();
+            this.PasswordBox1 = new System.Windows.Forms.TextBox();
+            this.PasswordBox2 = new System.Windows.Forms.TextBox();
+            this.SubmitButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.LocationBox = new System.Windows.Forms.TextBox();
+            this.OpenedBox = new System.Windows.Forms.TextBox();
+            this.PhoneBox = new System.Windows.Forms.TextBox();
+            this.resultLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -103,45 +102,45 @@ namespace RESToran.PresentationLayer
             this.label5.TabIndex = 4;
             this.label5.Text = "Type password again:";
             // 
-            // textBox1
+            // NameBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(199, 91);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(222, 20);
-            this.textBox1.TabIndex = 5;
+            this.NameBox.Location = new System.Drawing.Point(199, 91);
+            this.NameBox.Name = "NameBox";
+            this.NameBox.Size = new System.Drawing.Size(222, 20);
+            this.NameBox.TabIndex = 5;
             // 
-            // textBox2
+            // EmailBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(199, 131);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(222, 20);
-            this.textBox2.TabIndex = 6;
+            this.EmailBox.Location = new System.Drawing.Point(199, 131);
+            this.EmailBox.Name = "EmailBox";
+            this.EmailBox.Size = new System.Drawing.Size(222, 20);
+            this.EmailBox.TabIndex = 6;
             // 
-            // textBox3
+            // PasswordBox1
             // 
-            this.textBox3.Location = new System.Drawing.Point(199, 171);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(222, 20);
-            this.textBox3.TabIndex = 7;
-            this.textBox3.UseSystemPasswordChar = true;
+            this.PasswordBox1.Location = new System.Drawing.Point(199, 171);
+            this.PasswordBox1.Name = "PasswordBox1";
+            this.PasswordBox1.Size = new System.Drawing.Size(222, 20);
+            this.PasswordBox1.TabIndex = 7;
+            this.PasswordBox1.UseSystemPasswordChar = true;
             // 
-            // textBox4
+            // PasswordBox2
             // 
-            this.textBox4.Location = new System.Drawing.Point(199, 211);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(222, 20);
-            this.textBox4.TabIndex = 8;
-            this.textBox4.UseSystemPasswordChar = true;
+            this.PasswordBox2.Location = new System.Drawing.Point(199, 211);
+            this.PasswordBox2.Name = "PasswordBox2";
+            this.PasswordBox2.Size = new System.Drawing.Size(222, 20);
+            this.PasswordBox2.TabIndex = 8;
+            this.PasswordBox2.UseSystemPasswordChar = true;
             // 
-            // button1
+            // SubmitButton
             // 
-            this.button1.Location = new System.Drawing.Point(177, 362);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Submit";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.SubmitButton.Location = new System.Drawing.Point(120, 362);
+            this.SubmitButton.Name = "SubmitButton";
+            this.SubmitButton.Size = new System.Drawing.Size(75, 23);
+            this.SubmitButton.TabIndex = 17;
+            this.SubmitButton.Text = "Submit";
+            this.SubmitButton.UseVisualStyleBackColor = true;
+            this.SubmitButton.Click += new System.EventHandler(this.SubmitButton_Click);
             // 
             // label6
             // 
@@ -178,65 +177,54 @@ namespace RESToran.PresentationLayer
             this.label8.TabIndex = 13;
             this.label8.Text = "Phone Number:";
             // 
-            // textBox5
+            // LocationBox
             // 
-            this.textBox5.Location = new System.Drawing.Point(199, 251);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(222, 20);
-            this.textBox5.TabIndex = 14;
+            this.LocationBox.Location = new System.Drawing.Point(199, 251);
+            this.LocationBox.Name = "LocationBox";
+            this.LocationBox.Size = new System.Drawing.Size(222, 20);
+            this.LocationBox.TabIndex = 14;
             // 
-            // textBox6
+            // OpenedBox
             // 
-            this.textBox6.Location = new System.Drawing.Point(199, 287);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(222, 20);
-            this.textBox6.TabIndex = 15;
-            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
+            this.OpenedBox.Location = new System.Drawing.Point(199, 287);
+            this.OpenedBox.Name = "OpenedBox";
+            this.OpenedBox.Size = new System.Drawing.Size(222, 20);
+            this.OpenedBox.TabIndex = 15;
+            this.OpenedBox.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
-            // textBox7
+            // PhoneBox
             // 
-            this.textBox7.Location = new System.Drawing.Point(199, 323);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(222, 20);
-            this.textBox7.TabIndex = 16;
-            this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
+            this.PhoneBox.Location = new System.Drawing.Point(199, 323);
+            this.PhoneBox.Name = "PhoneBox";
+            this.PhoneBox.Size = new System.Drawing.Size(222, 20);
+            this.PhoneBox.TabIndex = 16;
+            this.PhoneBox.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
-            // label9
+            // resultLabel
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(34, 398);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(0, 13);
-            this.label9.TabIndex = 17;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(321, 362);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.resultLabel.AutoSize = true;
+            this.resultLabel.Location = new System.Drawing.Point(274, 367);
+            this.resultLabel.Name = "resultLabel";
+            this.resultLabel.Size = new System.Drawing.Size(0, 13);
+            this.resultLabel.TabIndex = 17;
             // 
             // RegisterControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.textBox7);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.resultLabel);
+            this.Controls.Add(this.PhoneBox);
+            this.Controls.Add(this.OpenedBox);
+            this.Controls.Add(this.LocationBox);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.SubmitButton);
+            this.Controls.Add(this.PasswordBox2);
+            this.Controls.Add(this.PasswordBox1);
+            this.Controls.Add(this.EmailBox);
+            this.Controls.Add(this.NameBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -257,19 +245,18 @@ namespace RESToran.PresentationLayer
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox NameBox;
+        private System.Windows.Forms.TextBox EmailBox;
+        private System.Windows.Forms.TextBox PasswordBox1;
+        private System.Windows.Forms.TextBox PasswordBox2;
+        private System.Windows.Forms.Button SubmitButton;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox LocationBox;
+        private System.Windows.Forms.TextBox OpenedBox;
+        private System.Windows.Forms.TextBox PhoneBox;
+        private System.Windows.Forms.Label resultLabel;
     }
 }

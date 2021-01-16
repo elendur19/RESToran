@@ -71,5 +71,10 @@ namespace RESToran.PresentationLayer
                 registerControl1.Show();
             }
         }
+
+        private void registerControl1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

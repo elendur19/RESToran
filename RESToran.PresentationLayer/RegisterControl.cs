@@ -28,21 +28,45 @@ namespace RESToran.PresentationLayer
 
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private async void SubmitButton_Click(object sender, EventArgs e)
         {
-            using (var client = new HttpClient())
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Restaurant/create");
+            httpWebRequest.ContentType = "text/json";
+            httpWebRequest.Accept = "*/*";
+            httpWebRequest.Method = "POST";
+
+            string json = "{" +
+                        "\"Name\" : \""+ NameBox.Text +"\"," +
+                        "\"EmailAddress\" : \"" + EmailBox.Text + "\"," +
+                        "\"Password\" : \""+ PasswordBox1.Text +  "\"," +
+                        "\"Location\" : \"" + LocationBox.Text +"\"," +
+                        "\"HoursOpened\": \"" + OpenedBox.Text +"\"," +
+                        "\"PhoneNumber\": \"" + PhoneBox.Text +"\"}";
+            httpWebRequest.ContentLength = Encoding.ASCII.GetBytes(json).Length;
+            if (PasswordBox1.Text != PasswordBox2.Text)
             {
+                resultLabel.Text = "Passwords not matching!";
+            }
+            else
+            {
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
 
-                client.BaseAddress = new Uri("http://localhost:5000/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                RegisterWindow windowFields = new RegisterWindow { Name = "ime1", EmailAddress = "email1", HoursOpened = "9:00-18:00", Location = "Croatia", Password = "password1", PhoneNumber = "0009209420" };
-                var data = JsonConvert.SerializeObject(windowFields);
-                var content = new StringContent(data, Encoding.UTF8, "application/json");
-                var response = await  client.PostAsync("Restoran/create", content);
-
-                MessageBox.Show(response.ToString());
+                    streamWriter.Write(json);
+                }
+                try
+                {
+                    var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                    if (httpResponse.StatusCode.ToString() == "OK")
+                    {
+                        resultLabel.Text = "SUCCESS";
+                    }
+                }
+                catch (System.Net.WebException error)
+                {
+                    resultLabel.Text = "User already exists!";
+                }
             }
         }
 
@@ -75,7 +99,7 @@ namespace RESToran.PresentationLayer
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                 var result = streamReader.ReadToEnd();
-                label9.Text = result;
+                resultLabel.Text = result;
             }
             // TODO add registration logic here
         }
@@ -103,8 +127,8 @@ namespace RESToran.PresentationLayer
             httpWebRequest.Method = "POST";
 
             string json = "{" +
-                        "\"Name\" : \"CUMA PUMA GUMA\"," +
-                        "\"EmailAddress\" : \"cumaguma\"," +
+                        "\"Name\" : \"CUMA PUMA GUMA SUMA\"," +
+                        "\"EmailAddress\" : \"cumagumasuma\"," +
                         "\"Password\" : \"zgzhzgg\"," +
                         "\"Location\" : \"Ulica kralja Ivana\"," +
                         "\"HoursOpened\": \"09:00-18:00\"," +
@@ -124,7 +148,7 @@ namespace RESToran.PresentationLayer
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                 var result = streamReader.ReadToEnd();
-                label9.Text = result;
+                resultLabel.Text = result;
             }
         }
     }
