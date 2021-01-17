@@ -1,3 +1,7 @@
 # ignoriraj migracijske upute
-migration_upute.txt
-/RESToran.PresentationLayer
+.vs/
+RESToran/bin/
+RESToran/obj/
+RESToran.PresentationLayer/bin/
+RESToran.PresentationLayer/obj/
+
