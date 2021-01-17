@@ -417,3 +417,4 @@ C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Release\net5.0\RESToran.dll
 C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Release\net5.0\ref\RESToran.dll
 C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Release\net5.0\RESToran.pdb
 C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Release\net5.0\RESToran.genruntimeconfig.cache
+C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Release\net5.0\Razor\Views\Restaurant\Login.cshtml.g.cs

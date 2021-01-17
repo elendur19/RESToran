@@ -108,40 +108,47 @@ namespace RESToran.Controllers
                }
             });
 
-            if (found) return View();
+            if (found)
+            {
+                string valueToEncode = restaurant.EmailAddress + ":" + restaurant.Password;
+                var textBytes = System.Text.Encoding.UTF8.GetBytes(valueToEncode);
+                HttpContext.Response.Headers.Add("AuthValue", System.Convert.ToBase64String(textBytes));
+                return View();
+            }
 
             return NotFound();
         }
     
     // GET: Restaurant/Edit/5
-    //[Authorize]
-    [HttpGet("edit/{id}")]
-        public async Task<IActionResult> Edit(long? id)
+        [Authorize]
+        [HttpGet("edit")]
+        public async Task<IActionResult> Edit()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            string emailAddress = HttpContext.User.Identity.Name;
 
-            var restaurant = await _context.Restaurant.FindAsync(id);
-            if (restaurant == null)
-            {
-                return NotFound();
-            }
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefaultAsync();
+
             return View(restaurant);
         }
 
-        // POST: Restaurant/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[Authorize]
-        [HttpPost("edit/{id}"), ActionName("Update")]
-        public async Task<IActionResult> Edit(long id, [FromForm] Restaurant restaurant)
+        // POST: Restaurant/edit
+        // edit Restaurant information
+        [Authorize]
+        [HttpPost("edit"), ActionName("Update")]
+        public async Task<IActionResult> Edit([FromForm] Restaurant restaurant)
         {
-            if (id != restaurant.Id)
-            {
-                return NotFound();
-            }
+
+            string emailAddress = HttpContext.User.Identity.Name;
+
+ /*           var updatedRestaurant = await _context.Restaurant
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefaultAsync();
+
+
+            // ako restaurant sa tim email-om ne postoji, vrati Unauthorized
+            if (updatedRestaurant != null)  return Unauthorized();*/
 
             if (ModelState.IsValid)
             {

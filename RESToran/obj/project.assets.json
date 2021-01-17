@@ -9932,19 +9932,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Tomislav\\.nuget\\packages\\": {}
+    "C:\\Users\\misla\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Tomislav\\OO Seminar\\RESToran\\RESToran\\RESToran.csproj",
+      "projectUniqueName": "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran\\RESToran.csproj",
       "projectName": "RESToran",
-      "projectPath": "C:\\Users\\Tomislav\\OO Seminar\\RESToran\\RESToran\\RESToran.csproj",
-      "packagesPath": "C:\\Users\\Tomislav\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Tomislav\\OO Seminar\\RESToran\\RESToran\\obj\\",
+      "projectPath": "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran\\RESToran.csproj",
+      "packagesPath": "C:\\Users\\misla\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Tomislav\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\misla\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

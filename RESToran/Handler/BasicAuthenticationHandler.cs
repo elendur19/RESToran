@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RESToran.DataAccess;
@@ -58,7 +59,7 @@ namespace RESToran.Handler
             }
             catch
             {
-                return AuthenticateResult.Fail("Error has occured");
+                return AuthenticateResult.Fail("You are not authorized");
             }
              
             return AuthenticateResult.Fail("");
