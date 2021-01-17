@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RESToran.DataAccess;
+using RESToran.DataClasses;
 using RESToran.Models;
 
 namespace RESToran.Controllers
@@ -121,34 +122,65 @@ namespace RESToran.Controllers
     
     // GET: Restaurant/Edit/5
         [Authorize]
-        [HttpGet("edit")]
-        public async Task<IActionResult> Edit()
+        [HttpGet("info")]
+        public async Task<JsonResult> Info()
         {
             string emailAddress = HttpContext.User.Identity.Name;
 
             var restaurant = await _context.Restaurant
                                         .Where(rest => rest.EmailAddress.Equals(emailAddress))
                                         .FirstOrDefaultAsync();
+            if (restaurant != null)
+            {
+                HttpContext.Response.StatusCode = 200;
+                RestaurantInfo restaurantInfo = new RestaurantInfo();
+                
+                restaurantInfo.Name = restaurant.Name;
+                restaurantInfo.EmailAddress = restaurant.EmailAddress;
+                restaurantInfo.Location = restaurant.Location;
+                restaurantInfo.PhoneNumber = restaurant.PhoneNumber;
+                restaurantInfo.HoursOpened = restaurant.HoursOpened;
 
-            return View(restaurant);
+                return new JsonResult(restaurantInfo);
+            } else
+            {
+                HttpContext.Response.StatusCode = 401;
+                return new JsonResult("Not authorized");
+            }
+            
+            
         }
 
-        // POST: Restaurant/edit
+        
         // edit Restaurant information
         [Authorize]
         [HttpPost("edit"), ActionName("Update")]
-        public async Task<IActionResult> Edit([FromForm] Restaurant restaurant)
+        public async Task<JsonResult> Edit([FromBody] RestaurantInfo restaurantInfo)
         {
 
             string emailAddress = HttpContext.User.Identity.Name;
-
- /*           var updatedRestaurant = await _context.Restaurant
+            
+            var restaurant = await _context.Restaurant
                                         .Where(rest => rest.EmailAddress.Equals(emailAddress))
                                         .FirstOrDefaultAsync();
 
+            if (RestaurantNameExists(restaurantInfo.Name, emailAddress))
+            {
+                HttpContext.Response.StatusCode = 400;
+                return new JsonResult("Restaurant name " + restaurantInfo.Name + " already exists");
+            }
+            else if (RestaurantEmailAddressExists(restaurantInfo.EmailAddress, emailAddress))
+            {
+                HttpContext.Response.StatusCode = 400;
+                return new JsonResult("Restaurant email address " + restaurantInfo.EmailAddress + " already exists");
+            }
 
-            // ako restaurant sa tim email-om ne postoji, vrati Unauthorized
-            if (updatedRestaurant != null)  return Unauthorized();*/
+            // set fields
+            restaurant.Name = restaurantInfo.Name;
+            restaurant.EmailAddress = restaurantInfo.EmailAddress;
+            restaurant.Location = restaurantInfo.Location;
+            restaurant.PhoneNumber = restaurantInfo.PhoneNumber;
+            restaurant.HoursOpened = restaurantInfo.HoursOpened;
 
             if (ModelState.IsValid)
             {
@@ -161,16 +193,17 @@ namespace RESToran.Controllers
                 {
                     if (!RestaurantExists(restaurant.Id))
                     {
-                        return NotFound();
-                    }
-                    else
+                        return new JsonResult("");
+                    } else
                     {
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                HttpContext.Response.StatusCode = 200;
+              
             }
-            return View(restaurant);
+
+            return new JsonResult("Restaurant data successfully updated.");
         }
 
         // GET: Restaurant/Delete/5
@@ -207,6 +240,32 @@ namespace RESToran.Controllers
         private bool RestaurantExists(long id)
         {
             return _context.Restaurant.Any(e => e.Id == id);
+        }
+        private bool RestaurantNameExists(string name, string emailAddress)
+        {
+            var restaurant = _context.Restaurant
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefault();
+
+            if (name.Equals(restaurant.Name))
+            {
+                return false;
+            }
+
+            return _context.Restaurant.Any(rest => rest.Name.Equals(name));
+        }
+        private bool RestaurantEmailAddressExists(string newEmailAddress, string emailAddress)
+        {
+            var restaurant = _context.Restaurant
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefault();
+
+            if (newEmailAddress.Equals(restaurant.EmailAddress))
+            {
+                return false;
+            }
+
+            return _context.Restaurant.Any(rest => rest.EmailAddress.Equals(newEmailAddress));
         }
     }
 }
