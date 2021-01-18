@@ -6,6 +6,8 @@ using RESToran.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using RESToran.DataClasses;
+using System.Collections.Generic;
 
 namespace RESToran.Controllers
 {
@@ -22,146 +24,163 @@ namespace RESToran.Controllers
 
         // GET: Tables from one of the restaurants
         [Authorize]
-        [HttpGet("Restaurant/{id}/all")]
-        public async Task<IActionResult> Index(long id)
+        [HttpGet("Restaurant/all")]
+        public async Task<JsonResult> AllTables()
         {
 
             string emailAddress = HttpContext.User.Identity.Name;
 
             var restaurant = await _context.Restaurant
-                                        .Where(rest => rest.Id == id)
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
                                         .FirstOrDefaultAsync();
 
-            if (restaurant == null)
+            List<TableInfo> tablesToReturn = new List<TableInfo>();
+
+
+            List<Table> restaurantTables = await _context.Table
+                                                    .Where(t => t.RestaurantId == restaurant.Id)
+                                                    .ToListAsync();
+
+            // add table to table representation model class
+            foreach(Table table in restaurantTables)
             {
-                return NotFound();
+                TableInfo tableInfo = new TableInfo(table.Description, table.RestName_Number, table.NumberOfSeats);
+                tablesToReturn.Add(tableInfo);
             }
 
-            // jesu li ovo isti objekti ?
-            bool sameRestaurant = restaurant.EmailAddress.Equals(emailAddress);
-             
-            // ako nisu, vrati unauthorized
-            if (!sameRestaurant)
-                return Unauthorized();
-            //return RedirectToAction("Index", "ErrorController");
 
+            //ViewBag.Restaurant = restaurant;
 
-            var RestaurantTables = _context.Table
-                .Where(t => t.RestaurantId == id)
-                .ToList();
-
-            
-             ViewBag.Restaurant = restaurant;
-
-            return View(RestaurantTables);
+            return new JsonResult(tablesToReturn);
         }
 
         // GET: api/Table/Restaurant/1/Table/1/Info
-        [HttpGet("Restaurant/{restId}/{id}/Info")]
         [Authorize]
-        public async Task<IActionResult> Details(long restId, long? id)
+        [HttpGet("Restaurant/{id}/info")]
+        public async Task<JsonResult> Info(long? id)
         {
           
-
+            // no table id in url
             if (id == null)
             {
-                return NotFound();
+                return new JsonResult("");
             }
 
             var table = await _context.Table
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (table == null)
             {
-                return NotFound();
+                return new JsonResult("table doesn't exist");
             }
-            var restaurant = await _context.Restaurant
-                .FirstOrDefaultAsync(m => m.Id == restId);
-            ViewBag.Restaurant = restaurant;
 
-            return View(table);
+
+            return new JsonResult(new TableInfo(table.Description, table.RestName_Number, table.NumberOfSeats));
         }
 
-        // GET: Restaurant/{restId}/Table/Create
+/*        // GET: Restaurant table informations
         [Authorize]
-        [HttpGet("Restaurant/{id}/Create")]
+        [HttpGet("Restaurant/Create")]
         public IActionResult Create(long id)
         {
             return View();
-        }
+        }*/
 
-        // POST: Restaurant/{restId}/Table/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // This method creates new restaurant table
+
         [Authorize]
-        [HttpPost("Restaurant/{id}/Create"), ActionName("Update")]
+        [HttpPost("Restaurant/create"), ActionName("Create")]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(long id, [FromForm] Table table)
+        public async Task<JsonResult> Create([FromBody] TableInfo tableInfo)
         {
+
+            string emailAddress = HttpContext.User.Identity.Name;
+
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefaultAsync();
+
+            Table newTable = new Table();
+
+            long NbrOfRestaurantTables = _context.Table
+                                .Where(t => t.RestaurantId == restaurant.Id).Count();
+            // set RestName with restaurant name and  number of tables in it +1
+            int number = (int)NbrOfRestaurantTables + 1;
+            string restName = restaurant.Name + " " + number.ToString();
+
+            if (tableInfo.Description == null)
+            {
+                HttpContext.Response.StatusCode = 400;
+                return new JsonResult("Table description must be given");
+            }
+
+            newTable.Description = tableInfo.Description;
+            newTable.RestName_Number = restName;
+            newTable.NumberOfSeats = tableInfo.NumberOfSeats;
+
             if (ModelState.IsValid)
             {
-                table.RestaurantId = id;
-                var restaurant = await _context.Restaurant
-                .FirstOrDefaultAsync(m => m.Id == id);
+                newTable.RestaurantId = restaurant.Id;
 
-                long NbrOfRestaurantTables = _context.Table
-                                .Where(t => t.RestaurantId == id).Count();
-                // set RestName with restaurant name and  number of tables in it +1
-                int number = (int) NbrOfRestaurantTables + 1;
-                table.RestName_Number = restaurant.Name + " " + number.ToString();
-
-                _context.Add(table);
+                _context.Add(newTable);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index), new { id = id });
+                //return RedirectToAction(nameof(AllTables), new { id = id });
             }
-            return View(table);
+
+            HttpContext.Response.StatusCode = 200;
+            return new JsonResult("Table successfully created");
         }
 
         // GET: api/Table/Restaurant/1/Edit/1
-        [HttpGet("Restaurant/{restId}/Edit/{id}")]
-        public async Task<IActionResult> Edit(long restId, long? id)
+        [Authorize]
+        [HttpGet("Restaurant/edit/{id}")]
+        public async Task<JsonResult> Edit(long? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
+ 
             var table = await _context.Table.FindAsync(id);
+
             if (table == null)
             {
-                return NotFound();
+                HttpContext.Response.StatusCode = 400;
+                return new JsonResult("Table not found");
             }
 
-            var restaurant = await _context.Restaurant
-                .FirstOrDefaultAsync(m => m.Id == restId);
-            ViewBag.Restaurant = restaurant;
-
-            return View(table);
+            HttpContext.Response.StatusCode = 200;
+            return new JsonResult(new TableInfo(table.Description, table.RestName_Number, table.NumberOfSeats));
         }
 
         // POST: api/Table/Restaurant/1/Edit/1
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize]
-        [HttpPost("Restaurant/{restId}/Edit/{id}"), ActionName("Update")]
-        public async Task<IActionResult> Edit(long restId, long id, [FromForm] Table table)
+        [HttpPost("Restaurant/edit/{id}"), ActionName("Update")]
+        public async Task<IActionResult> Edit(long id, [FromBody] TableInfo tableInfo)
         {
-            if (id != table.Id)
+
+            Table tableToUpdate = await _context.Table
+                                            .Where(t => t.Id == id)
+                                            .FirstOrDefaultAsync();
+
+            if (tableInfo.Description == null)
             {
-                return NotFound();
+                HttpContext.Response.StatusCode = 400;
+                return new JsonResult("Table description must be given");
             }
+
+            tableToUpdate.Description = tableInfo.Description;
+            tableToUpdate.NumberOfSeats = tableInfo.NumberOfSeats;
 
             if (ModelState.IsValid)
             {
-                table.RestaurantId = restId;
                 
                 try
                 {
-                    _context.Update(table);
+                    _context.Update(tableToUpdate);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TableExists(table.Id))
+                    if (!TableExists(tableToUpdate.Id))
                     {
                         return NotFound();
                     }
@@ -170,12 +189,14 @@ namespace RESToran.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index), new { id = restId });
+ 
             }
-            return View(table);
+
+            HttpContext.Response.StatusCode = 200;
+            return new JsonResult("Table successfully updated");
         }
 
-        // GET: api/Restaurant/{restId}/Table/Delete/{id}
+/*        // GET: api/Restaurant/{restId}/Table/Delete/{id}
         [Authorize]
         [HttpGet("Restaurant/{restId}/Delete/{id}")]
         public async Task<IActionResult> Delete(long? id, long restId)
@@ -195,17 +216,22 @@ namespace RESToran.Controllers
                 .FirstOrDefaultAsync(m => m.Id == restId);
             ViewBag.Restaurant = restaurant;
             return View(table);
-        }
+        }*/
 
-        // POST: Table/Delete/5
+        // DELETE: delete table with id
         [Authorize]
-        [HttpPost("Restaurant/{restId}/Delete/{id}"), ActionName("Delete")] 
-        public async Task<IActionResult> DeleteConfirmed(long id, long restId)
+        [HttpDelete("Restaurant/delete/{id}"), ActionName("Delete")] 
+        public async Task<JsonResult> DeleteTable(long id)
         {
-            var table = await _context.Table.FindAsync(id);
-            _context.Table.Remove(table);
+            Table tableToDelete = await _context.Table
+                                            .Where(t => t.Id == id)
+                                            .FirstOrDefaultAsync();
+
+            _context.Table.Remove(tableToDelete);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index), new { id = restId });
+
+            HttpContext.Response.StatusCode = 200;
+            return new JsonResult("Table successfully deleted");
         }
 
         private bool TableExists(long id)

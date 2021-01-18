@@ -206,10 +206,10 @@ namespace RESToran.Controllers
             return new JsonResult("Restaurant data successfully updated.");
         }
 
-        // GET: Restaurant/Delete/5
+/*        // GET: Restaurant/Delete/5
         [Authorize]
         [HttpGet("delete/{id}")]
-        public async Task<IActionResult> Delete(long? id)
+        public async Task<JsonResult> Delete(long? id)
         {
             if (id == null)
             {
@@ -224,17 +224,28 @@ namespace RESToran.Controllers
             }
 
             return View(restaurant);
-        }
+        }*/
 
         // POST: Restaurant/Delete/5
         [Authorize]
-        [HttpPost("delete/{id}"), ActionName("Delete")]  
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        [HttpDelete("delete"), ActionName("Delete")]  
+        public async Task<JsonResult> Delete()
         {
-            var restaurant = await _context.Restaurant.FindAsync(id);
+            string emailAddress = HttpContext.User.Identity.Name;
+
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefaultAsync();
+
+           // delete restaurant from database
+
             _context.Restaurant.Remove(restaurant);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            HttpContext.Response.StatusCode = 200;
+            return new JsonResult("Restaurant " + restaurant.Name + " successfully deleted");
+
+            //return RedirectToAction(nameof(Index));
         }
 
         private bool RestaurantExists(long id)

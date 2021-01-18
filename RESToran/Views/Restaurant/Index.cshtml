@@ -4,13 +4,15 @@
     ViewData["Title"] = "Index";
 }
 
+<link href="~/css/Rest.css" rel="stylesheet" type="text/css">
+
 <h2 style="text-align:center">List of Restaurants</h2>
 
 <p style="text-align:right">
     <a asp-action="Create">New Restaurant</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-striped">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -33,8 +35,9 @@
 
         </tr>
     </thead>
-    <tbody>
+    <tbody class="thead-light">
 @foreach (var item in Model) {
+
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
