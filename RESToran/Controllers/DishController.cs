@@ -6,6 +6,7 @@ using RESToran.DataAccess;
 using RESToran.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using RESToran.DataClasses;
 
 namespace RESToran.Controllers
 {
@@ -20,25 +21,66 @@ namespace RESToran.Controllers
             _context = context;
         }
 
-        // GET: /Restaurant/{restId}/all
-        [HttpGet("Restaurant/{id}/all")]
+        // display all restaurant Dishes
+        // WEBPAGE
+        [HttpGet("Restaurant/all")]
         public async Task<IActionResult> Index(long id)
         {
-            var RestaurantDishes = _context.Dish
-                .Where(t => t.RestaurantId == id)
-                .ToList();
+
+            string emailAddress = HttpContext.User.Identity.Name;
 
             var restaurant = await _context.Restaurant
-                .FirstOrDefaultAsync(m => m.Id == id);
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefaultAsync();
+
+            var RestaurantDishes = _context.Dish
+                .Where(t => t.RestaurantId == restaurant.Id)
+                .ToList();
+
             ViewBag.Restaurant = restaurant;
 
             return View(RestaurantDishes);
         }
 
-        // GET: Restaurant/{restId}/Dish/{id}/Info
-        [HttpGet("Restaurant/{restId}/Dish/{id}/Info")]
-        public async Task<IActionResult> Details(long? id, long restId)
+        // display all restaurant Dishes
+        // FOR DESKTOP APP
+        [HttpGet("Restaurant/desktopApp/all")]
+        public async Task<JsonResult> Dishes(long id)
         {
+
+            string emailAddress = HttpContext.User.Identity.Name;
+
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefaultAsync();
+
+            List<DishInfo> dishesToReturn = new List<DishInfo>();
+
+            List<Dish> restaurantDishes = await _context.Dish
+                                .Where(d => d.RestaurantId == restaurant.Id)
+                                .ToListAsync();
+
+            // add dish to dish representation model class
+            foreach (Dish dish in restaurantDishes)
+            {
+                DishInfo dishInfo = new DishInfo(dish.Name, dish.Price, dish.Description, dish.HouseSpecial);
+                dishesToReturn.Add(dishInfo);
+            }
+
+            return new JsonResult(dishesToReturn);
+        }
+
+        // display restaurant Dish details
+        // WEBPAGE
+        [HttpGet("Restaurant/{id}/Info")]
+        public async Task<IActionResult> Details(long? id)
+        {
+            string emailAddress = HttpContext.User.Identity.Name;
+
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefaultAsync();
+
             if (id == null)
             {
                 return NotFound();
@@ -46,91 +88,126 @@ namespace RESToran.Controllers
 
             var dish = await _context.Dish
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (dish == null)
             {
                 return NotFound();
             }
-            var restaurant = await _context.Restaurant
-                .FirstOrDefaultAsync(m => m.Id == restId);
+
             ViewBag.Restaurant = restaurant;
             return View(dish);
         }
 
-        // GET: Restaurant/{id}/Dish/Create
-        [Authorize]
+        // display restaurant Dish details
+        // FOR DESKTOP APP
+        [HttpGet("Restaurant/desktopApp/{id}/Info")]
+        public async Task<JsonResult> Info(long? id)
+        {
+            if (id == null)
+            {
+                return new JsonResult("");
+            }
+
+            var dish = await _context.Dish
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (dish == null)
+            {
+                HttpContext.Response.StatusCode = 400;
+                return new JsonResult("dish doesn't exist");
+            }
+
+            return new JsonResult(new DishInfo(dish.Name, dish.Price, dish.Description, dish.HouseSpecial));
+        }
+
+        
+/*        [Authorize]
         [HttpGet("Restaurant/{id}/Dish/Create")]
         public IActionResult Create(long id)
         {
            
             ViewBag.RestId = id;
             return View();
-        }
+        }*/
 
-        // POST: Dishes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // create new restaurant Dish
+        // FOR DESKTOP APP
         [Authorize]
-        [HttpPost("Restaurant/{id}/Dish/Create"), ActionName("Update")]
+        [HttpPost("Restaurant/create"), ActionName("Create")]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(long id, [FromForm] Dish dish)
+        public async Task<JsonResult> CreateDish([FromBody] DishInfo dishInfo)
         {
-            
 
+            string emailAddress = HttpContext.User.Identity.Name;
+
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefaultAsync();
+
+            Dish newDish = new Dish();
+
+            newDish.Name = dishInfo.Name;
+            newDish.Description = dishInfo.Description;
+            newDish.Price = dishInfo.Price;
+            newDish.HouseSpecial = dishInfo.HouseSpecial;
 
             if (ModelState.IsValid)
             {
-                dish.RestaurantId = id;
-                _context.Add(dish);
+                newDish.RestaurantId = restaurant.Id;
+
+                _context.Add(newDish);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index), new { id = id });
+                //return RedirectToAction(nameof(Index), new { id = id });
             }
-            return View(dish);
+
+            HttpContext.Response.StatusCode = 200;
+            return new JsonResult("Dish successfully created");
         }
 
-        // GET: Dishes/Edit/5
+        // GET edit form for restaurant Dish
+        // FOR DESKTOP APP
         [Authorize]
-        [HttpGet("Restaurant/{restId}/Edit/{id}")]
-        public async Task<IActionResult> Edit(long restId, long? id)
+        [HttpGet("Restaurant/edit/{id}")]
+        public async Task<JsonResult> Edit(long? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var dish = await _context.Dish.FindAsync(id);
+
             if (dish == null)
             {
-                return NotFound();
+                HttpContext.Response.StatusCode = 400;
+                return new JsonResult("Dish not found");
             }
-            var restaurant = await _context.Restaurant
-                .FirstOrDefaultAsync(m => m.Id == restId);
-            ViewBag.Restaurant = restaurant;
-            return View(dish);
+
+            HttpContext.Response.StatusCode = 200;
+            return new JsonResult(new DishInfo(dish.Name, dish.Price, dish.Description, dish.HouseSpecial));
         }
 
-        // POST: Dishes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST
+        // edit restaurant Dish
+        // FOR DESKTOP APP
         [Authorize]
-        [HttpPost("Restaurant/{restId}/Edit/{id}"), ActionName("Update")]
-        public async Task<IActionResult> Edit(long restId, long id, [FromForm] Dish dish)
+        [HttpPost("Restaurant/edit/{id}"), ActionName("Update")]
+        public async Task<IActionResult> EditDish(long id, [FromBody] DishInfo dishInfo)
         {
-            if (id != dish.Id)
-            {
-                return NotFound();
-            }
+            Dish dishToUpdate = await _context.Dish
+                                            .Where(d => d.Id == id)
+                                            .FirstOrDefaultAsync();
+
+            dishToUpdate.Name = dishInfo.Name;
+            dishToUpdate.Price = dishInfo.Price;
+            dishToUpdate.Description = dishInfo.Description;
+            dishToUpdate.HouseSpecial = dishInfo.HouseSpecial;
 
             if (ModelState.IsValid)
             {
-                dish.RestaurantId = restId;
                 try
                 {
-                    _context.Update(dish);
+                    _context.Update(dishToUpdate);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DishExists(dish.Id))
+                    if (!DishExists(dishToUpdate.Id))
                     {
                         return NotFound();
                     }
@@ -138,48 +215,62 @@ namespace RESToran.Controllers
                     {
                         throw;
                     }
-                }
-                return RedirectToAction(nameof(Index), new { id = restId });
+                } 
             }
-            return View(dish);
+
+            HttpContext.Response.StatusCode = 200;
+            return new JsonResult("Dish successfully updated");
         }
 
-        // GET: Dishes/Delete/5
+        /*        // GET: Dishes/Delete/5
+                [Authorize]
+                [HttpGet("Restaurant/{restId}/Dish/Delete/{id}")]
+                public async Task<IActionResult> Delete(long? id, long restId)
+                {
+                    if (id == null)
+                    {
+                        return NotFound();
+                    }
+
+                    var dish = await _context.Dish
+                        .FirstOrDefaultAsync(m => m.Id == id);
+                    if (dish == null)
+                    {
+                        return NotFound();
+                    }
+                    var restaurant = await _context.Restaurant
+                        .FirstOrDefaultAsync(m => m.Id == restId);
+                    ViewBag.Restaurant = restaurant;
+                    return View(dish);
+                }*/
+
+        // DELETE
+        // delete restaurant Dish
+        // FOR DESKTOP APP
         [Authorize]
-        [HttpGet("Restaurant/{restId}/Dish/Delete/{id}")]
-        public async Task<IActionResult> Delete(long? id, long restId)
+        [HttpDelete("Restaurant/delete/{id}"), ActionName("Delete")]
+        public async Task<JsonResult> DeleteDish(long id)
         {
-            if (id == null)
+            Dish dishToDelete = await _context.Dish
+                                           .Where(d => d.Id == id)
+                                           .FirstOrDefaultAsync();
+            if (!DishExists(id))
             {
-                return NotFound();
+                HttpContext.Response.StatusCode = 400;
+                return new JsonResult("Dish doesn't exist");
             }
 
-            var dish = await _context.Dish
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (dish == null)
-            {
-                return NotFound();
-            }
-            var restaurant = await _context.Restaurant
-                .FirstOrDefaultAsync(m => m.Id == restId);
-            ViewBag.Restaurant = restaurant;
-            return View(dish);
-        }
-
-        // POST: Dishes/Delete/5
-        [Authorize]
-        [HttpPost("Restaurant/{restId}/Dish/Delete/{id}"), ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(long id, long restId)
-        {
-            var dish = await _context.Dish.FindAsync(id);
-            _context.Dish.Remove(dish);
+            _context.Dish.Remove(dishToDelete);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index), new { id=restId});
+
+            HttpContext.Response.StatusCode = 200;
+            return new JsonResult("Dish successfully deleted");
         }
 
         private bool DishExists(long id)
         {
             return _context.Dish.Any(e => e.Id == id);
         }
+
     }
 }

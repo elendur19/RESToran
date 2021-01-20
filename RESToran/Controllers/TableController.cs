@@ -227,6 +227,12 @@ namespace RESToran.Controllers
                                             .Where(t => t.Id == id)
                                             .FirstOrDefaultAsync();
 
+            if (!TableExists(id))
+            {
+                HttpContext.Response.StatusCode = 400;
+                return new JsonResult("Table doesn't exist");
+            }
+
             _context.Table.Remove(tableToDelete);
             await _context.SaveChangesAsync();
 

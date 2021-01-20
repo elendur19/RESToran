@@ -22,6 +22,8 @@ namespace RESToran.Models
         [Required]
         public double Price { get; set; }
 
+        public string Description { get; set; }
+
         public bool HouseSpecial { get; set; }
 
         // TODO lista sastojaka
