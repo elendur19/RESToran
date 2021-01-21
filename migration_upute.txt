@@ -1,0 +1,5 @@
+MORAMO BITI NA ENTITY FRAMEWORK CORE-U
+
+Enable-Migrations – ( We need to enable the migration, only then can we do the EF Code First Migration ).
+Add-Migration IntialDb (migration name) – ( Add a migration name and run the command ).
+Update-Database -Verbose — if it is successful then we can see this message (Running Seed method).

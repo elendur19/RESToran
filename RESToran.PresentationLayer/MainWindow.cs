@@ -12,6 +12,7 @@ namespace RESToran.PresentationLayer
 {
     public partial class MainWindow : Form
     {
+        string AuthValue;
         public MainWindow()
         {
             InitializeComponent();
@@ -19,6 +20,13 @@ namespace RESToran.PresentationLayer
             ReservationsPressedPanel.Hide();
             TablesPressedPanel.Hide();
             ProfilePressedPanel.Hide();
+            viewProfileControl1.Hide();
+            editProfileControl1.Hide();
+        }
+
+        public void setAuthValue(string AuthValue)
+        {
+            this.AuthValue = AuthValue;
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -172,12 +180,35 @@ namespace RESToran.PresentationLayer
         {
             ProfilePressedPanel.Hide();
             MenuButtonPanel.Show();
+            viewProfileControl1.Hide();
+            editProfileControl1.Hide();
         }
 
         private void BackButton5_Click(object sender, EventArgs e)
         {
             ProfilePressedPanel.Hide();
             MenuButtonPanel.Show();
+            viewProfileControl1.Hide();
+            editProfileControl1.Hide();
+        }
+
+        private void EditProfileButton_Click(object sender, EventArgs e)
+        {
+            editProfileControl1.setAuthValue(AuthValue);
+            viewProfileControl1.Hide();
+            editProfileControl1.Show();
+        }
+
+        private void ViewProfileButton_Click(object sender, EventArgs e)
+        {
+            viewProfileControl1.setAuthValue(AuthValue);
+            viewProfileControl1.Show();
+            editProfileControl1.Hide();
+        }
+
+        private void viewProfileControl1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

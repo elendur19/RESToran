@@ -86,20 +86,20 @@ namespace RESToran.PresentationLayer
             // 
             this.registerControl1.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.registerControl1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.registerControl1.Location = new System.Drawing.Point(530, 0);
+            this.registerControl1.Location = new System.Drawing.Point(531, 0);
             this.registerControl1.Margin = new System.Windows.Forms.Padding(5);
             this.registerControl1.Name = "registerControl1";
-            this.registerControl1.Size = new System.Drawing.Size(708, 651);
+            this.registerControl1.Size = new System.Drawing.Size(707, 651);
             this.registerControl1.TabIndex = 2;
             this.registerControl1.Load += new System.EventHandler(this.registerControl1_Load);
             // 
             // userControl11
             // 
             this.userControl11.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.userControl11.Location = new System.Drawing.Point(530, 0);
+            this.userControl11.Location = new System.Drawing.Point(531, 0);
             this.userControl11.Margin = new System.Windows.Forms.Padding(5);
             this.userControl11.Name = "userControl11";
-            this.userControl11.Size = new System.Drawing.Size(708, 651);
+            this.userControl11.Size = new System.Drawing.Size(707, 651);
             this.userControl11.TabIndex = 2;
             this.userControl11.Load += new System.EventHandler(this.userControl11_Load);
             // 
