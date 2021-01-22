@@ -30,18 +30,17 @@ namespace RESToran.PresentationLayer
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.ReservationsPressedPanel = new System.Windows.Forms.Panel();
+            this.ReservationsButton2 = new System.Windows.Forms.Button();
+            this.BackButton4 = new System.Windows.Forms.Button();
+            this.ManageReservationsButton = new System.Windows.Forms.Button();
+            this.ViewReservationsButton = new System.Windows.Forms.Button();
             this.FoodPressedPanel = new System.Windows.Forms.Panel();
             this.FoodButton2 = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
             this.AddFoodButton = new System.Windows.Forms.Button();
             this.EditMenuButton = new System.Windows.Forms.Button();
             this.ShowMenuButton = new System.Windows.Forms.Button();
-            this.ReservationsPressedPanel = new System.Windows.Forms.Panel();
-            this.ReservationsButton2 = new System.Windows.Forms.Button();
-            this.BackButton4 = new System.Windows.Forms.Button();
-            this.ManageReservationsButton = new System.Windows.Forms.Button();
-            this.ViewReservationsButton = new System.Windows.Forms.Button();
             this.TablesPressedPanel = new System.Windows.Forms.Panel();
             this.TablesButton2 = new System.Windows.Forms.Button();
             this.BackTablesButton = new System.Windows.Forms.Button();
@@ -58,14 +57,15 @@ namespace RESToran.PresentationLayer
             this.ReservationsButton = new System.Windows.Forms.Button();
             this.TablesButton = new System.Windows.Forms.Button();
             this.FoodButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.editMenuControl1 = new RESToran.PresentationLayer.UserControls.EditMenuControl();
             this.showMenuControl1 = new RESToran.PresentationLayer.UserControls.ShowMenuControl();
             this.addFoodControler1 = new RESToran.PresentationLayer.UserControls.AddFoodControler();
             this.viewProfileControl1 = new RESToran.PresentationLayer.UserControls.ViewProfileControl();
             this.editProfileControl1 = new RESToran.PresentationLayer.UserControls.EditProfileControl();
             this.panel1.SuspendLayout();
-            this.FoodPressedPanel.SuspendLayout();
             this.ReservationsPressedPanel.SuspendLayout();
+            this.FoodPressedPanel.SuspendLayout();
             this.TablesPressedPanel.SuspendLayout();
             this.ProfilePressedPanel.SuspendLayout();
             this.MenuButtonPanel.SuspendLayout();
@@ -87,15 +87,56 @@ namespace RESToran.PresentationLayer
             this.panel1.TabIndex = 4;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // label1
+            // ReservationsPressedPanel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F);
-            this.label1.Location = new System.Drawing.Point(62, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(120, 29);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Welcome";
+            this.ReservationsPressedPanel.Controls.Add(this.ReservationsButton2);
+            this.ReservationsPressedPanel.Controls.Add(this.BackButton4);
+            this.ReservationsPressedPanel.Controls.Add(this.ManageReservationsButton);
+            this.ReservationsPressedPanel.Controls.Add(this.ViewReservationsButton);
+            this.ReservationsPressedPanel.Location = new System.Drawing.Point(26, 298);
+            this.ReservationsPressedPanel.Name = "ReservationsPressedPanel";
+            this.ReservationsPressedPanel.Size = new System.Drawing.Size(203, 193);
+            this.ReservationsPressedPanel.TabIndex = 7;
+            // 
+            // ReservationsButton2
+            // 
+            this.ReservationsButton2.Location = new System.Drawing.Point(0, 0);
+            this.ReservationsButton2.Name = "ReservationsButton2";
+            this.ReservationsButton2.Size = new System.Drawing.Size(201, 47);
+            this.ReservationsButton2.TabIndex = 4;
+            this.ReservationsButton2.Text = "Reservations";
+            this.ReservationsButton2.UseVisualStyleBackColor = true;
+            this.ReservationsButton2.Click += new System.EventHandler(this.ReservationsButton2_Click);
+            // 
+            // BackButton4
+            // 
+            this.BackButton4.Location = new System.Drawing.Point(1, 158);
+            this.BackButton4.Name = "BackButton4";
+            this.BackButton4.Size = new System.Drawing.Size(201, 32);
+            this.BackButton4.TabIndex = 3;
+            this.BackButton4.Text = "Back";
+            this.BackButton4.UseVisualStyleBackColor = true;
+            this.BackButton4.Click += new System.EventHandler(this.BackButton4_Click);
+            // 
+            // ManageReservationsButton
+            // 
+            this.ManageReservationsButton.Location = new System.Drawing.Point(0, 106);
+            this.ManageReservationsButton.Name = "ManageReservationsButton";
+            this.ManageReservationsButton.Size = new System.Drawing.Size(201, 46);
+            this.ManageReservationsButton.TabIndex = 1;
+            this.ManageReservationsButton.Text = "Manage Reservations";
+            this.ManageReservationsButton.UseVisualStyleBackColor = true;
+            this.ManageReservationsButton.Click += new System.EventHandler(this.ManageReservationsButton_Click);
+            // 
+            // ViewReservationsButton
+            // 
+            this.ViewReservationsButton.Location = new System.Drawing.Point(0, 53);
+            this.ViewReservationsButton.Name = "ViewReservationsButton";
+            this.ViewReservationsButton.Size = new System.Drawing.Size(201, 47);
+            this.ViewReservationsButton.TabIndex = 0;
+            this.ViewReservationsButton.Text = "View Reservations";
+            this.ViewReservationsButton.UseVisualStyleBackColor = true;
+            this.ViewReservationsButton.Click += new System.EventHandler(this.ViewReservationsButton_Click);
             // 
             // FoodPressedPanel
             // 
@@ -158,57 +199,6 @@ namespace RESToran.PresentationLayer
             this.ShowMenuButton.Text = "Show Menu";
             this.ShowMenuButton.UseVisualStyleBackColor = true;
             this.ShowMenuButton.Click += new System.EventHandler(this.ShowMenuButton_Click);
-            // 
-            // ReservationsPressedPanel
-            // 
-            this.ReservationsPressedPanel.Controls.Add(this.ReservationsButton2);
-            this.ReservationsPressedPanel.Controls.Add(this.BackButton4);
-            this.ReservationsPressedPanel.Controls.Add(this.ManageReservationsButton);
-            this.ReservationsPressedPanel.Controls.Add(this.ViewReservationsButton);
-            this.ReservationsPressedPanel.Location = new System.Drawing.Point(26, 298);
-            this.ReservationsPressedPanel.Name = "ReservationsPressedPanel";
-            this.ReservationsPressedPanel.Size = new System.Drawing.Size(203, 193);
-            this.ReservationsPressedPanel.TabIndex = 7;
-            // 
-            // ReservationsButton2
-            // 
-            this.ReservationsButton2.Location = new System.Drawing.Point(0, 0);
-            this.ReservationsButton2.Name = "ReservationsButton2";
-            this.ReservationsButton2.Size = new System.Drawing.Size(201, 47);
-            this.ReservationsButton2.TabIndex = 4;
-            this.ReservationsButton2.Text = "Reservations";
-            this.ReservationsButton2.UseVisualStyleBackColor = true;
-            this.ReservationsButton2.Click += new System.EventHandler(this.ReservationsButton2_Click);
-            // 
-            // BackButton4
-            // 
-            this.BackButton4.Location = new System.Drawing.Point(1, 158);
-            this.BackButton4.Name = "BackButton4";
-            this.BackButton4.Size = new System.Drawing.Size(201, 32);
-            this.BackButton4.TabIndex = 3;
-            this.BackButton4.Text = "Back";
-            this.BackButton4.UseVisualStyleBackColor = true;
-            this.BackButton4.Click += new System.EventHandler(this.BackButton4_Click);
-            // 
-            // ManageReservationsButton
-            // 
-            this.ManageReservationsButton.Location = new System.Drawing.Point(0, 106);
-            this.ManageReservationsButton.Name = "ManageReservationsButton";
-            this.ManageReservationsButton.Size = new System.Drawing.Size(201, 46);
-            this.ManageReservationsButton.TabIndex = 1;
-            this.ManageReservationsButton.Text = "Manage Reservations";
-            this.ManageReservationsButton.UseVisualStyleBackColor = true;
-            this.ManageReservationsButton.Click += new System.EventHandler(this.ManageReservationsButton_Click);
-            // 
-            // ViewReservationsButton
-            // 
-            this.ViewReservationsButton.Location = new System.Drawing.Point(0, 53);
-            this.ViewReservationsButton.Name = "ViewReservationsButton";
-            this.ViewReservationsButton.Size = new System.Drawing.Size(201, 47);
-            this.ViewReservationsButton.TabIndex = 0;
-            this.ViewReservationsButton.Text = "View Reservations";
-            this.ViewReservationsButton.UseVisualStyleBackColor = true;
-            this.ViewReservationsButton.Click += new System.EventHandler(this.ViewReservationsButton_Click);
             // 
             // TablesPressedPanel
             // 
@@ -376,6 +366,16 @@ namespace RESToran.PresentationLayer
             this.FoodButton.UseVisualStyleBackColor = true;
             this.FoodButton.Click += new System.EventHandler(this.FoodButton_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F);
+            this.label1.Location = new System.Drawing.Point(62, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(120, 29);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Welcome";
+            // 
             // editMenuControl1
             // 
             this.editMenuControl1.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -432,8 +432,8 @@ namespace RESToran.PresentationLayer
             this.Text = "MainWindow";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.FoodPressedPanel.ResumeLayout(false);
             this.ReservationsPressedPanel.ResumeLayout(false);
+            this.FoodPressedPanel.ResumeLayout(false);
             this.TablesPressedPanel.ResumeLayout(false);
             this.ProfilePressedPanel.ResumeLayout(false);
             this.MenuButtonPanel.ResumeLayout(false);
