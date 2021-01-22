@@ -22,7 +22,7 @@ namespace RESToran.PresentationLayer.UserControls
         }
 
         string AuthValue;
-        List<Dish> result;
+        List<MainCourse> result;
 
         public void setAuthValue(string AuthValue)
         {
@@ -30,7 +30,7 @@ namespace RESToran.PresentationLayer.UserControls
             this.getJsonMenu();
         }
 
-        public class Dish
+        public class MainCourse
         {
             public string Name { get; set; }
             public double Price { get; set; }
@@ -40,11 +40,11 @@ namespace RESToran.PresentationLayer.UserControls
 
         public void getJsonMenu()
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Dish/Restaurant/desktopApp/all");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/MainCourse/Restaurant/desktopApp/all");
             httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
             HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
             string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            result = JsonConvert.DeserializeObject<List<Dish>>(content);
+            result = JsonConvert.DeserializeObject<List<MainCourse>>(content);
             MenuGrid.DataSource = result;
         }
     }

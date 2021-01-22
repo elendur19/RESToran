@@ -14,9 +14,12 @@ namespace RESToran.DataAccess
 
         public DbSet<Restaurant> Restaurant { get; set; }
         public DbSet<Table> Table { get; set; }
-        public DbSet<Dish> Dish { get; set; }
         public DbSet<ReservationPeriod> ReservationPeriod { get; set; }
-
+        public DbSet<Appetizer> Appetizer { get; set; }
+        public DbSet<MainCourse> MainCourse { get; set; }
+        public DbSet<Dessert> Dessert { get; set; }
+        public DbSet<Salad> Salad { get; set; }
+        public DbSet<Drink> Drink { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

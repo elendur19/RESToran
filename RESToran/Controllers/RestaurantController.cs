@@ -120,7 +120,7 @@ namespace RESToran.Controllers
             return NotFound();
         }
     
-    // GET: Restaurant/Edit/5
+        // GET: Restaurant/Edit/5
         [Authorize]
         [HttpGet("info")]
         public async Task<JsonResult> Info()

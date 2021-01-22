@@ -23,15 +23,15 @@ namespace RESToran.PresentationLayer.UserControls
         }
 
         string AuthValue;
-        List<Dish> result;
-        Dish old;
+        List<MainCourse> result;
+        MainCourse old;
         public void setAuthValue(string AuthValue)
         {
             this.AuthValue = AuthValue;
             this.getJsonMenu();
         }
 
-        public class Dish
+        public class MainCourse
         {
             public string Name { get; set; }
             public double Price { get; set; }
@@ -43,11 +43,11 @@ namespace RESToran.PresentationLayer.UserControls
         {
             try
             {
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Dish/Restaurant/desktopApp/all");
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/MainCourse/Restaurant/desktopApp/all");
                 httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
                 HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
                 string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
-                result = JsonConvert.DeserializeObject<List<Dish>>(content);
+                result = JsonConvert.DeserializeObject<List<MainCourse>>(content);
                 MenuGrid.DataSource = result;
             }
             catch (Exception e)
@@ -62,13 +62,13 @@ namespace RESToran.PresentationLayer.UserControls
         {
             if (panel1.Visible)
             {
-                Dish dish = new Dish();
-                dish.Name = NameBox.Text;
-                dish.Price = Convert.ToDouble(PriceBox.Text);
-                dish.Housespecial = HouseSpecialCheckBox.Checked;
-                dish.Description = DescriptionTextBox.Text;
-                string json = Newtonsoft.Json.JsonConvert.SerializeObject(dish);
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Dish/Restaurant/edit");
+                MainCourse MainCourse = new MainCourse();
+                MainCourse.Name = NameBox.Text;
+                MainCourse.Price = Convert.ToDouble(PriceBox.Text);
+                MainCourse.Housespecial = HouseSpecialCheckBox.Checked;
+                MainCourse.Description = DescriptionTextBox.Text;
+                string json = Newtonsoft.Json.JsonConvert.SerializeObject(MainCourse);
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/MainCourse/Restaurant/edit");
                 httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
                 httpWebRequest.Headers["dishName"] = old.Name;
                 httpWebRequest.ContentType = "text/json";
@@ -100,19 +100,19 @@ namespace RESToran.PresentationLayer.UserControls
             else
             {
                 DataGridViewRow row = MenuGrid.CurrentRow;
-                Dish dish = new Dish();
-                dish.Name = (string)row.Cells["Name"].Value;
-                dish.Price = (double)row.Cells["Price"].Value;
-                dish.Description = (string)row.Cells["Description"].Value;
-                dish.Housespecial = (bool)row.Cells["Housespecial"].Value;
-                old = dish;
+                MainCourse MainCourse = new MainCourse();
+                MainCourse.Name = (string)row.Cells["Name"].Value;
+                MainCourse.Price = (double)row.Cells["Price"].Value;
+                MainCourse.Description = (string)row.Cells["Description"].Value;
+                MainCourse.Housespecial = (bool)row.Cells["Housespecial"].Value;
+                old = MainCourse;
                 panel1.Show();
                 MenuGrid.Hide();
                 button1.Text = "Submit";
-                NameBox.Text = dish.Name;
-                PriceBox.Text = (string) dish.Price.ToString();
-                HouseSpecialCheckBox.Checked = dish.Housespecial;
-                DescriptionTextBox.Text = dish.Description;
+                NameBox.Text = MainCourse.Name;
+                PriceBox.Text = (string) MainCourse.Price.ToString();
+                HouseSpecialCheckBox.Checked = MainCourse.Housespecial;
+                DescriptionTextBox.Text = MainCourse.Description;
             }
         }
     }
