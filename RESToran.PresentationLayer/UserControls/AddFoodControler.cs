@@ -1,14 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RESToran.PresentationLayer.UserControls
@@ -19,12 +12,12 @@ namespace RESToran.PresentationLayer.UserControls
         {
             InitializeComponent();
         }
-        public class Dish
+        public class MainCourse
         {
-            /*public Dish(string json)
+            /*public MainCourse(string json)
             {
                 JObject jObject = JObject.Parse(json);
-                JToken jDish = jObject["dish"];
+                JToken jDish = jObject["MainCourse"];
                 Name = (string)jDish["Name"];
                 Price = (double)jDish["Price"];
                 Description = (string)jDish["Description"];
@@ -38,7 +31,7 @@ namespace RESToran.PresentationLayer.UserControls
         }
 
         string AuthValue;
-        Dish dish;
+        MainCourse mainCourse;
         public void setAuthValue(string AuthValue)
         {
             this.AuthValue = AuthValue;
@@ -46,17 +39,17 @@ namespace RESToran.PresentationLayer.UserControls
 
         private void SubmitButton_Click_1(object sender, EventArgs e)
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Dish/Restaurant/create");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/MainCourse/Restaurant/create");
             httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
             httpWebRequest.ContentType = "text/json";
             httpWebRequest.Accept = "*/*";
             httpWebRequest.Method = "POST";
-            dish = new Dish();
-            dish.Name = NameBox.Text;
-            dish.Price = Convert.ToDouble(PriceBox.Text);
-            dish.Description = DescriptionTextBox.Text;
-            dish.Housespecial = HouseSpecialCheckBox.Checked;
-            string json = Newtonsoft.Json.JsonConvert.SerializeObject(dish);
+            mainCourse = new MainCourse();
+            mainCourse.Name = NameBox.Text;
+            mainCourse.Price = Convert.ToDouble(PriceBox.Text);
+            mainCourse.Description = DescriptionTextBox.Text;
+            mainCourse.Housespecial = HouseSpecialCheckBox.Checked;
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(mainCourse);
             httpWebRequest.ContentLength = Encoding.ASCII.GetBytes(json).Length;
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))

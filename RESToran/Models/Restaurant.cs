@@ -29,6 +29,6 @@ namespace RESToran.Models
 
         public List<Table> Tables { get; set; }
 
-        public List<Dish> Dishes { get; set; }
+        public List<MainCourse> MainCourses { get; set; }
     }
 }

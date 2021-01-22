@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace RESToran.Models
 {
-    public abstract class Dish
+    public class Salad
     {
         public long Id { get; set; }
 
@@ -19,5 +20,7 @@ namespace RESToran.Models
         public string Description { get; set; }
 
         public bool HouseSpecial { get; set; }
+
+        public string Topping { get; set; }
     }
 }

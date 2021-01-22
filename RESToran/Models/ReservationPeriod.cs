@@ -7,6 +7,7 @@ namespace RESToran.Models
     public class ReservationPeriod
     {
         public long Id { get; set; }
+
         [ForeignKey("Restaurant_id")]
         public long RestaurantId { get; set; }
 
