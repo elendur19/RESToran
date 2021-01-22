@@ -25,6 +25,9 @@ namespace RESToran.PresentationLayer
             addFoodControler1.Hide();
             showMenuControl1.Hide();
             editMenuControl1.Hide();
+            viewTablesControl1.Hide();
+            addTablesControl1.Hide();
+            editTablesControl1.Hide();
 
         }
 
@@ -112,20 +115,35 @@ namespace RESToran.PresentationLayer
         {
             TablesPressedPanel.Hide();
             MenuButtonPanel.Show();
+            addTablesControl1.Hide();
+            editTablesControl1.Hide();
+
         }
 
         private void ViewTablesButton_Click(object sender, EventArgs e)
         {
+            viewTablesControl1.Show();
+            viewTablesControl1.setAuthValue(AuthValue);
+            addTablesControl1.Hide();
+            editTablesControl1.Hide();
 
         }
 
         private void ManageTablesButton_Click(object sender, EventArgs e)
         {
+            viewTablesControl1.Hide();
+            addTablesControl1.Hide();
+            editTablesControl1.setAuthValue(AuthValue);
+            editTablesControl1.Show();
 
         }
 
         private void AddTablesButton_Click(object sender, EventArgs e)
         {
+            viewTablesControl1.Hide();
+            addTablesControl1.Show();
+            addTablesControl1.setAuthValue(AuthValue);
+            editTablesControl1.Hide();
 
         }
 
@@ -133,6 +151,10 @@ namespace RESToran.PresentationLayer
         {
             TablesPressedPanel.Hide();
             MenuButtonPanel.Show();
+            viewTablesControl1.Hide();
+            addTablesControl1.Hide();
+            editTablesControl1.Hide();
+
         }
 
         private void ReservationsButton2_Click(object sender, EventArgs e)

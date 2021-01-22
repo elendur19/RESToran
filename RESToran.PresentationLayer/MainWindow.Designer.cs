@@ -58,11 +58,14 @@ namespace RESToran.PresentationLayer
             this.TablesButton = new System.Windows.Forms.Button();
             this.FoodButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.addTablesControl1 = new RESToran.PresentationLayer.UserControls.AddTablesControl();
+            this.viewTablesControl1 = new RESToran.PresentationLayer.UserControls.ViewTablesControl();
             this.editMenuControl1 = new RESToran.PresentationLayer.UserControls.EditMenuControl();
             this.showMenuControl1 = new RESToran.PresentationLayer.UserControls.ShowMenuControl();
             this.addFoodControler1 = new RESToran.PresentationLayer.UserControls.AddFoodControler();
             this.viewProfileControl1 = new RESToran.PresentationLayer.UserControls.ViewProfileControl();
             this.editProfileControl1 = new RESToran.PresentationLayer.UserControls.EditProfileControl();
+            this.editTablesControl1 = new RESToran.PresentationLayer.UserControls.EditTablesControl();
             this.panel1.SuspendLayout();
             this.ReservationsPressedPanel.SuspendLayout();
             this.FoodPressedPanel.SuspendLayout();
@@ -207,7 +210,7 @@ namespace RESToran.PresentationLayer
             this.TablesPressedPanel.Controls.Add(this.AddTablesButton);
             this.TablesPressedPanel.Controls.Add(this.ManageTablesButton);
             this.TablesPressedPanel.Controls.Add(this.ViewTablesButton);
-            this.TablesPressedPanel.Location = new System.Drawing.Point(27, 295);
+            this.TablesPressedPanel.Location = new System.Drawing.Point(41, 48);
             this.TablesPressedPanel.Name = "TablesPressedPanel";
             this.TablesPressedPanel.Size = new System.Drawing.Size(203, 241);
             this.TablesPressedPanel.TabIndex = 6;
@@ -376,6 +379,21 @@ namespace RESToran.PresentationLayer
             this.label1.TabIndex = 1;
             this.label1.Text = "Welcome";
             // 
+            // addTablesControl1
+            // 
+            this.addTablesControl1.Location = new System.Drawing.Point(323, 0);
+            this.addTablesControl1.Name = "addTablesControl1";
+            this.addTablesControl1.Size = new System.Drawing.Size(832, 733);
+            this.addTablesControl1.TabIndex = 11;
+            // 
+            // viewTablesControl1
+            // 
+            this.viewTablesControl1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.viewTablesControl1.Location = new System.Drawing.Point(323, 0);
+            this.viewTablesControl1.Name = "viewTablesControl1";
+            this.viewTablesControl1.Size = new System.Drawing.Size(832, 733);
+            this.viewTablesControl1.TabIndex = 10;
+            // 
             // editMenuControl1
             // 
             this.editMenuControl1.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -417,11 +435,22 @@ namespace RESToran.PresentationLayer
             this.editProfileControl1.Size = new System.Drawing.Size(832, 733);
             this.editProfileControl1.TabIndex = 5;
             // 
+            // editTablesControl1
+            // 
+            this.editTablesControl1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.editTablesControl1.Location = new System.Drawing.Point(323, 0);
+            this.editTablesControl1.Name = "editTablesControl1";
+            this.editTablesControl1.Size = new System.Drawing.Size(832, 733);
+            this.editTablesControl1.TabIndex = 12;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1155, 733);
+            this.Controls.Add(this.editTablesControl1);
+            this.Controls.Add(this.addTablesControl1);
+            this.Controls.Add(this.viewTablesControl1);
             this.Controls.Add(this.editMenuControl1);
             this.Controls.Add(this.showMenuControl1);
             this.Controls.Add(this.addFoodControler1);
@@ -477,5 +506,8 @@ namespace RESToran.PresentationLayer
         private UserControls.AddFoodControler addFoodControler1;
         private UserControls.ShowMenuControl showMenuControl1;
         private UserControls.EditMenuControl editMenuControl1;
+        private UserControls.ViewTablesControl viewTablesControl1;
+        private UserControls.AddTablesControl addTablesControl1;
+        private UserControls.EditTablesControl editTablesControl1;
     }
 }

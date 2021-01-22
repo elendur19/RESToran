@@ -76,6 +76,12 @@
     <Compile Include="UserControls\AddFoodControler.Designer.cs">
       <DependentUpon>AddFoodControler.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AddTablesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AddTablesControl.Designer.cs">
+      <DependentUpon>AddTablesControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\LoginControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -126,11 +132,26 @@
     <Compile Include="UserControls\ViewProfileControl.Designer.cs">
       <DependentUpon>ViewProfileControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\EditTablesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\EditTablesControl.Designer.cs">
+      <DependentUpon>EditTablesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ViewTablesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ViewTablesControl.Designer.cs">
+      <DependentUpon>ViewTablesControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\AddFoodControler.resx">
       <DependentUpon>AddFoodControler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\AddTablesControl.resx">
+      <DependentUpon>AddTablesControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\LoginControl.resx">
       <DependentUpon>LoginControl.cs</DependentUpon>
@@ -164,6 +185,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ViewProfileControl.resx">
       <DependentUpon>ViewProfileControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\EditTablesControl.resx">
+      <DependentUpon>EditTablesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ViewTablesControl.resx">
+      <DependentUpon>ViewTablesControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
