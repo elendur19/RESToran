@@ -47,9 +47,9 @@ namespace RESToran.PresentationLayer
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
                 if (httpResponse.StatusCode.ToString() == "OK")
                 {
-                    MessageBox.Show(httpResponse.GetResponseHeader("AuthValue"));
                     resultLabel.Text = "SUCCESS";
                     MainWindow mainWindow = new MainWindow();
+                    mainWindow.setAuthValue(httpResponse.GetResponseHeader("AuthValue"));
                     this.Parent.Hide();
                     mainWindow.Show();
                 }
