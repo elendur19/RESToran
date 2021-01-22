@@ -3,12 +3,12 @@
 @{
     ViewData["Title"] = "Details";
 }
-
+<link href="~/css/Restaurat_detail.css" rel="stylesheet" type="text/css">
 <h2>@Html.DisplayFor(model => model.Name)</h2>
 
 <p style="text-align:right">
-    <a class="mr-2" asp-controller="Dish" asp-route-id="@Model.Id" asp-action="Index">Dishes</a>
-    <a asp-controller="ReservationPeriod" asp-route-id="@Model.Id" asp-action="Index">Make Reservation</a>
+    <a class="mr-2 btn btn-primary btn-lg" role="button" aria-disabled="true" asp-controller="Dish" asp-route-id="@Model.Id" asp-action="Index">Dishes</a>
+    <a class="btn btn-primary btn-lg" role="button" aria-disabled="true" asp-controller="ReservationPeriod" asp-route-id="@Model.Id" asp-action="Index">Make Reservation</a>
 </p>
 
 <div>
@@ -42,7 +42,5 @@
     </dl>
 </div>
 <div>
-    <a class="float-right" asp-controller="Table" asp-route-id="@Model.Id" asp-action="Index">List of Tables</a>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary btn-lg" role="button" aria-disabled="true" asp-action="Index">Back to List</a>
 </div>
