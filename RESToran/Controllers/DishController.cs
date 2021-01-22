@@ -206,12 +206,6 @@ namespace RESToran.Controllers
                                         .FirstOrDefaultAsync();
 
             string dishName = Request.Headers["dishName"];
-            // check if dish exists in database
-            if (checkDishNameInSameRestaurant(dishInfo.Name, restaurant.Id))
-            {
-                HttpContext.Response.StatusCode = 400;
-                return new JsonResult("Dish " + dishInfo.Name + " already exists in restaurant");
-            }
 
             Dish dishToUpdate = await _context.Dish
                                             .Where(d => d.Name.Equals(dishName))

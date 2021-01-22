@@ -22,6 +22,10 @@ namespace RESToran.PresentationLayer
             ProfilePressedPanel.Hide();
             viewProfileControl1.Hide();
             editProfileControl1.Hide();
+            addFoodControler1.Hide();
+            showMenuControl1.Hide();
+            editMenuControl1.Hide();
+
         }
 
         public void setAuthValue(string AuthValue)
@@ -51,6 +55,9 @@ namespace RESToran.PresentationLayer
         {
             FoodPressedPanel.Hide();
             MenuButtonPanel.Show();
+            addFoodControler1.Hide();
+            showMenuControl1.Hide();
+            editMenuControl1.Hide();
         }
 
 
@@ -58,20 +65,36 @@ namespace RESToran.PresentationLayer
         {
             FoodPressedPanel.Hide();
             MenuButtonPanel.Show();
+            addFoodControler1.Hide();
+            showMenuControl1.Hide();
+            editMenuControl1.Hide();
+
         }
 
         private void ShowMenuButton_Click(object sender, EventArgs e)
         {
+            addFoodControler1.Hide();
+            showMenuControl1.setAuthValue(AuthValue);
+            showMenuControl1.Show();
+            editMenuControl1.Hide();
 
         }
 
         private void EditMenuButton_Click(object sender, EventArgs e)
         {
+            addFoodControler1.Hide();
+            showMenuControl1.Hide();
+            editMenuControl1.Show();
+            editMenuControl1.setAuthValue(AuthValue);
 
         }
 
         private void AddFoodButton_Click(object sender, EventArgs e)
         {
+            addFoodControler1.setAuthValue(AuthValue);
+            addFoodControler1.Show();
+            showMenuControl1.Hide();
+            editMenuControl1.Hide();
 
         }
 
@@ -206,7 +229,7 @@ namespace RESToran.PresentationLayer
             editProfileControl1.Hide();
         }
 
-        private void viewProfileControl1_Load(object sender, EventArgs e)
+        private void showMenuControl1_Load(object sender, EventArgs e)
         {
 
         }
