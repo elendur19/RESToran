@@ -22,7 +22,7 @@ namespace RESToran.Controllers
             _context = context;
         }
 
-        // GET: Tables from one of the restaurants
+        // GET: All Tables from one of the restaurants
         [Authorize]
         [HttpGet("Restaurant/all")]
         public async Task<JsonResult> AllTables()
@@ -54,26 +54,29 @@ namespace RESToran.Controllers
             return new JsonResult(tablesToReturn);
         }
 
-        // GET: api/Table/Restaurant/1/Table/1/Info
+        // GET: Table info
+        // FOR DESKTOP APP
         [Authorize]
-        [HttpGet("Restaurant/{id}/info")]
+        [HttpGet("Restaurant/info")]
         public async Task<JsonResult> Info(long? id)
         {
-          
-            // no table id in url
-            if (id == null)
-            {
-                return new JsonResult("");
-            }
+            string emailAddress = HttpContext.User.Identity.Name;
+
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefaultAsync();
+
+            string tableNumber = Request.Headers["tableNumber"];
+
+            string restName_TableNumber = restaurant.Name + " " + tableNumber;
 
             var table = await _context.Table
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(t => t.RestName_Number.Equals(restName_TableNumber));
 
             if (table == null)
             {
-                return new JsonResult("table doesn't exist");
+                return new JsonResult("Table doesn't exist");
             }
-
 
             return new JsonResult(new TableInfo(table.Description, table.RestName_Number, table.NumberOfSeats));
         }
@@ -131,13 +134,25 @@ namespace RESToran.Controllers
             return new JsonResult("Table successfully created");
         }
 
-        // GET: api/Table/Restaurant/1/Edit/1
+        // GET: Table info
+
         [Authorize]
-        [HttpGet("Restaurant/edit/{id}")]
+        [HttpGet("Restaurant/edit")]
         public async Task<JsonResult> Edit(long? id)
         {
- 
-            var table = await _context.Table.FindAsync(id);
+
+            string emailAddress = HttpContext.User.Identity.Name;
+
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefaultAsync();
+
+            string tableNumber = Request.Headers["tableNumber"];
+
+            string restName_TableNumber = restaurant.Name + " " + tableNumber;
+
+            var table = await _context.Table
+                .FirstOrDefaultAsync(t => t.RestName_Number.Equals(restName_TableNumber));
 
             if (table == null)
             {
@@ -149,17 +164,29 @@ namespace RESToran.Controllers
             return new JsonResult(new TableInfo(table.Description, table.RestName_Number, table.NumberOfSeats));
         }
 
-        // POST: api/Table/Restaurant/1/Edit/1
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Update Table info
+        // FOR DESKTOP APP
         [Authorize]
-        [HttpPost("Restaurant/edit/{id}"), ActionName("Update")]
+        [HttpPost("Restaurant/edit"), ActionName("Update")]
         public async Task<IActionResult> Edit(long id, [FromBody] TableInfo tableInfo)
         {
+            string emailAddress = HttpContext.User.Identity.Name;
+
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefaultAsync();
+
+            string tableNumber = Request.Headers["tableNumber"];
+
+            string restName_TableNumber = restaurant.Name + " " + tableNumber;
 
             Table tableToUpdate = await _context.Table
-                                            .Where(t => t.Id == id)
-                                            .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(t => t.RestName_Number.Equals(restName_TableNumber));
+
+            if (tableToUpdate == null)
+            {
+                return new JsonResult("Table doesn't exist");
+            }
 
             if (tableInfo.Description == null)
             {
@@ -220,16 +247,25 @@ namespace RESToran.Controllers
 
         // DELETE: delete table with id
         [Authorize]
-        [HttpDelete("Restaurant/delete/{id}"), ActionName("Delete")] 
+        [HttpDelete("Restaurant/delete"), ActionName("Delete")] 
         public async Task<JsonResult> DeleteTable(long id)
         {
-            Table tableToDelete = await _context.Table
-                                            .Where(t => t.Id == id)
-                                            .FirstOrDefaultAsync();
 
-            if (!TableExists(id))
+            string emailAddress = HttpContext.User.Identity.Name;
+
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefaultAsync();
+
+            string tableNumber = Request.Headers["tableNumber"];
+
+            string restName_TableNumber = restaurant.Name + " " + tableNumber;
+
+            Table tableToDelete = await _context.Table
+                .FirstOrDefaultAsync(t => t.RestName_Number.Equals(restName_TableNumber));
+
+            if (tableToDelete == null)
             {
-                HttpContext.Response.StatusCode = 400;
                 return new JsonResult("Table doesn't exist");
             }
 
