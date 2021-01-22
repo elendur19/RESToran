@@ -30,10 +30,14 @@ namespace RESToran.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             ViewBag.Restaurant = restaurant;
 
+            var table = await _context.Table.Where(rt => rt.RestaurantId == id).ToListAsync();
+            ViewBag.Tables = table;
+
             // get reservation periods for restaurant with id from url
             var restaurantReservationPeriods = await _context.ReservationPeriod
                         .Where(rp => rp.RestaurantId == id)
                         .ToListAsync();
+
 
 
             return View(restaurantReservationPeriods);
