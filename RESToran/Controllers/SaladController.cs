@@ -164,6 +164,7 @@ namespace RESToran.Controllers
             saladToUpdate.Price = saladInfo.Price;
             saladToUpdate.Description = saladInfo.Description;
             saladToUpdate.HouseSpecial = saladInfo.HouseSpecial;
+            saladToUpdate.Topping = saladInfo.Topping;
 
             if (ModelState.IsValid)
             {
