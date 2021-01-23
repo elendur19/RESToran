@@ -162,11 +162,6 @@ C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\RESToran.TagHelp
 C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\RESToran.TagHelpers.output.cache
 C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\RESToran.RazorCoreGenerate.cache
 C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Pages\_ValidationScriptsPartial.cshtml.g.cs
-C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\Dish\Create.cshtml.g.cs
-C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\Dish\Delete.cshtml.g.cs
-C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\Dish\Details.cshtml.g.cs
-C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\Dish\Edit.cshtml.g.cs
-C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\Dish\Index.cshtml.g.cs
 C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\ReservationPeriod\Create.cshtml.g.cs
@@ -628,3 +623,8 @@ C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\ref\RESToran.dll
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\RESToran.pdb
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\RESToran.genruntimeconfig.cache
+C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\MainCourse\Create.cshtml.g.cs
+C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\MainCourse\Delete.cshtml.g.cs
+C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\MainCourse\Details.cshtml.g.cs
+C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\MainCourse\Edit.cshtml.g.cs
+C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\MainCourse\Index.cshtml.g.cs

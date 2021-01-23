@@ -172,14 +172,20 @@ namespace RESToran.Controllers
                         int month = int.Parse(pom.Substring(5, 2));
                         int day = int.Parse(pom.Substring(8, 2));
 
+
+                        string str_day = day.ToString("D2");
+                        string str_month = month.ToString("D2");
+                        string str_year = year.ToString("D4");
+
                         // formatiraj datum dd/MM/yyyy
 
-                        reservationPeriod.Date = day + "/" + month + "/" + year;
+                        reservationPeriod.Date = str_day + "/" + str_month + "/" + str_year;
 
                         string reservationPeriodDate = period.Date;
-                        int rpYear = int.Parse(reservationPeriodDate.Substring(0, 4));
-                        int rpMonth = int.Parse(reservationPeriodDate.Substring(5, 2));
-                        int rpDay = int.Parse(reservationPeriodDate.Substring(8, 2));
+
+                        int rpYear = int.Parse(reservationPeriodDate.Substring(6, 4));
+                        int rpMonth = int.Parse(reservationPeriodDate.Substring(3, 2));
+                        int rpDay = int.Parse(reservationPeriodDate.Substring(0, 2));
 
                         bool sameDay = (year == rpYear && month == rpMonth && day == rpDay); 
                         //if (NewPeriodMinuteStart >= NewPeriodMinuteEnd) break;
@@ -221,6 +227,19 @@ namespace RESToran.Controllers
                     }
                 } else
                 {
+                    pom = reservationPeriod.Date;
+
+                    int year = int.Parse(pom.Substring(0, 4));
+                    int month = int.Parse(pom.Substring(5, 2));
+                    int day = int.Parse(pom.Substring(8, 2));
+
+                    string str_day = day.ToString("D2");
+                    string str_month = month.ToString("D2");
+                    string str_year = year.ToString("D4");
+
+                    // formatiraj datum dd/MM/yyyy
+
+                    reservationPeriod.Date = str_day + "/" + str_month + "/" + str_year;
                     // uopce ne postoji rezervation period za ovaj stol, odmah rezerviraj stol
                     reservationPeriod.TableId = table.Id;
                     found = true;
