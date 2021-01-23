@@ -150,12 +150,13 @@ namespace RESToran.Controllers
                 return new JsonResult("MainCourse "  + mainCourseInfo.Name + " already exists in restaurant");
             }
 
-            MainCourse newMainCourse = new MainCourse();
-
-            newMainCourse.Name = mainCourseInfo.Name;
-            newMainCourse.Description = mainCourseInfo.Description;
-            newMainCourse.Price = mainCourseInfo.Price;
-            newMainCourse.HouseSpecial = mainCourseInfo.HouseSpecial;
+            MainCourse newMainCourse = new MainCourse
+            {
+                Name = mainCourseInfo.Name,
+                Description = mainCourseInfo.Description,
+                Price = mainCourseInfo.Price,
+                HouseSpecial = mainCourseInfo.HouseSpecial
+            };
 
             if (ModelState.IsValid)
             {
