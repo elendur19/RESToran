@@ -65,6 +65,7 @@ namespace RESToran.PresentationLayer
             this.EditProfileButton = new System.Windows.Forms.Button();
             this.ViewProfileButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.viewReservationsControl1 = new RESToran.PresentationLayer.UserControls.ViewReservationsControl();
             this.editTablesControl1 = new RESToran.PresentationLayer.UserControls.EditTablesControl();
             this.addTablesControl1 = new RESToran.PresentationLayer.UserControls.AddTablesControl();
             this.viewTablesControl1 = new RESToran.PresentationLayer.UserControls.ViewTablesControl();
@@ -73,7 +74,7 @@ namespace RESToran.PresentationLayer
             this.addFoodControler1 = new RESToran.PresentationLayer.UserControls.AddFoodControler();
             this.viewProfileControl1 = new RESToran.PresentationLayer.UserControls.ViewProfileControl();
             this.editProfileControl1 = new RESToran.PresentationLayer.UserControls.EditProfileControl();
-            this.viewReservationsControl1 = new RESToran.PresentationLayer.UserControls.ViewReservationsControl();
+            this.manageReservationsControl1 = new RESToran.PresentationLayer.UserControls.ManageReservationsControl();
             this.panel1.SuspendLayout();
             this.MenuPanel.SuspendLayout();
             this.MenuButtonPanel.SuspendLayout();
@@ -465,6 +466,14 @@ namespace RESToran.PresentationLayer
             this.label1.TabIndex = 1;
             this.label1.Text = "Welcome";
             // 
+            // viewReservationsControl1
+            // 
+            this.viewReservationsControl1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.viewReservationsControl1.Location = new System.Drawing.Point(323, 0);
+            this.viewReservationsControl1.Name = "viewReservationsControl1";
+            this.viewReservationsControl1.Size = new System.Drawing.Size(832, 733);
+            this.viewReservationsControl1.TabIndex = 13;
+            // 
             // editTablesControl1
             // 
             this.editTablesControl1.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -529,18 +538,20 @@ namespace RESToran.PresentationLayer
             this.editProfileControl1.Size = new System.Drawing.Size(832, 733);
             this.editProfileControl1.TabIndex = 5;
             // 
-            // viewReservationsControl1
+            // manageReservationsControl1
             // 
-            this.viewReservationsControl1.Location = new System.Drawing.Point(323, 0);
-            this.viewReservationsControl1.Name = "viewReservationsControl1";
-            this.viewReservationsControl1.Size = new System.Drawing.Size(832, 733);
-            this.viewReservationsControl1.TabIndex = 13;
+            this.manageReservationsControl1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.manageReservationsControl1.Location = new System.Drawing.Point(323, 0);
+            this.manageReservationsControl1.Name = "manageReservationsControl1";
+            this.manageReservationsControl1.Size = new System.Drawing.Size(832, 733);
+            this.manageReservationsControl1.TabIndex = 14;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1155, 733);
+            this.Controls.Add(this.manageReservationsControl1);
             this.Controls.Add(this.viewReservationsControl1);
             this.Controls.Add(this.editTablesControl1);
             this.Controls.Add(this.addTablesControl1);
@@ -612,5 +623,6 @@ namespace RESToran.PresentationLayer
         private System.Windows.Forms.Button DesertButton;
         private System.Windows.Forms.Button AppetizerButton;
         private UserControls.ViewReservationsControl viewReservationsControl1;
+        private UserControls.ManageReservationsControl manageReservationsControl1;
     }
 }

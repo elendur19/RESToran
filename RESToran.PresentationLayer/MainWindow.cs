@@ -31,6 +31,7 @@ namespace RESToran.PresentationLayer
             addTablesControl1.Hide();
             editTablesControl1.Hide();
             viewReservationsControl1.Hide();
+            manageReservationsControl1.Hide();
         }
 
         public void setAuthValue(string AuthValue)
@@ -166,18 +167,22 @@ namespace RESToran.PresentationLayer
             ReservationsPressedPanel.Hide();
             viewReservationsControl1.Hide();
             MenuButtonPanel.Show();
+            manageReservationsControl1.Hide();
         }
 
         private void ViewReservationsButton_Click(object sender, EventArgs e)
         {
             viewReservationsControl1.setAuthValue(AuthValue);
             viewReservationsControl1.Show();
+            manageReservationsControl1.Hide();
 
         }
 
         private void ManageReservationsButton_Click(object sender, EventArgs e)
         {
             viewReservationsControl1.Hide();
+            manageReservationsControl1.setAuthValue(AuthValue);
+            manageReservationsControl1.Show();
         }
 
         private void BackButton4_Click(object sender, EventArgs e)
@@ -185,6 +190,7 @@ namespace RESToran.PresentationLayer
             ReservationsPressedPanel.Hide();
             MenuButtonPanel.Show();
             viewReservationsControl1.Hide();
+            manageReservationsControl1.Hide();
         }
 
         private void TablesButton_Click(object sender, EventArgs e)
