@@ -345,7 +345,7 @@ namespace RESToran.Controllers
 
             List<ReservationPeriodInfo> reservationPeriodsToReturn = new List<ReservationPeriodInfo>();
 
-            string rpDate = Request.Headers["date"];
+            string rpDate = Request.Headers["dateReservation"];
 
             // get reservation periods for restaurant with email on date
             var restaurantReservationPeriods = await _context.ReservationPeriod
