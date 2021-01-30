@@ -6,13 +6,13 @@
     string startTime = ViewBag.StartTime;
     string endTime = ViewBag.EndStart;
 }
+<link href="~/css/bad_req.css" rel="stylesheet" type="text/css">
 
-<h3 class="text-center" style="color:blue">@restaurant.Name</h3>
-
-<p class="mt-40">Invalid Time has been entered.Start time: @startTime end time: @endTime.
+<p class="mt-40 f-s-20">Invalid Time has been entered.
+        Start time: @startTime end time: @endTime.
 <br /> Start time must be before end time! Please try another period.</p>
 
 
 <div>
-    <a asp-action="Create" asp-route-id="@restaurant.Id" class="btn btn-primary float-right mt-5">Try again</a>
+    <a asp-action="Create" asp-route-id="@restaurant.Id" class="btn btn-dark float-right mt-3">Try again</a>
 </div>

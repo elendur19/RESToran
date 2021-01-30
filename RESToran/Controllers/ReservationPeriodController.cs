@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RESToran.DataAccess;
+using RESToran.DataClasses;
 using RESToran.Models;
 
 namespace RESToran.Controllers
@@ -115,10 +117,24 @@ namespace RESToran.Controllers
                     date = reservationPeriod.Date
                 });
             }
-            
+
+            string pom;
+            pom = reservationPeriod.Date;
+
+            int year = int.Parse(pom.Substring(0, 4));
+            int month = int.Parse(pom.Substring(5, 2));
+            int day = int.Parse(pom.Substring(8, 2));
+
+
+            string str_day = day.ToString("D2");
+            string str_month = month.ToString("D2");
+            string str_year = year.ToString("D4");
+
+            // formatiraj datum dd/MM/yyyy
+            reservationPeriod.Date = str_day + "/" + str_month + "/" + str_year;
 
             // provjeri je li start time veci od end time-a
-            string pom;
+
             pom = reservationPeriod.StartTime.ToString("HH:mm");
             int NewPeriodMinuteStart = int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
             pom = reservationPeriod.EndTime.ToString("HH:mm");
@@ -166,22 +182,12 @@ namespace RESToran.Controllers
                     foreach (ReservationPeriod period in reservationPeriods)
                     {
 
-                        pom = reservationPeriod.Date;
-
-                        int year = int.Parse(pom.Substring(0, 4));
-                        int month = int.Parse(pom.Substring(5, 2));
-                        int day = int.Parse(pom.Substring(8, 2));
-
-
-                        string str_day = day.ToString("D2");
-                        string str_month = month.ToString("D2");
-                        string str_year = year.ToString("D4");
-
-                        // formatiraj datum dd/MM/yyyy
-
-                        reservationPeriod.Date = str_day + "/" + str_month + "/" + str_year;
-
-                        string reservationPeriodDate = period.Date;
+                        string reservationPeriodDate = reservationPeriod.Date;
+                        // get database reservation Period info
+                        string dbReservatinPeriodDate = period.Date;
+                        int dbYear = int.Parse(dbReservatinPeriodDate.Substring(6, 4));
+                        int dbMonth = int.Parse(dbReservatinPeriodDate.Substring(3, 2));
+                        int dbDay = int.Parse(dbReservatinPeriodDate.Substring(0, 2));
 
                         int rpYear = int.Parse(reservationPeriodDate.Substring(6, 4));
                         int rpMonth = int.Parse(reservationPeriodDate.Substring(3, 2));
@@ -229,13 +235,13 @@ namespace RESToran.Controllers
                 {
                     pom = reservationPeriod.Date;
 
-                    int year = int.Parse(pom.Substring(0, 4));
-                    int month = int.Parse(pom.Substring(5, 2));
-                    int day = int.Parse(pom.Substring(8, 2));
+                    int yearToSave = int.Parse(pom.Substring(0, 4));
+                    int monthToSave = int.Parse(pom.Substring(5, 2));
+                    int dayToSave = int.Parse(pom.Substring(8, 2));
 
-                    string str_day = day.ToString("D2");
-                    string str_month = month.ToString("D2");
-                    string str_year = year.ToString("D4");
+                    string str_dayToSave = day.ToString("D2");
+                    string str_monthToSave = month.ToString("D2");
+                    string str_yearToSave = year.ToString("D4");
 
                     // formatiraj datum dd/MM/yyyy
 
@@ -258,7 +264,6 @@ namespace RESToran.Controllers
                 });
             }
 
-            //reservationPeriod.TableId = 19;
             reservationPeriod.RestaurantId = id;
 
             if (ModelState.IsValid)
@@ -281,7 +286,7 @@ namespace RESToran.Controllers
             ViewBag.Restaurant = restaurant;
 
             string dateString = date.ToString("D",
-                   CultureInfo.CreateSpecificCulture("hr-HR"));
+                   CultureInfo.CreateSpecificCulture("en-USR"));
 
             ViewBag.Date = dateString;
 
@@ -297,9 +302,9 @@ namespace RESToran.Controllers
             ViewBag.Restaurant = restaurant;
 
             string startTimeString = startTime.ToString("t",
-                  CultureInfo.CreateSpecificCulture("hr-HR"));
+                  CultureInfo.CreateSpecificCulture("en-US"));
             string endTimeString = endTime.ToString("t",
-                  CultureInfo.CreateSpecificCulture("hr-HR"));
+                  CultureInfo.CreateSpecificCulture("en-US"));
 
             ViewBag.StartTime = startTimeString;
             ViewBag.EndStart = endTimeString;
@@ -316,96 +321,79 @@ namespace RESToran.Controllers
             ViewBag.Restaurant = restaurant;
 
             string dateString = date.ToString("D",
-                  CultureInfo.CreateSpecificCulture("hr-HR"));
+                  CultureInfo.CreateSpecificCulture("en-US"));
             string startTimeString  = startTime.ToString("t",
-                  CultureInfo.CreateSpecificCulture("hr-HR"));
+                  CultureInfo.CreateSpecificCulture("en-US"));
             string endTimeString = endTime.ToString("t",
-                  CultureInfo.CreateSpecificCulture("hr-HR"));
+                  CultureInfo.CreateSpecificCulture("en-US"));
 
-            ViewBag.Date = dateString;
+            ViewBag.Date = date;
 
-            ViewBag.StartTime = startTimeString;
-            ViewBag.EndStart = endTimeString;
+            ViewBag.StartTime = startTime;
+            ViewBag.EndStart = endTime;
 
             return View();
         }
 
-        // GET: ReservationPeriod/Edit/5
-        [HttpGet("Restaurant/{restId}/ReservationPeriod/Edit/{id}")]
-        public async Task<IActionResult> Edit(long? id, long restId)
+        // GET SA DATUMOM
+        // ZA DESKTOP APP
+        [Authorize]
+        [HttpGet("Restaurant/date/all")]
+        public async Task<JsonResult> ReservationPeriodsOnDate()
         {
-            if (id == null)
+            string emailAddress = HttpContext.User.Identity.Name;
+
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefaultAsync();
+
+            List<ReservationPeriodInfo> reservationPeriodsToReturn = new List<ReservationPeriodInfo>();
+
+            string rpDate = Request.Headers["date"];
+
+            // get reservation periods for restaurant with email on date
+            var restaurantReservationPeriods = await _context.ReservationPeriod
+                        .Where(rp => rp.RestaurantId == restaurant.Id)
+                        .Where(rp => rp.Date.Equals(rpDate))
+                        .ToListAsync();
+
+            foreach (ReservationPeriod reservationPeriod in restaurantReservationPeriods)
             {
-                return NotFound();
+                ReservationPeriodInfo reservationPeriodInfo = new ReservationPeriodInfo(reservationPeriod.Id, reservationPeriod.RestaurantId, reservationPeriod.TableId, 
+                                                        reservationPeriod.TableDescription, reservationPeriod.Date, reservationPeriod.StartTime, reservationPeriod.EndTime);
+                reservationPeriodsToReturn.Add(reservationPeriodInfo);
             }
 
-            var reservationPeriod = await _context.ReservationPeriod.FindAsync(id);
-            if (reservationPeriod == null)
-            {
-                return NotFound();
-            }
-            var restaurant = await _context.Restaurant
-                .FirstOrDefaultAsync(m => m.Id == restId);
-            ViewBag.Restaurant = restaurant;
-            return View(reservationPeriod);
+            return new JsonResult(restaurantReservationPeriods);
         }
 
-        // POST: ReservationPeriod/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // Edit funkcija ne provjerava preklapanja u terminima na istom stolu. Može se dodati, ali za sada nema potrebe.
-        [HttpPost("Restaurant/{restId}/ReservationPeriod/Edit/{id}")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long restId, long id, [FromForm] ReservationPeriod reservationPeriod)
+        // GET  
+        // ZA DESKTOP APP
+        [Authorize]
+        [HttpGet("Restaurant/all")]
+        public async Task<JsonResult> ReservationPeriods()
         {
-            if (id != reservationPeriod.Id)
-            {
-                return NotFound();
-            }
+            string emailAddress = HttpContext.User.Identity.Name;
 
-            if (ModelState.IsValid)
-            {
-                reservationPeriod.RestaurantId = restId;
-                try
-                {
-                    _context.Update(reservationPeriod);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ReservationPeriodExists(reservationPeriod.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index), new {id= restId });
-            }
-            return View(reservationPeriod);
-        }
-
-        // GET: ReservationPeriod/Delete/5
-        [HttpGet("Restaurant/{restId}/ReservationPeriod/Delete/{id}")]
-        public async Task<IActionResult> Delete(long? id, long restId)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var reservationPeriod = await _context.ReservationPeriod
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (reservationPeriod == null)
-            {
-                return NotFound();
-            }
             var restaurant = await _context.Restaurant
-                .FirstOrDefaultAsync(m => m.Id == restId);
-            ViewBag.Restaurant = restaurant;
-            return View(reservationPeriod);
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefaultAsync();
+
+            List<ReservationPeriodInfo> reservationPeriodsToReturn = new List<ReservationPeriodInfo>();
+
+            // get reservation periods for restaurant with email
+            var restaurantReservationPeriods = await _context.ReservationPeriod
+                        .Where(rp => rp.RestaurantId == restaurant.Id)
+                        .ToListAsync();
+
+            foreach (ReservationPeriod reservationPeriod in restaurantReservationPeriods)
+            {
+                ReservationPeriodInfo reservationPeriodInfo = new ReservationPeriodInfo(reservationPeriod.Id, reservationPeriod.RestaurantId, reservationPeriod.TableId,
+                                                        reservationPeriod.TableDescription, reservationPeriod.Date, reservationPeriod.StartTime, reservationPeriod.EndTime);
+                reservationPeriodsToReturn.Add(reservationPeriodInfo);
+            }
+
+            return new JsonResult(restaurantReservationPeriods);
         }
 
         // POST: ReservationPeriod/Delete/5
