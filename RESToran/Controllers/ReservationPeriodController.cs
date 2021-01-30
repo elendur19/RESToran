@@ -410,7 +410,7 @@ namespace RESToran.Controllers
 
             string startTime = Request.Headers["startTime"];
             string endTime = Request.Headers["endTime"];
-
+            string rpDate = Request.Headers["dateReservation"];
 
             var table = await _context.Table
                                     .Where(t => t.Id == tId)
@@ -436,8 +436,9 @@ namespace RESToran.Controllers
                 long tableId = reservationPeriod.TableId;
                 string dbStartTime = reservationPeriod.StartTime.ToString("HH:mm");
                 string dbEndTime = reservationPeriod.EndTime.ToString("HH:mm");
+                string date = reservationPeriod.Date.ToString();
                
-                if (restaurant.Id == restId && table.Id == tableId && startTime.Equals(dbStartTime) && endTime.Equals(dbEndTime))
+                if (restaurant.Id == restId && table.Id == tableId && startTime.Equals(dbStartTime) && endTime.Equals(dbEndTime) && date.Equals(rpDate))
                 {
                     // reservation period found!
                     reservationPeriodToDelete = reservationPeriod;
