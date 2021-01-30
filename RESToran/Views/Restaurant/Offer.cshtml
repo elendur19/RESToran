@@ -1,0 +1,64 @@
+﻿@model RESToran.Models.Restaurant
+
+<link href="~/css/Offer.css" rel="stylesheet" type="text/css">
+
+<h2 class="text-center mb-4">@Model.Name Offer </h2>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card border-dark">
+            <img class="card-img-top" src="~/images/appetizer.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Appetizers</h5>
+                <p class="card-text">Enjoy in our appetiezers</p>
+                <a class="btn btn-dark" asp-controller="Appetizer" asp-route-id="@Model.Id" asp-action="Index">Check it</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card border-dark">
+            <img class="card-img-top" src="~/images/main-course.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Main Courses</h5>
+                <p class="card-text">Enjoy in our main courses</p>
+                <a class="btn btn-dark" asp-controller="MainCourse" asp-route-id="@Model.Id" asp-action="Index">Check it</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 mt-2">
+        <div class="card border-dark">
+            <img class="card-img-top" src="~/images/dessert.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Deserts</h5>
+                <p class="card-text">Enjoy in our deserts</p>
+                <a class="btn btn-dark" asp-controller="Dessert" asp-route-id="@Model.Id" asp-action="Index">Check it</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 mt-2">
+        <div class="card border-dark">
+            <img class="card-img-top" src="~/images/salad.jpeg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Salads</h5>
+                <p class="card-text">Enjoy in our salads</p>
+                <a class="btn btn-dark" asp-controller="Salad" asp-route-id="@Model.Id" asp-action="Index">Check it</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col d-flex justify-content-center">
+    <div class="col-sm-6 mt-2">
+        <div class="card border-dark">
+            <img class="card-img-top" src="~/images/drink.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Drinks</h5>
+                <p class="card-text">Enjoy in our drinks</p>
+                <a class="btn btn-dark" asp-controller="Drink" asp-route-id="@Model.Id" asp-action="Index">Check it</a>
+            </div>
+        </div>
+    </div>
+</div>

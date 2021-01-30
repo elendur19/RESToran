@@ -22,9 +22,23 @@ namespace RESToran.Controllers
         }
 
         // GET: Dessert
+        [HttpGet("Restaurant/all")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Dessert.ToListAsync());
+            // get Restaurant id back
+            string restId = HttpContext.Request.Query["id"].ToString();
+            long id = long.Parse(restId);
+
+            var restaurant = await _context.Restaurant
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            var RestaurantDeserts = _context.Dessert
+               .Where(d => d.RestaurantId == restaurant.Id)
+               .ToList();
+
+            ViewBag.Restaurant = restaurant;
+
+            return View(RestaurantDeserts);
         }
 
         // display all restaurant Desserts
@@ -55,19 +69,25 @@ namespace RESToran.Controllers
         }
 
         // GET: Dessert/Details/5
-        public async Task<IActionResult> Details(long? id)
+        [HttpGet("Restaurant/info")]
+        public async Task<IActionResult> Details()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            // get Restaurant id back
+            string mcId = HttpContext.Request.Query["id"].ToString();
+            long id = long.Parse(mcId);
 
             var dessert = await _context.Dessert
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (dessert == null)
             {
                 return NotFound();
             }
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.Id == dessert.RestaurantId)
+                                        .FirstOrDefaultAsync();
+
+            ViewBag.Restaurant = restaurant;
 
             return View(dessert);
         }

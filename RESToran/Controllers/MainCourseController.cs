@@ -28,19 +28,20 @@ namespace RESToran.Controllers
         public async Task<IActionResult> Index()
         {
 
-            string emailAddress = HttpContext.User.Identity.Name;
+            // get Restaurant id back
+            string restId = HttpContext.Request.Query["id"].ToString();
+            long id = long.Parse(restId);
 
             var restaurant = await _context.Restaurant
-                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
-                                        .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-            var RestaurantMainCoursees = _context.MainCourse
-                .Where(t => t.RestaurantId == restaurant.Id)
-                .ToList();
+            var RestaurantMainCourses = _context.MainCourse
+               .Where(m => m.RestaurantId == restaurant.Id)
+               .ToList();
 
             ViewBag.Restaurant = restaurant;
 
-            return View(RestaurantMainCoursees);
+            return View(RestaurantMainCourses);
         }
 
         // display all restaurant MainCourses
@@ -73,20 +74,12 @@ namespace RESToran.Controllers
 
         // display restaurant MainCourse details
         // WEBPAGE
-        [HttpGet("Restaurant/Info")]
-        public async Task<IActionResult> Details(long? id)
+        [HttpGet("Restaurant/info")]
+        public async Task<IActionResult> Details()
         {
-            string emailAddress = HttpContext.User.Identity.Name;
-
-            var restaurant = await _context.Restaurant
-                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
-                                        .FirstOrDefaultAsync();
-
-            if (id == null)
-            {
-                
-                return NotFound();
-            }
+            // get Restaurant id back
+            string mcId = HttpContext.Request.Query["id"].ToString();
+            long id = long.Parse(mcId);
 
             var mainCourse = await _context.MainCourse
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -95,8 +88,12 @@ namespace RESToran.Controllers
             {
                 return NotFound();
             }
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.Id == mainCourse.RestaurantId)
+                                        .FirstOrDefaultAsync();
 
             ViewBag.Restaurant = restaurant;
+
             return View(mainCourse);
         }
 

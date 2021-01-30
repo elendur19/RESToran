@@ -33,7 +33,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -54,7 +54,7 @@
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
-                <a class="btn btn-primary btn-lg" role="button" aria-disabled="true" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <a class="btn btn-dark" role="button" aria-disabled="true" asp-action="Details" asp-route-id="@item.Id">Details</a>
             </td>
         </tr>
 }
