@@ -392,6 +392,75 @@ namespace RESToran.Controllers
             return new JsonResult(restaurantReservationPeriods);
         }
 
+        // DELETE
+        // delete reservation Periods
+        // FOR DESKTOP APP
+        [Authorize]
+        [HttpDelete("Restaurant/delete"), ActionName("Delete")]
+        public async Task<JsonResult> DeleteReservationPeriod()
+        {
+            string emailAddress = HttpContext.User.Identity.Name;
+
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .FirstOrDefaultAsync();
+
+            string headerTableId = Request.Headers["tableId"];
+            int tId = int.Parse(headerTableId);
+
+            string startTime = Request.Headers["startTime"];
+            string endTime = Request.Headers["endTime"];
+
+
+            var table = await _context.Table
+                                    .Where(t => t.Id == tId)
+                                    .FirstOrDefaultAsync();
+
+            // check if reservation Period exists in database
+            if (!ReservationPeriodExistsInRest(restaurant.Id, table.Id))
+            {
+                // reservation Period not found
+                HttpContext.Response.StatusCode = 400;
+                return new JsonResult("Reservation Period for table with id " + table.Id + " doesn't exist");
+            }
+
+            ReservationPeriod reservationPeriodToDelete = null;
+
+            var restaurantReservationPeriods = await _context.ReservationPeriod
+                        .Where(rp => rp.RestaurantId == restaurant.Id)
+                        .ToListAsync();
+
+            foreach (ReservationPeriod reservationPeriod in restaurantReservationPeriods)
+            {
+                long restId = reservationPeriod.RestaurantId;
+                long tableId = reservationPeriod.TableId;
+                string dbStartTime = reservationPeriod.StartTime.ToString("HH:mm");
+                string dbEndTime = reservationPeriod.EndTime.ToString("HH:mm");
+               
+                if (restaurant.Id == restId && table.Id == tableId && startTime.Equals(dbStartTime) && endTime.Equals(dbEndTime))
+                {
+                    // reservation period found!
+                    reservationPeriodToDelete = reservationPeriod;
+                    break;
+                }
+            }
+
+            if (reservationPeriodToDelete ==  null)
+            {
+                // reservation Period data incorrect
+                HttpContext.Response.StatusCode = 400;
+                return new JsonResult("Start or End Time not correct");
+            }
+
+            _context.ReservationPeriod.Remove(reservationPeriodToDelete);
+            await _context.SaveChangesAsync();
+
+            HttpContext.Response.StatusCode = 200;
+            return new JsonResult("Reservation Period successfully deleted");
+        }
+
+
+
         // POST: ReservationPeriod/Delete/5
         [HttpPost("Restaurant/{restId}/ReservationPeriod/Delete/{id}"), ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -407,5 +476,10 @@ namespace RESToran.Controllers
         {
             return _context.ReservationPeriod.Any(e => e.Id == id);
         }
+        private bool ReservationPeriodExistsInRest(long restId, long tableId)
+        {
+            return _context.ReservationPeriod.Any(rp => rp.RestaurantId == restId && rp.TableId == tableId);
+        }
+
     }
 }
