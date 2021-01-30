@@ -138,6 +138,12 @@
     <Compile Include="UserControls\EditTablesControl.Designer.cs">
       <DependentUpon>EditTablesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ViewReservationsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ViewReservationsControl.Designer.cs">
+      <DependentUpon>ViewReservationsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ViewTablesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -188,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\EditTablesControl.resx">
       <DependentUpon>EditTablesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ViewReservationsControl.resx">
+      <DependentUpon>ViewReservationsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ViewTablesControl.resx">
       <DependentUpon>ViewTablesControl.cs</DependentUpon>
