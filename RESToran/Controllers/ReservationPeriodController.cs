@@ -193,7 +193,7 @@ namespace RESToran.Controllers
                         int rpMonth = int.Parse(reservationPeriodDate.Substring(3, 2));
                         int rpDay = int.Parse(reservationPeriodDate.Substring(0, 2));
 
-                        bool sameDay = (year == rpYear && month == rpMonth && day == rpDay); 
+                        bool sameDay = (dbYear == rpYear && dbMonth == rpMonth && dbDay == rpDay); 
                         //if (NewPeriodMinuteStart >= NewPeriodMinuteEnd) break;
 
                         // datum su jednaki, usporedi vremena
@@ -218,12 +218,6 @@ namespace RESToran.Controllers
                                 reservationPeriod.TableId = table.Id;
                                 break;
                             }
-                        } else
-                        {
-                            // termini imaju razlicite datume, rezerviraj termin odmah
-                            reservationPeriod.TableId = table.Id;
-                            found = true;
-                            break;
                         }
                     }
                     // ako si rezervirao termin , izadi
@@ -233,11 +227,13 @@ namespace RESToran.Controllers
                     }
                 } else
                 {
+                    // uopce ne postoji rezervation period za ovaj stol, odmah rezerviraj stol
+
                     pom = reservationPeriod.Date;
 
-                    int yearToSave = int.Parse(pom.Substring(0, 4));
-                    int monthToSave = int.Parse(pom.Substring(5, 2));
-                    int dayToSave = int.Parse(pom.Substring(8, 2));
+                    int yearToSave = int.Parse(reservationPeriod.Date.Substring(6, 4));
+                    int monthToSave = int.Parse(reservationPeriod.Date.Substring(3, 2));
+                    int dayToSave = int.Parse(reservationPeriod.Date.Substring(0, 2));
 
                     string str_dayToSave = day.ToString("D2");
                     string str_monthToSave = month.ToString("D2");
@@ -246,7 +242,7 @@ namespace RESToran.Controllers
                     // formatiraj datum dd/MM/yyyy
 
                     reservationPeriod.Date = str_day + "/" + str_month + "/" + str_year;
-                    // uopce ne postoji rezervation period za ovaj stol, odmah rezerviraj stol
+                    
                     reservationPeriod.TableId = table.Id;
                     found = true;
                     break;
@@ -327,10 +323,10 @@ namespace RESToran.Controllers
             string endTimeString = endTime.ToString("t",
                   CultureInfo.CreateSpecificCulture("en-US"));
 
-            ViewBag.Date = date;
+            ViewBag.Date = dateString;
 
-            ViewBag.StartTime = startTime;
-            ViewBag.EndStart = endTime;
+            ViewBag.StartTime = startTimeString;
+            ViewBag.EndStart = endTimeString;
 
             return View();
         }
