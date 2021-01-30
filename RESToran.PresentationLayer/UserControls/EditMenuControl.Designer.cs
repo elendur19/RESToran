@@ -29,7 +29,7 @@ namespace RESToran.PresentationLayer.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.MenuGrid = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -42,7 +42,9 @@ namespace RESToran.PresentationLayer.UserControls
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.showMenuControl1 = new RESToran.PresentationLayer.UserControls.ShowMenuControl();
+            this.ageRestrictedCheckbox = new System.Windows.Forms.CheckBox();
+            this.changingLabel = new System.Windows.Forms.Label();
+            this.toppingBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.MenuGrid)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -54,14 +56,14 @@ namespace RESToran.PresentationLayer.UserControls
             this.MenuGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.MenuGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.MenuGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MenuGrid.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MenuGrid.DefaultCellStyle = dataGridViewCellStyle2;
             this.MenuGrid.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.MenuGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.MenuGrid.Location = new System.Drawing.Point(0, 52);
@@ -96,6 +98,9 @@ namespace RESToran.PresentationLayer.UserControls
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.ageRestrictedCheckbox);
+            this.panel1.Controls.Add(this.changingLabel);
+            this.panel1.Controls.Add(this.toppingBox);
             this.panel1.Controls.Add(this.DescriptionTextBox);
             this.panel1.Controls.Add(this.HouseSpecialCheckBox);
             this.panel1.Controls.Add(this.PriceBox);
@@ -104,7 +109,6 @@ namespace RESToran.PresentationLayer.UserControls
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.showMenuControl1);
             this.panel1.Location = new System.Drawing.Point(0, 52);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(770, 666);
@@ -113,7 +117,7 @@ namespace RESToran.PresentationLayer.UserControls
             // DescriptionTextBox
             // 
             this.DescriptionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
-            this.DescriptionTextBox.Location = new System.Drawing.Point(159, 206);
+            this.DescriptionTextBox.Location = new System.Drawing.Point(159, 245);
             this.DescriptionTextBox.Name = "DescriptionTextBox";
             this.DescriptionTextBox.Size = new System.Drawing.Size(385, 214);
             this.DescriptionTextBox.TabIndex = 19;
@@ -148,7 +152,7 @@ namespace RESToran.PresentationLayer.UserControls
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
-            this.label5.Location = new System.Drawing.Point(27, 200);
+            this.label5.Location = new System.Drawing.Point(27, 245);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(126, 25);
             this.label5.TabIndex = 15;
@@ -184,12 +188,32 @@ namespace RESToran.PresentationLayer.UserControls
             this.label6.TabIndex = 12;
             this.label6.Text = "Name: ";
             // 
-            // showMenuControl1
+            // ageRestrictedCheckbox
             // 
-            this.showMenuControl1.Location = new System.Drawing.Point(207, 200);
-            this.showMenuControl1.Name = "showMenuControl1";
-            this.showMenuControl1.Size = new System.Drawing.Size(8, 8);
-            this.showMenuControl1.TabIndex = 11;
+            this.ageRestrictedCheckbox.AutoSize = true;
+            this.ageRestrictedCheckbox.Location = new System.Drawing.Point(190, 206);
+            this.ageRestrictedCheckbox.Name = "ageRestrictedCheckbox";
+            this.ageRestrictedCheckbox.Size = new System.Drawing.Size(15, 14);
+            this.ageRestrictedCheckbox.TabIndex = 22;
+            this.ageRestrictedCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // changingLabel
+            // 
+            this.changingLabel.AutoSize = true;
+            this.changingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.changingLabel.Location = new System.Drawing.Point(27, 199);
+            this.changingLabel.Name = "changingLabel";
+            this.changingLabel.Size = new System.Drawing.Size(151, 25);
+            this.changingLabel.TabIndex = 20;
+            this.changingLabel.Text = "Age restricted:";
+            // 
+            // toppingBox
+            // 
+            this.toppingBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.toppingBox.Location = new System.Drawing.Point(129, 196);
+            this.toppingBox.Name = "toppingBox";
+            this.toppingBox.Size = new System.Drawing.Size(267, 31);
+            this.toppingBox.TabIndex = 21;
             // 
             // EditMenuControl
             // 
@@ -223,6 +247,8 @@ namespace RESToran.PresentationLayer.UserControls
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
-        private ShowMenuControl showMenuControl1;
+        private System.Windows.Forms.CheckBox ageRestrictedCheckbox;
+        private System.Windows.Forms.Label changingLabel;
+        private System.Windows.Forms.TextBox toppingBox;
     }
 }

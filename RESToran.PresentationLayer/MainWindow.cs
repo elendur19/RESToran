@@ -12,10 +12,12 @@ namespace RESToran.PresentationLayer
 {
     public partial class MainWindow : Form
     {
+        string menuValue;
         string AuthValue;
         public MainWindow()
         {
             InitializeComponent();
+            MenuPanel.Hide();
             FoodPressedPanel.Hide();
             ReservationsPressedPanel.Hide();
             TablesPressedPanel.Hide();
@@ -40,16 +42,16 @@ namespace RESToran.PresentationLayer
         {
         }
 
-        private void FoodButton_Click(object sender, EventArgs e)
+        private void MenuButton_Click(object sender, EventArgs e)
         {
-            if (FoodPressedPanel.Visible)
+            if (MenuPanel.Visible)
             {
-                FoodPressedPanel.Hide();
+                MenuPanel.Hide();
                 MenuButtonPanel.Show();
             }
             else
             {
-                FoodPressedPanel.Show();
+                MenuPanel.Show();
                 MenuButtonPanel.Hide();
             }
         }
@@ -57,7 +59,7 @@ namespace RESToran.PresentationLayer
         private void BackButton_Click(object sender, EventArgs e)
         {
             FoodPressedPanel.Hide();
-            MenuButtonPanel.Show();
+            MenuPanel.Show();
             addFoodControler1.Hide();
             showMenuControl1.Hide();
             editMenuControl1.Hide();
@@ -67,7 +69,7 @@ namespace RESToran.PresentationLayer
         private void FoodButton2_Click(object sender, EventArgs e)
         {
             FoodPressedPanel.Hide();
-            MenuButtonPanel.Show();
+            MenuPanel.Show();
             addFoodControler1.Hide();
             showMenuControl1.Hide();
             editMenuControl1.Hide();
@@ -77,6 +79,7 @@ namespace RESToran.PresentationLayer
         private void ShowMenuButton_Click(object sender, EventArgs e)
         {
             addFoodControler1.Hide();
+            showMenuControl1.setMenuValue(menuValue);
             showMenuControl1.setAuthValue(AuthValue);
             showMenuControl1.Show();
             editMenuControl1.Hide();
@@ -88,12 +91,13 @@ namespace RESToran.PresentationLayer
             addFoodControler1.Hide();
             showMenuControl1.Hide();
             editMenuControl1.Show();
+            editMenuControl1.setMenuValue(menuValue);
             editMenuControl1.setAuthValue(AuthValue);
-
         }
 
         private void AddFoodButton_Click(object sender, EventArgs e)
         {
+            addFoodControler1.setMenuValue(menuValue);
             addFoodControler1.setAuthValue(AuthValue);
             addFoodControler1.Show();
             showMenuControl1.Hide();
@@ -254,6 +258,71 @@ namespace RESToran.PresentationLayer
         private void showMenuControl1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void FoodPressedPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void ReservationsPressedPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        // WIP
+        private void AppetizerButton_Click(object sender, EventArgs e)
+        {
+            menuValue = "Appetizer";
+            updateFoodPanel();
+            MenuPanel.Hide();
+            FoodPressedPanel.Show();
+        }
+
+        private void DesertButton_Click(object sender, EventArgs e)
+        {
+            menuValue = "Dessert";
+            updateFoodPanel();
+            MenuPanel.Hide();
+            FoodPressedPanel.Show();
+        }
+
+        private void DrinkButton_Click(object sender, EventArgs e)
+        {
+            menuValue = "Drink";
+            updateFoodPanel();
+            MenuPanel.Hide();
+            FoodPressedPanel.Show();
+        }
+
+        private void MainCourseButton_Click(object sender, EventArgs e)
+        {
+            menuValue = "Main Course";
+            updateFoodPanel();
+            MenuPanel.Hide();
+            FoodPressedPanel.Show();
+        }
+
+        private void SaladButton_Click(object sender, EventArgs e)
+        {
+            menuValue = "Salad";
+            updateFoodPanel();
+            MenuPanel.Hide();
+            FoodPressedPanel.Show();
+        }
+
+        private void BackButton7_Click(object sender, EventArgs e)
+        {
+            menuValue = "";
+            MenuButtonPanel.Show();
+            MenuPanel.Hide();
+        }
+
+        private void updateFoodPanel()
+        {
+            FoodButton2.Text = menuValue;
+            ShowMenuButton.Text = "Show " + menuValue + "s";
+            EditMenuButton.Text = "Edit " + menuValue + "s";
+            AddFoodButton.Text = "Add " + menuValue + "s";
         }
     }
 }

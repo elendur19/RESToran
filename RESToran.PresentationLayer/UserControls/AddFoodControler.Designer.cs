@@ -40,7 +40,9 @@ namespace RESToran.PresentationLayer.UserControls
             this.DescriptionTextBox = new System.Windows.Forms.RichTextBox();
             this.SubmitButton = new System.Windows.Forms.Button();
             this.ResultLabel = new System.Windows.Forms.Label();
-            this.showMenuControl1 = new RESToran.PresentationLayer.UserControls.ShowMenuControl();
+            this.changingLabel = new System.Windows.Forms.Label();
+            this.toppingBox = new System.Windows.Forms.TextBox();
+            this.ageRestrictedCheckbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -87,7 +89,7 @@ namespace RESToran.PresentationLayer.UserControls
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
-            this.label5.Location = new System.Drawing.Point(28, 267);
+            this.label5.Location = new System.Drawing.Point(28, 312);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(126, 25);
             this.label5.TabIndex = 5;
@@ -121,7 +123,7 @@ namespace RESToran.PresentationLayer.UserControls
             // DescriptionTextBox
             // 
             this.DescriptionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
-            this.DescriptionTextBox.Location = new System.Drawing.Point(160, 273);
+            this.DescriptionTextBox.Location = new System.Drawing.Point(162, 312);
             this.DescriptionTextBox.Name = "DescriptionTextBox";
             this.DescriptionTextBox.Size = new System.Drawing.Size(385, 214);
             this.DescriptionTextBox.TabIndex = 9;
@@ -130,7 +132,7 @@ namespace RESToran.PresentationLayer.UserControls
             // SubmitButton
             // 
             this.SubmitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
-            this.SubmitButton.Location = new System.Drawing.Point(208, 506);
+            this.SubmitButton.Location = new System.Drawing.Point(202, 532);
             this.SubmitButton.Name = "SubmitButton";
             this.SubmitButton.Size = new System.Drawing.Size(99, 36);
             this.SubmitButton.TabIndex = 10;
@@ -147,17 +149,39 @@ namespace RESToran.PresentationLayer.UserControls
             this.ResultLabel.Size = new System.Drawing.Size(0, 25);
             this.ResultLabel.TabIndex = 11;
             // 
-            // showMenuControl1
+            // changingLabel
             // 
-            this.showMenuControl1.Location = new System.Drawing.Point(208, 267);
-            this.showMenuControl1.Name = "showMenuControl1";
-            this.showMenuControl1.Size = new System.Drawing.Size(8, 8);
-            this.showMenuControl1.TabIndex = 0;
+            this.changingLabel.AutoSize = true;
+            this.changingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.changingLabel.Location = new System.Drawing.Point(28, 263);
+            this.changingLabel.Name = "changingLabel";
+            this.changingLabel.Size = new System.Drawing.Size(151, 25);
+            this.changingLabel.TabIndex = 13;
+            this.changingLabel.Text = "Age restricted:";
+            // 
+            // toppingBox
+            // 
+            this.toppingBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.toppingBox.Location = new System.Drawing.Point(130, 260);
+            this.toppingBox.Name = "toppingBox";
+            this.toppingBox.Size = new System.Drawing.Size(267, 31);
+            this.toppingBox.TabIndex = 14;
+            // 
+            // ageRestrictedCheckbox
+            // 
+            this.ageRestrictedCheckbox.AutoSize = true;
+            this.ageRestrictedCheckbox.Location = new System.Drawing.Point(191, 270);
+            this.ageRestrictedCheckbox.Name = "ageRestrictedCheckbox";
+            this.ageRestrictedCheckbox.Size = new System.Drawing.Size(15, 14);
+            this.ageRestrictedCheckbox.TabIndex = 15;
+            this.ageRestrictedCheckbox.UseVisualStyleBackColor = true;
             // 
             // AddFoodControler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ageRestrictedCheckbox);
+            this.Controls.Add(this.changingLabel);
             this.Controls.Add(this.ResultLabel);
             this.Controls.Add(this.SubmitButton);
             this.Controls.Add(this.DescriptionTextBox);
@@ -169,7 +193,7 @@ namespace RESToran.PresentationLayer.UserControls
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.showMenuControl1);
+            this.Controls.Add(this.toppingBox);
             this.Name = "AddFoodControler";
             this.Size = new System.Drawing.Size(584, 623);
             this.ResumeLayout(false);
@@ -178,8 +202,6 @@ namespace RESToran.PresentationLayer.UserControls
         }
 
         #endregion
-
-        private ShowMenuControl showMenuControl1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -191,5 +213,8 @@ namespace RESToran.PresentationLayer.UserControls
         private System.Windows.Forms.RichTextBox DescriptionTextBox;
         private System.Windows.Forms.Button SubmitButton;
         private System.Windows.Forms.Label ResultLabel;
+        private System.Windows.Forms.Label changingLabel;
+        private System.Windows.Forms.TextBox toppingBox;
+        private System.Windows.Forms.CheckBox ageRestrictedCheckbox;
     }
 }
