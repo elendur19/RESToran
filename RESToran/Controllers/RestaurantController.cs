@@ -15,13 +15,13 @@ namespace RESToran.Controllers
     public class RestaurantController : Controller
     {
         private readonly PostgreSqlContext _context;
-
+        
         public RestaurantController(PostgreSqlContext context)
         {
             _context = context;
         }
 
-        // GET: api/Restaurant
+        // GET all Restaurants from database
         [HttpGet("all")]
         public async Task<IActionResult> Index()
         {
@@ -30,7 +30,7 @@ namespace RESToran.Controllers
             return View(restaurants);
         }
 
-        // GET: Restaurant/5
+        // GET: Restaurant details
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(long? id)
         {
@@ -41,10 +41,25 @@ namespace RESToran.Controllers
 
             var restaurant = await _context.Restaurant
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (restaurant == null)
             {
                 return NotFound();
             }
+
+            return View(restaurant);
+        }
+
+        // GET: api/Restaurant
+        [HttpGet("/offer")]
+        public async Task<IActionResult> Offer()
+        {
+            // get Restaurant id back
+            string restId = HttpContext.Request.Query["id"].ToString();
+            long id = long.Parse(restId);
+
+            var restaurant = await _context.Restaurant
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             return View(restaurant);
         }

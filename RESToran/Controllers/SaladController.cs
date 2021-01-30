@@ -51,25 +51,45 @@ namespace RESToran.Controllers
         }
 
         // GET: Salad
+        [HttpGet("Restaurant/all")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Salad.ToListAsync());
+            // get Restaurant id back
+            string restId = HttpContext.Request.Query["id"].ToString();
+            long id = long.Parse(restId);
+
+            var restaurant = await _context.Restaurant
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            var RestaurantSalads = _context.Salad
+               .Where(s => s.RestaurantId == restaurant.Id)
+               .ToList();
+
+            ViewBag.Restaurant = restaurant;
+
+            return View(RestaurantSalads);
         }
 
         // GET: Salad/Details/5
-        public async Task<IActionResult> Details(long? id)
+        [HttpGet("Restaurant/info")]
+        public async Task<IActionResult> Details()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            // get Restaurant id back
+            string saladId = HttpContext.Request.Query["id"].ToString();
+            long id = long.Parse(saladId);
 
             var salad = await _context.Salad
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(s => s.Id == id);
+
             if (salad == null)
             {
                 return NotFound();
             }
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.Id == salad.RestaurantId)
+                                        .FirstOrDefaultAsync();
+
+            ViewBag.Restaurant = restaurant;
 
             return View(salad);
         }

@@ -22,16 +22,17 @@ namespace RESToran.Controllers
             _context = context;
         }
 
-        // display all restaurant MainCourses
+        // display all restaurant Apetizers
         // WEBPAGE
         [HttpGet("Restaurant/all")]
         public async Task<IActionResult> Index()
         {
-            string emailAddress = HttpContext.User.Identity.Name;
+            // get Restaurant id back
+            string restId = HttpContext.Request.Query["id"].ToString();
+            long id = long.Parse(restId);
 
             var restaurant = await _context.Restaurant
-                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
-                                        .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             var RestaurantAppetizers = _context.Appetizer
                .Where(t => t.RestaurantId == restaurant.Id)
@@ -69,20 +70,16 @@ namespace RESToran.Controllers
             return new JsonResult(appetiezersToReturn);
         }
 
-        // GET: Appetizer/Details/5
-        public async Task<IActionResult> Details(long? id)
+        // GET: Appetizer details
+        [HttpGet("Restaurant")]
+        public async Task<IActionResult> Details()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            // get Restaurant id back
+            string appetId = HttpContext.Request.Query["id"].ToString();
+            long id = long.Parse(appetId);
 
             var appetizer = await _context.Appetizer
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (appetizer == null)
-            {
-                return NotFound();
-            }
+                .FirstOrDefaultAsync(a => a.Id == id);
 
             return View(appetizer);
         }
@@ -155,7 +152,7 @@ namespace RESToran.Controllers
             return new JsonResult("Appetizer successfully created");
         }
 
-        // GET: Appetizer/Edit/5
+/*        // GET: Appetizer/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -169,7 +166,7 @@ namespace RESToran.Controllers
                 return NotFound();
             }
             return View(appetizer);
-        }
+        }*/
 
         // edit restaurant Appetizer
         // FOR DESKTOP APP
@@ -211,7 +208,7 @@ namespace RESToran.Controllers
             return new JsonResult("Appetizer successfully updated");
         }
 
-        // GET: Appetizer/Delete/5
+/*        // GET: Appetizer/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -227,7 +224,7 @@ namespace RESToran.Controllers
             }
 
             return View(appetizer);
-        }
+        }*/
 
         // DELETE
         // delete restaurant Appetizer

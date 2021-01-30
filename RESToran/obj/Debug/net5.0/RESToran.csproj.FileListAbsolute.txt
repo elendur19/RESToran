@@ -574,3 +574,5 @@ C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\Main
 C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\MainCourse\Details.cshtml.g.cs
 C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\MainCourse\Edit.cshtml.g.cs
 C:\Users\Tomislav\OO Seminar\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\MainCourse\Index.cshtml.g.cs
+C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\RESToran.csprojAssemblyReference.cache
+C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran\obj\Debug\net5.0\Razor\Views\Restaurant\Offer.cshtml.g.cs

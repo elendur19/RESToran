@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RESToran.DataAccess;
 using RESToran.DataClasses;
@@ -23,9 +22,23 @@ namespace RESToran.Controllers
         }
 
         // GET: Drink
+        [HttpGet("Restaurant/all")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Drink.ToListAsync());
+            // get Restaurant id back
+            string restId = HttpContext.Request.Query["id"].ToString();
+            long id = long.Parse(restId);
+
+            var restaurant = await _context.Restaurant
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            var RestaurantDrink = _context.Drink
+               .Where(d => d.RestaurantId == restaurant.Id)
+               .ToList();
+
+            ViewBag.Restaurant = restaurant;
+
+            return View(RestaurantDrink);
         }
 
         // display all restaurant Drinks
@@ -56,19 +69,25 @@ namespace RESToran.Controllers
         }
 
         // GET: Drink/Details/5
-        public async Task<IActionResult> Details(long? id)
+        [HttpGet("Restaurant/info")]
+        public async Task<IActionResult> Details()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            // get Restaurant id back
+            string drinkId = HttpContext.Request.Query["id"].ToString();
+            long id = long.Parse(drinkId);
 
             var drink = await _context.Drink
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(d => d.Id == id);
+
             if (drink == null)
             {
                 return NotFound();
             }
+            var restaurant = await _context.Restaurant
+                                        .Where(rest => rest.Id == drink.RestaurantId)
+                                        .FirstOrDefaultAsync();
+
+            ViewBag.Restaurant = restaurant;
 
             return View(drink);
         }

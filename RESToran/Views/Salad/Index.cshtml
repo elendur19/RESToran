@@ -2,13 +2,16 @@
 
 @{
     ViewData["Title"] = "Index";
+    Restaurant restaurant = ViewBag.Restaurant;
 }
 
-<h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="float-right btn btn-dark mb-1" role="button" aria-disabled="true" asp-controller="Restaurant" asp-action="Offer" asp-route-id="@restaurant.Id">Back to Offers</a>
 </p>
+
+<link href="~/css/Restaurat_list.css" rel="stylesheet" type="text/css">
+<h2>@restaurant.Name Salads</h2>
+
 <table class="table">
     <thead>
         <tr>
@@ -22,9 +25,6 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.HouseSpecial)
             </th>
             <th>
@@ -34,32 +34,28 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RestaurantId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HouseSpecial)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Topping)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RestaurantId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HouseSpecial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Topping)
+                </td>
+                <td>
+                    <a class="btn btn-dark" role="button" aria-disabled="true" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
