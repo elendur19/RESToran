@@ -23,66 +23,53 @@ namespace RESToran.PresentationLayer
             InitializeComponent();
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private async void SubmitButton_Click(object sender, EventArgs e)
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Restaurant/create");
-            httpWebRequest.ContentType = "text/json";
-            httpWebRequest.Accept = "*/*";
-            httpWebRequest.Method = "POST";
+            try
+            {
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Restaurant/create");
+                httpWebRequest.ContentType = "text/json";
+                httpWebRequest.Accept = "*/*";
+                httpWebRequest.Method = "POST";
 
-            string json = "{" +
-                        "\"Name\" : \""+ NameBox.Text +"\"," +
-                        "\"EmailAddress\" : \"" + EmailBox.Text + "\"," +
-                        "\"Password\" : \""+ PasswordBox1.Text +  "\"," +
-                        "\"Location\" : \"" + LocationBox.Text +"\"," +
-                        "\"HoursOpened\": \"" + OpenedBox.Text +"\"," +
-                        "\"PhoneNumber\": \"" + PhoneBox.Text +"\"}";
-            httpWebRequest.ContentLength = Encoding.ASCII.GetBytes(json).Length;
-            if (PasswordBox1.Text != PasswordBox2.Text)
-            {
-                resultLabel.Text = "Passwords not matching!";
-            }
-            else
-            {
-                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                string json = "{" +
+                            "\"Name\" : \"" + NameBox.Text + "\"," +
+                            "\"EmailAddress\" : \"" + EmailBox.Text + "\"," +
+                            "\"Password\" : \"" + PasswordBox1.Text + "\"," +
+                            "\"Location\" : \"" + LocationBox.Text + "\"," +
+                            "\"HoursOpened\": \"" + OpenedBox.Text + "\"," +
+                            "\"PhoneNumber\": \"" + PhoneBox.Text + "\"}";
+                httpWebRequest.ContentLength = Encoding.ASCII.GetBytes(json).Length;
+                if (PasswordBox1.Text != PasswordBox2.Text)
                 {
-
-
-                    streamWriter.Write(json);
+                    resultLabel.Text = "Passwords not matching!";
                 }
-                try
+                else
                 {
-                    var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                    if (httpResponse.StatusCode.ToString() == "OK")
+                    using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                     {
-                        resultLabel.Text = "SUCCESS";
+
+
+                        streamWriter.Write(json);
+                    }
+                    try
+                    {
+                        var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                        if (httpResponse.StatusCode.ToString() == "OK")
+                        {
+                            resultLabel.Text = "SUCCESS";
+                        }
+                    }
+                    catch (System.Net.WebException error)
+                    {
+                        resultLabel.Text = "User already exists!";
                     }
                 }
-                catch (System.Net.WebException error)
-                {
-                    resultLabel.Text = "User already exists!";
-                }
             }
-        }
-
-        private void textBox7_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox6_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void RegisterControl_Load(object sender, EventArgs e)
-        {
-
+            catch (Exception except)
+            {
+                MessageBox.Show("Error occurred");
+            }
         }
     }
 

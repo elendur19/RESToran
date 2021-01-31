@@ -36,39 +36,61 @@ namespace RESToran.PresentationLayer.UserControls
 
         private void updateValues()
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/ReservationPeriod/Restaurant/all");
-            httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
-            HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
-            string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            try
+            {
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/ReservationPeriod/Restaurant/all");
+                httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
+                HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
+                string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
-            reservationsData = JsonConvert.DeserializeObject<List<ReservationPeriod>>(content);
-            ReservationsGrid.DataSource = reservationsData;
+                reservationsData = JsonConvert.DeserializeObject<List<ReservationPeriod>>(content);
+                ReservationsGrid.DataSource = reservationsData;
+            }
+            catch (Exception except)
+            {
+                MessageBox.Show("Error occurred");
+            }
         }
 
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
-            string selectedDate = dateTimePicker1.Value.ToString("dd/MM/yyyy");
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/ReservationPeriod/Restaurant/date/all");
-            httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
-            httpWebRequest.Headers["dateReservation"] = selectedDate;
-            HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
-            string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            reservationsData = JsonConvert.DeserializeObject<List<ReservationPeriod>>(content);
-            ReservationsGrid.DataSource = reservationsData;
+            try
+            {
+                string selectedDate = dateTimePicker1.Value.ToString("dd/MM/yyyy");
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/ReservationPeriod/Restaurant/date/all");
+                httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
+                httpWebRequest.Headers["dateReservation"] = selectedDate;
+                HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
+                string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                reservationsData = JsonConvert.DeserializeObject<List<ReservationPeriod>>(content);
+                ReservationsGrid.DataSource = reservationsData;
+            }
+            catch (Exception except)
+            {
+                MessageBox.Show("Error occurred");
+            }
+
         }
 
         private void CancelReservationButton_Click_1(object sender, EventArgs e)
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/ReservationPeriod/Restaurant/delete");
-            httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
-            DataGridViewRow row = ReservationsGrid.CurrentRow;
-            httpWebRequest.Method = "DELETE";
-            httpWebRequest.Headers["tableId"] = (string)row.Cells["TableId"].Value.ToString();
-            httpWebRequest.Headers["startTime"] = parseHours((string)row.Cells["StartTime"].Value.ToString());
-            httpWebRequest.Headers["endTime"] = parseHours((string)row.Cells["EndTime"].Value.ToString());
-            httpWebRequest.Headers["dateReservation"] = (string)row.Cells["Date"].Value.ToString();
-            HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
-            updateValues();
+            try
+            {
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/ReservationPeriod/Restaurant/delete");
+                httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
+                DataGridViewRow row = ReservationsGrid.CurrentRow;
+                httpWebRequest.Method = "DELETE";
+                httpWebRequest.Headers["tableId"] = (string)row.Cells["TableId"].Value.ToString();
+                httpWebRequest.Headers["startTime"] = parseHours((string)row.Cells["StartTime"].Value.ToString());
+                httpWebRequest.Headers["endTime"] = parseHours((string)row.Cells["EndTime"].Value.ToString());
+                httpWebRequest.Headers["dateReservation"] = (string)row.Cells["Date"].Value.ToString();
+                HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
+                updateValues();
+            }
+            catch (Exception except)
+            {
+                MessageBox.Show("Error occurred");
+            }
         }
 
         private string parseHours(string time)

@@ -41,26 +41,32 @@ namespace RESToran.PresentationLayer.UserControls
 
         public void getJsonMenu()
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/" +menuValue+"/Restaurant/desktopApp/all");
-            httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
-            HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
-            string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            if (menuValue != "Salad" && menuValue != "Drink")
+            try
             {
-                resultCourse = JsonConvert.DeserializeObject<List<MainCourse>>(content);
-                MenuGrid.DataSource = resultCourse;
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/" + menuValue + "/Restaurant/desktopApp/all");
+                httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
+                HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
+                string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                if (menuValue != "Salad" && menuValue != "Drink")
+                {
+                    resultCourse = JsonConvert.DeserializeObject<List<MainCourse>>(content);
+                    MenuGrid.DataSource = resultCourse;
+                }
+                else if (menuValue == "Salad")
+                {
+                    resultSalad = JsonConvert.DeserializeObject<List<Salad>>(content);
+                    MenuGrid.DataSource = resultSalad;
+                }
+                else if (menuValue == "Drink")
+                {
+                    resultDrink = JsonConvert.DeserializeObject<List<Drink>>(content);
+                    MenuGrid.DataSource = resultDrink;
+                }
             }
-            else if (menuValue == "Salad")
+            catch (Exception except)
             {
-                resultSalad = JsonConvert.DeserializeObject<List<Salad>>(content);
-                MenuGrid.DataSource = resultSalad;
+                MessageBox.Show("Error occurred");
             }
-            else if (menuValue == "Drink")
-            {
-                resultDrink = JsonConvert.DeserializeObject<List<Drink>>(content);
-                MenuGrid.DataSource = resultDrink;
-            }
-
         }
     }
 }

@@ -34,12 +34,19 @@ namespace RESToran.PresentationLayer.UserControls
 
         public void getJsonMenu()
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Table/Restaurant/all");
-            httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
-            HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
-            string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            result = JsonConvert.DeserializeObject<List<Table>>(content);
-            TablesGrid.DataSource = result;
+            try
+            {
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Table/Restaurant/all");
+                httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
+                HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
+                string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                result = JsonConvert.DeserializeObject<List<Table>>(content);
+                TablesGrid.DataSource = result;
+            }
+            catch (Exception except)
+            {
+                MessageBox.Show("Error occurred");
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -59,22 +66,32 @@ namespace RESToran.PresentationLayer.UserControls
                 {
                     return;
                 }
+
                 table.Description = DescriptionTextBox.Text;
                 table.RestName_Number = old.RestName_Number;
                 string json = JsonConvert.SerializeObject(table);
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Table/Restaurant/edit");
-                httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
-                httpWebRequest.Headers["tableNumber"] = table.RestName_Number.Split(' ')[1];
-                httpWebRequest.ContentType = "text/json";
-                httpWebRequest.Accept = "*/*";
-                httpWebRequest.Method = "POST";
-                httpWebRequest.ContentLength = Encoding.ASCII.GetBytes(json).Length;
 
-
-                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                try
                 {
-                    streamWriter.Write(json);
+                    httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
+                    httpWebRequest.Headers["tableNumber"] = table.RestName_Number.Split(' ')[1];
+                    httpWebRequest.ContentType = "text/json";
+                    httpWebRequest.Accept = "*/*";
+                    httpWebRequest.Method = "POST";
+                    httpWebRequest.ContentLength = Encoding.ASCII.GetBytes(json).Length;
+
+
+                    using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                    {
+                        streamWriter.Write(json);
+                    }
                 }
+                catch (Exception except)
+                {
+                    MessageBox.Show("Error occurred");
+                }
+
                 try
                 {
                     var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();

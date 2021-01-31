@@ -20,50 +20,47 @@ namespace RESToran.PresentationLayer
             InitializeComponent();
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Restaurant/login");
-            httpWebRequest.ContentType = "text/json";
-            httpWebRequest.Accept = "*/*";
-            httpWebRequest.Method = "POST";
-
-            string json = "{" +
-                        "\"EmailAddress\" : \"" + EmailBox.Text + "\"," +
-                        "\"Password\" : \"" + PasswordBox.Text + "\"}";
-            httpWebRequest.ContentLength = Encoding.ASCII.GetBytes(json).Length;
-
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-
-
-                streamWriter.Write(json);
-            }
             try
             {
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                if (httpResponse.StatusCode.ToString() == "OK")
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Restaurant/login");
+                httpWebRequest.ContentType = "text/json";
+                httpWebRequest.Accept = "*/*";
+                httpWebRequest.Method = "POST";
+
+                string json = "{" +
+                            "\"EmailAddress\" : \"" + EmailBox.Text + "\"," +
+                            "\"Password\" : \"" + PasswordBox.Text + "\"}";
+                httpWebRequest.ContentLength = Encoding.ASCII.GetBytes(json).Length;
+
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
-                    resultLabel.Text = "SUCCESS";
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.setAuthValue(httpResponse.GetResponseHeader("AuthValue"));
-                    this.Parent.Hide();
-                    mainWindow.Show();
+
+
+                    streamWriter.Write(json);
+                }
+                try
+                {
+                    var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                    if (httpResponse.StatusCode.ToString() == "OK")
+                    {
+                        resultLabel.Text = "SUCCESS";
+                        MainWindow mainWindow = new MainWindow();
+                        mainWindow.setAuthValue(httpResponse.GetResponseHeader("AuthValue"));
+                        this.Parent.Hide();
+                        mainWindow.Show();
+                    }
+                }
+                catch (System.Net.WebException error)
+                {
+                    resultLabel.Text = "Wrong credentials!";
                 }
             }
-            catch (System.Net.WebException error)
+            catch (Exception except)
             {
-                resultLabel.Text = "Wrong credentials!";
+                MessageBox.Show("Error occurred");
             }
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

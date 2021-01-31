@@ -53,14 +53,12 @@ namespace RESToran.PresentationLayer.UserControls
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(table);
             httpWebRequest.ContentLength = Encoding.ASCII.GetBytes(json).Length;
 
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-
-
-                streamWriter.Write(json);
-            }
             try
             {
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+                    streamWriter.Write(json);
+                }
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
                 if (httpResponse.StatusCode.ToString() == "OK")
                 {

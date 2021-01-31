@@ -79,7 +79,6 @@ namespace RESToran.PresentationLayer
             this.label3.Size = new System.Drawing.Size(59, 22);
             this.label3.TabIndex = 2;
             this.label3.Text = "Email:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -189,7 +188,6 @@ namespace RESToran.PresentationLayer
             this.OpenedBox.Name = "OpenedBox";
             this.OpenedBox.Size = new System.Drawing.Size(222, 20);
             this.OpenedBox.TabIndex = 15;
-            this.OpenedBox.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // PhoneBox
             // 
@@ -197,7 +195,6 @@ namespace RESToran.PresentationLayer
             this.PhoneBox.Name = "PhoneBox";
             this.PhoneBox.Size = new System.Drawing.Size(222, 20);
             this.PhoneBox.TabIndex = 16;
-            this.PhoneBox.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
             // resultLabel
             // 
@@ -231,7 +228,6 @@ namespace RESToran.PresentationLayer
             this.Controls.Add(this.label1);
             this.Name = "RegisterControl";
             this.Size = new System.Drawing.Size(442, 443);
-            this.Load += new System.EventHandler(this.RegisterControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

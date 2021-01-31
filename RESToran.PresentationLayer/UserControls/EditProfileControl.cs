@@ -32,17 +32,24 @@ namespace RESToran.PresentationLayer.UserControls
 
         public void updateValues()
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Restaurant/info");
-            httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
-            HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
-            string content = new System.IO.StreamReader(response.GetResponseStream()).ReadToEnd();
-            string json = @"{""restaurant"":" + content + "}";
-            restaurant = new Restaurant(json);
-            NameBox.Text = restaurant.name;
-            EmailBox.Text = restaurant.emailAddress;
-            LocationBox.Text = restaurant.location;
-            PhoneBox.Text = restaurant.phoneNumber;
-            HoursBox.Text = restaurant.hoursOpened;
+            try
+            {
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Restaurant/info");
+                httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
+                HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
+                string content = new System.IO.StreamReader(response.GetResponseStream()).ReadToEnd();
+                string json = @"{""restaurant"":" + content + "}";
+                restaurant = new Restaurant(json);
+                NameBox.Text = restaurant.name;
+                EmailBox.Text = restaurant.emailAddress;
+                LocationBox.Text = restaurant.location;
+                PhoneBox.Text = restaurant.phoneNumber;
+                HoursBox.Text = restaurant.hoursOpened;
+            }
+            catch (Exception except)
+            {
+                MessageBox.Show("Error occurred");
+            }
         }
 
         private void SubmitButton_Click(object sender, EventArgs e)

@@ -76,7 +76,6 @@ namespace RESToran.PresentationLayer
             this.label3.Size = new System.Drawing.Size(59, 22);
             this.label3.TabIndex = 3;
             this.label3.Text = "Email:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // EmailBox
             // 
@@ -84,7 +83,6 @@ namespace RESToran.PresentationLayer
             this.EmailBox.Name = "EmailBox";
             this.EmailBox.Size = new System.Drawing.Size(100, 20);
             this.EmailBox.TabIndex = 4;
-            this.EmailBox.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // SubmitButton
             // 

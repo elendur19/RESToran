@@ -31,17 +31,24 @@ namespace RESToran.PresentationLayer.UserControls
 
         public void updateValues()
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Restaurant/info");
-            httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
-            HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
-            string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            string json = @"{""restaurant"":" + content + "}";
-            Restaurant restaurant = new Restaurant(json);
-            NameLabel.Text = "Name: " + restaurant.name;
-            EmailAddressLabel.Text = "Email Address: " + restaurant.emailAddress;
-            LocationLabel.Text = "Location: " + restaurant.location;
-            PhoneNumberLabel.Text = "Phone Number: " + restaurant.phoneNumber;
-            HoursOpenLabel.Text = "Hours Opened: " + restaurant.hoursOpened;
+            try
+            {
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Restaurant/info");
+                httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
+                HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
+                string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                string json = @"{""restaurant"":" + content + "}";
+                Restaurant restaurant = new Restaurant(json);
+                NameLabel.Text = "Name: " + restaurant.name;
+                EmailAddressLabel.Text = "Email Address: " + restaurant.emailAddress;
+                LocationLabel.Text = "Location: " + restaurant.location;
+                PhoneNumberLabel.Text = "Phone Number: " + restaurant.phoneNumber;
+                HoursOpenLabel.Text = "Hours Opened: " + restaurant.hoursOpened;
+            }
+            catch (Exception except)
+            {
+                MessageBox.Show("Error occurred");
+            }
         }
     }
 }
