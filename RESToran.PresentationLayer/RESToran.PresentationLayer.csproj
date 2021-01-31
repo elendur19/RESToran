@@ -64,6 +64,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataClasses\Drink.cs" />
+    <Compile Include="DataClasses\MainCourse.cs" />
+    <Compile Include="DataClasses\ReservationPeriod.cs" />
+    <Compile Include="DataClasses\Restaurant.cs" />
+    <Compile Include="DataClasses\Rest_Table.cs" />
+    <Compile Include="DataClasses\Salad.cs" />
+    <Compile Include="DataClasses\Table.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>

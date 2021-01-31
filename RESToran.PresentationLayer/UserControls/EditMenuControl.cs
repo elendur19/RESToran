@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using RESToran.PresentationLayer.DataClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -54,23 +55,6 @@ namespace RESToran.PresentationLayer.UserControls
                 changingLabel.Show();
                 ageRestrictedCheckbox.Show();
             }
-        }
-
-        public class MainCourse
-        {
-            public string Name { get; set; }
-            public double Price { get; set; }
-            public string Description { get; set; }
-            public bool HouseSpecial { get; set; }
-        }
-        public class Salad : MainCourse
-        {
-            public string Topping { get; set; }
-        }
-
-        public class Drink :MainCourse
-        {
-            public bool AgeRestricted { get; set; }
         }
 
         public void getJsonMenu()

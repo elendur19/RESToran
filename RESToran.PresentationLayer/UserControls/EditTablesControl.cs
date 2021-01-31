@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using RESToran.PresentationLayer.DataClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,15 +30,6 @@ namespace RESToran.PresentationLayer.UserControls
         {
             this.AuthValue = AuthValue;
             this.getJsonMenu();
-        }
-
-        public class Table
-        {
-            public string Description { get; set; }
-
-            public string RestName_Number { get; set; }
-
-            public double NumberOfSeats { get; set; }
         }
 
         public void getJsonMenu()

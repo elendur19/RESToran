@@ -12,28 +12,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using RESToran;
+using RESToran.PresentationLayer.DataClasses;
 
 namespace RESToran.PresentationLayer.UserControls
 {
     public partial class ManageReservationsControl : UserControl
     {
-
-        public class ReservationPeriod
-        {
-            public long Id { get; set; }
-            public long RestaurantId { get; set; }
-
-            public long TableId { get; set; }
-
-            public string TableDescription { get; set; }
-
-            public string Date { get; set; }
-
-            public DateTime StartTime { get; set; }
-
-            public DateTime EndTime { get; set; }
-
-        }
 
         public ManageReservationsControl()
         {

@@ -306,7 +306,7 @@ namespace RESToran.PresentationLayer
 
         private void MainCourseButton_Click(object sender, EventArgs e)
         {
-            menuValue = "Main Course";
+            menuValue = "MainCourse";
             updateFoodPanel();
             MenuPanel.Hide();
             FoodPressedPanel.Show();

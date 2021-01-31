@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RESToran.PresentationLayer.DataClasses;
+using System;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -11,39 +12,6 @@ namespace RESToran.PresentationLayer.UserControls
         public AddFoodControler()
         {
             InitializeComponent();
-        }
-        public class MainCourse
-        {
-            public string Name { get; set; }
-            public double Price { get; set; }
-            public string Description { get; set; }
-            public bool Housespecial { get; set; }
-        }
-
-        public class Salad
-        {
-            public string Name { get; set; }
-
-            public double Price { get; set; }
-
-            public string Description { get; set; }
-
-            public bool HouseSpecial { get; set; }
-
-            public string Topping { get; set; }
-        }
-
-        public class Drink
-        {
-            public string Name { get; set; }
-
-            public double Price { get; set; }
-
-            public string Description { get; set; }
-
-            public bool HouseSpecial { get; set; }
-
-            public bool AgeRestricted { get; set; }
         }
 
         Drink drink;
@@ -104,7 +72,7 @@ namespace RESToran.PresentationLayer.UserControls
                     return;
                 }
                 mainCourse.Description = DescriptionTextBox.Text;
-                mainCourse.Housespecial = HouseSpecialCheckBox.Checked;
+                mainCourse.HouseSpecial = HouseSpecialCheckBox.Checked;
                 json = Newtonsoft.Json.JsonConvert.SerializeObject(mainCourse);
             }else if(menuValue== "Salad")
             {

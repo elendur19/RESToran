@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using RESToran.PresentationLayer.DataClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,25 +16,6 @@ namespace RESToran.PresentationLayer.UserControls
 {
     public partial class ViewProfileControl : UserControl
     {
-        public class Restaurant
-        {
-            public Restaurant(string json)
-            {
-                JObject jObject = JObject.Parse(json);
-                JToken jRestaurant = jObject["restaurant"];
-                Name = (string)jRestaurant["name"];
-                EmailAddress = (string)jRestaurant["emailAddress"];
-                Location = (string)jRestaurant["location"];
-                PhoneNumber = (string)jRestaurant["phoneNumber"];
-                HoursOpened = (string)jRestaurant["hoursOpened"];
-            }
-
-            public string Name { get; set; }
-            public string EmailAddress { get; set; }
-            public string Location { get; set; }
-            public string PhoneNumber { get; set; }
-            public string HoursOpened { get; set; }
-        }
 
         string AuthValue;
         public void setAuthValue(string AuthValue)
@@ -55,11 +37,11 @@ namespace RESToran.PresentationLayer.UserControls
             string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
             string json = @"{""restaurant"":" + content + "}";
             Restaurant restaurant = new Restaurant(json);
-            NameLabel.Text = "Name: " + restaurant.Name;
-            EmailAddressLabel.Text = "Email Address: " + restaurant.EmailAddress;
-            LocationLabel.Text = "Location: " + restaurant.Location;
-            PhoneNumberLabel.Text = "Phone Number: " + restaurant.PhoneNumber;
-            HoursOpenLabel.Text = "Hours Opened: " + restaurant.HoursOpened;
+            NameLabel.Text = "Name: " + restaurant.name;
+            EmailAddressLabel.Text = "Email Address: " + restaurant.emailAddress;
+            LocationLabel.Text = "Location: " + restaurant.location;
+            PhoneNumberLabel.Text = "Phone Number: " + restaurant.phoneNumber;
+            HoursOpenLabel.Text = "Hours Opened: " + restaurant.hoursOpened;
         }
     }
 }

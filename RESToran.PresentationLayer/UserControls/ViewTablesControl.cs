@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using RESToran.PresentationLayer.DataClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,21 +22,12 @@ namespace RESToran.PresentationLayer.UserControls
         }
 
         string AuthValue;
-        List<Table> result;
+        List<Rest_Table> result;
 
         public void setAuthValue(string AuthValue)
         {
             this.AuthValue = AuthValue;
             this.getJsonMenu();
-        }
-
-        public class Table
-        {
-            public string Description { get; set; }
-
-            public string RestName_Number { get; set; }
-
-            public double NumberOfSeats { get; set; }
         }
 
         public void getJsonMenu()
@@ -44,7 +36,7 @@ namespace RESToran.PresentationLayer.UserControls
             httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
             HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
             string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            result = JsonConvert.DeserializeObject<List<Table>>(content);
+            result = JsonConvert.DeserializeObject<List<Rest_Table>>(content);
             TablesGrid.DataSource = result;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using RESToran.PresentationLayer.DataClasses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,39 +37,6 @@ namespace RESToran.PresentationLayer.UserControls
         {
             this.menuValue = menuValue;
             label1.Text = "Add " + menuValue + " to Menu";
-        }
-
-        public class MainCourse
-        {
-            public string Name { get; set; }
-            public double Price { get; set; }
-            public string Description { get; set; }
-            public bool Housespecial { get; set; }
-        }
-        public class Salad
-        {
-            public string Name { get; set; }
-
-            public double Price { get; set; }
-
-            public string Description { get; set; }
-
-            public bool HouseSpecial { get; set; }
-
-            public string Topping { get; set; }
-        }
-
-        public class Drink
-        {
-            public string Name { get; set; }
-
-            public double Price { get; set; }
-
-            public string Description { get; set; }
-
-            public bool HouseSpecial { get; set; }
-
-            public bool AgeRestricted { get; set; }
         }
 
         public void getJsonMenu()

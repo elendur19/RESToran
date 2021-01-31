@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RESToran.PresentationLayer.DataClasses;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,12 +18,6 @@ namespace RESToran.PresentationLayer.UserControls
         public AddTablesControl()
         {
             InitializeComponent();
-        }
-        public class Table
-        {
-            public string Description { get; set; }
-
-            public double NumberOfSeats { get; set; }
         }
 
         string AuthValue;
