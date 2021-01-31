@@ -28,7 +28,7 @@ namespace RESToran
         {
 
             services.AddDbContext<PostgreSqlContext>(options =>
-                            options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+                            options.UseNpgsql("Server = 127.0.0.1;Database = restoran;Port = 5432;User Id = postgres;Password = password;"));
 
             services.AddControllersWithViews();
 

@@ -47,10 +47,10 @@ namespace RESToran.Controllers
         public async Task<JsonResult> Drinks()
         {
 
-            string emailAddress = HttpContext.User.Identity.Name;
-
+            //string emailAddress = HttpContext.User.Identity.Name;
+            string emailAddress = Request.Headers["emailAddress"];
             var restaurant = await _context.Restaurant
-                                        .Where(rest => rest.EmailAddress.Equals(emailAddress))
+                                        .Where(rest => rest.Id == 1)
                                         .FirstOrDefaultAsync();
 
             List<DrinkInfo> drinksToReturn = new List<DrinkInfo>();
