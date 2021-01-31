@@ -334,5 +334,12 @@ namespace RESToran.PresentationLayer
             EditMenuButton.Text = "Edit " + menuValue + "s";
             AddFoodButton.Text = "Add " + menuValue + "s";
         }
+
+        private void LogoutButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Login loginWindow = new Login();
+            loginWindow.Show();
+        }
     }
 }

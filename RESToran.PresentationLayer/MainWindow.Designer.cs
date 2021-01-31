@@ -65,6 +65,8 @@ namespace RESToran.PresentationLayer
             this.EditProfileButton = new System.Windows.Forms.Button();
             this.ViewProfileButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.LogoutButton = new System.Windows.Forms.Button();
+            this.manageReservationsControl1 = new RESToran.PresentationLayer.UserControls.ManageReservationsControl();
             this.viewReservationsControl1 = new RESToran.PresentationLayer.UserControls.ViewReservationsControl();
             this.editTablesControl1 = new RESToran.PresentationLayer.UserControls.EditTablesControl();
             this.addTablesControl1 = new RESToran.PresentationLayer.UserControls.AddTablesControl();
@@ -74,7 +76,6 @@ namespace RESToran.PresentationLayer
             this.addFoodControler1 = new RESToran.PresentationLayer.UserControls.AddFoodControler();
             this.viewProfileControl1 = new RESToran.PresentationLayer.UserControls.ViewProfileControl();
             this.editProfileControl1 = new RESToran.PresentationLayer.UserControls.EditProfileControl();
-            this.manageReservationsControl1 = new RESToran.PresentationLayer.UserControls.ManageReservationsControl();
             this.panel1.SuspendLayout();
             this.MenuPanel.SuspendLayout();
             this.MenuButtonPanel.SuspendLayout();
@@ -87,6 +88,7 @@ namespace RESToran.PresentationLayer
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panel1.Controls.Add(this.LogoutButton);
             this.panel1.Controls.Add(this.MenuPanel);
             this.panel1.Controls.Add(this.MenuButtonPanel);
             this.panel1.Controls.Add(this.ReservationsPressedPanel);
@@ -466,6 +468,25 @@ namespace RESToran.PresentationLayer
             this.label1.TabIndex = 1;
             this.label1.Text = "Welcome";
             // 
+            // LogoutButton
+            // 
+            this.LogoutButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.LogoutButton.Location = new System.Drawing.Point(0, 697);
+            this.LogoutButton.Name = "LogoutButton";
+            this.LogoutButton.Size = new System.Drawing.Size(91, 36);
+            this.LogoutButton.TabIndex = 14;
+            this.LogoutButton.Text = "Logout";
+            this.LogoutButton.UseVisualStyleBackColor = true;
+            this.LogoutButton.Click += new System.EventHandler(this.LogoutButton_Click);
+            // 
+            // manageReservationsControl1
+            // 
+            this.manageReservationsControl1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.manageReservationsControl1.Location = new System.Drawing.Point(323, 0);
+            this.manageReservationsControl1.Name = "manageReservationsControl1";
+            this.manageReservationsControl1.Size = new System.Drawing.Size(832, 733);
+            this.manageReservationsControl1.TabIndex = 14;
+            // 
             // viewReservationsControl1
             // 
             this.viewReservationsControl1.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -537,14 +558,6 @@ namespace RESToran.PresentationLayer
             this.editProfileControl1.Name = "editProfileControl1";
             this.editProfileControl1.Size = new System.Drawing.Size(832, 733);
             this.editProfileControl1.TabIndex = 5;
-            // 
-            // manageReservationsControl1
-            // 
-            this.manageReservationsControl1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.manageReservationsControl1.Location = new System.Drawing.Point(323, 0);
-            this.manageReservationsControl1.Name = "manageReservationsControl1";
-            this.manageReservationsControl1.Size = new System.Drawing.Size(832, 733);
-            this.manageReservationsControl1.TabIndex = 14;
             // 
             // MainWindow
             // 
@@ -624,5 +637,6 @@ namespace RESToran.PresentationLayer
         private System.Windows.Forms.Button AppetizerButton;
         private UserControls.ViewReservationsControl viewReservationsControl1;
         private UserControls.ManageReservationsControl manageReservationsControl1;
+        private System.Windows.Forms.Button LogoutButton;
     }
 }
