@@ -219,6 +219,12 @@ namespace RESToran.Controllers
                                 break;
                             }
                         }
+
+                        // stol je slobodan na taj datum, rezerviraj ga 
+                        found = true;
+                        reservationPeriod.TableId = table.Id;
+                        break;
+
                     }
                     // ako si rezervirao termin , izadi
                     if (found == true)

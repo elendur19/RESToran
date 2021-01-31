@@ -7,6 +7,10 @@ namespace RESToran.DataAccess
     public class PostgreSqlContext: DbContext
     {
         //private readonly string _connectionString;
+        public PostgreSqlContext()
+        {
+
+        }
 
         public PostgreSqlContext(DbContextOptions<PostgreSqlContext> options) : base(options)
         {
