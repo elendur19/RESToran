@@ -21,6 +21,7 @@ namespace RESToran
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls(Environment.GetEnvironmentVariable("backendHostname"));
                 });
     }
 }

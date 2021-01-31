@@ -25,7 +25,7 @@ namespace RESToran.PresentationLayer.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:5000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8080")]
         public string backendHostname {
             get {
                 return ((string)(this["backendHostname"]));
