@@ -9,6 +9,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace RESToran.PresentationLayer
 {
@@ -26,7 +27,7 @@ namespace RESToran.PresentationLayer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Restaurant/login");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Restaurant/login");
             httpWebRequest.ContentType = "text/json";
             httpWebRequest.Accept = "*/*";
             httpWebRequest.Method = "POST";

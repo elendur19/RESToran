@@ -45,12 +45,13 @@ namespace RESToran.PresentationLayer.UserControls
         public void setAuthValue(string AuthValue)
         {
             this.AuthValue = AuthValue;
+            resultLabel.Text = "";
             this.updateValues();
         }
 
         public void updateValues()
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Restaurant/info");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Restaurant/info");
             httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
             HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
             string content = new System.IO.StreamReader(response.GetResponseStream()).ReadToEnd();
@@ -65,7 +66,7 @@ namespace RESToran.PresentationLayer.UserControls
 
         private void SubmitButton_Click(object sender, EventArgs e)
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Restaurant/edit");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Restaurant/edit");
             httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
             httpWebRequest.ContentType = "text/json";
             httpWebRequest.Accept = "*/*";

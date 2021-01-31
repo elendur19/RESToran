@@ -52,7 +52,7 @@ namespace RESToran.PresentationLayer.UserControls
 
         private void updateValues()
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/" + "ReservationPeriod/Restaurant/all");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/ReservationPeriod/Restaurant/all");
             httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
             HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
             string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
@@ -64,7 +64,7 @@ namespace RESToran.PresentationLayer.UserControls
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
             string selectedDate = dateTimePicker1.Value.ToString("dd/MM/yyyy");
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/ReservationPeriod/Restaurant/date/all");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/ReservationPeriod/Restaurant/date/all");
             httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
             httpWebRequest.Headers["dateReservation"] = selectedDate;
             HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
@@ -75,7 +75,7 @@ namespace RESToran.PresentationLayer.UserControls
 
         private void CancelReservationButton_Click_1(object sender, EventArgs e)
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/ReservationPeriod/Restaurant/delete");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/ReservationPeriod/Restaurant/delete");
             httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
             DataGridViewRow row = ReservationsGrid.CurrentRow;
             httpWebRequest.Method = "DELETE";

@@ -30,7 +30,7 @@ namespace RESToran.PresentationLayer
 
         private async void SubmitButton_Click(object sender, EventArgs e)
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Restaurant/create");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Restaurant/create");
             httpWebRequest.ContentType = "text/json";
             httpWebRequest.Accept = "*/*";
             httpWebRequest.Method = "POST";
@@ -70,40 +70,6 @@ namespace RESToran.PresentationLayer
             }
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Restaurant/create");
-            httpWebRequest.ContentType = "text/json";
-            httpWebRequest.Accept = "*/*";
-            httpWebRequest.Method = "POST";
-
-            string json = "{" +
-                        "\"Name\" : \"Rest429\"," +
-                        "\"EmailAddress\" : \"rest429@gjg.com\"," +
-                        "\"Password\" : \"zgzhzgg\"," +
-                        "\"Location\" : \"Ulica kralja Ivana\"," +
-                        "\"HoursOpened\": \"09:00-18:00\"," +
-                        "\"PhoneNumber\": \"0128181811\"}";
-            Console.Write(json);
-            httpWebRequest.ContentLength = Encoding.ASCII.GetBytes(json).Length;
-
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-
-
-                streamWriter.Write(json);
-            }
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            Console.Write(json);
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-                resultLabel.Text = result;
-            }
-            // TODO add registration logic here
-        }
-
         private void textBox7_TextChanged(object sender, EventArgs e)
         {
 
@@ -117,39 +83,6 @@ namespace RESToran.PresentationLayer
         private void RegisterControl_Load(object sender, EventArgs e)
         {
 
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Restaurant/create");
-            httpWebRequest.ContentType = "text/json";
-            httpWebRequest.Accept = "*/*";
-            httpWebRequest.Method = "POST";
-
-            string json = "{" +
-                        "\"Name\" : \"CUMA PUMA GUMA SUMA\"," +
-                        "\"EmailAddress\" : \"cumagumasuma\"," +
-                        "\"Password\" : \"zgzhzgg\"," +
-                        "\"Location\" : \"Ulica kralja Ivana\"," +
-                        "\"HoursOpened\": \"09:00-18:00\"," +
-                        "\"PhoneNumber\": \"0128181811\"}";
-            Console.Write(json);
-            httpWebRequest.ContentLength = Encoding.ASCII.GetBytes(json).Length;
-
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-
-
-                streamWriter.Write(json);
-            }
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            Console.Write(json);
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-                resultLabel.Text = result;
-            }
         }
     }
 

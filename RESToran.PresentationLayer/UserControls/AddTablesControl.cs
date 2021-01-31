@@ -30,11 +30,12 @@ namespace RESToran.PresentationLayer.UserControls
         public void setAuthValue(string AuthValue)
         {
             this.AuthValue = AuthValue;
+            ResultLabel.Text = "";
         }
 
         private void SubmitButton_Click(object sender, EventArgs e)
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Table/Restaurant/create");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Table/Restaurant/create");
             httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
             httpWebRequest.ContentType = "text/json";
             httpWebRequest.Accept = "*/*";
@@ -69,6 +70,7 @@ namespace RESToran.PresentationLayer.UserControls
                 if (httpResponse.StatusCode.ToString() == "OK")
                 {
                     ResultLabel.Text = "SUCCESS!";
+                    clearData();
                 }
             }
             catch (System.Net.WebException error)
@@ -76,6 +78,12 @@ namespace RESToran.PresentationLayer.UserControls
                 MessageBox.Show(error.ToString());
                 ResultLabel.Text = "Failed!";
             }
+        }
+
+        private void clearData()
+        {
+            NumberOfSeatsBox.Text = "";
+            DescriptionTextBox.Text = "";
         }
     }
 }

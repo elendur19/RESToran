@@ -77,7 +77,7 @@ namespace RESToran.PresentationLayer.UserControls
         {
             try
             {
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/"+menuValue+"/Restaurant/desktopApp/all");
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/" +menuValue+"/Restaurant/desktopApp/all");
                 httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
                 HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
                 string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
@@ -141,7 +141,7 @@ namespace RESToran.PresentationLayer.UserControls
                     json = Newtonsoft.Json.JsonConvert.SerializeObject(drink);
                 }
 
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/"+menuValue+"/Restaurant/edit");
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/" +menuValue+"/Restaurant/edit");
                 httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
                 httpWebRequest.Headers[char.ToLower(menuValue[0])+menuValue.Substring(1)+"Name"] = old.Name;
                 httpWebRequest.ContentType = "text/json";

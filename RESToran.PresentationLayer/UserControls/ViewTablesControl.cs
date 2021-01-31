@@ -40,7 +40,7 @@ namespace RESToran.PresentationLayer.UserControls
 
         public void getJsonMenu()
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Table/Restaurant/all");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Table/Restaurant/all");
             httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
             HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
             string content = new StreamReader(response.GetResponseStream()).ReadToEnd();

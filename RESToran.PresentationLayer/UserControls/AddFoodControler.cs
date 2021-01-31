@@ -54,6 +54,7 @@ namespace RESToran.PresentationLayer.UserControls
         public void setAuthValue(string AuthValue)
         {
             this.AuthValue = AuthValue;
+            ResultLabel.Text = "";
         }
         
         public void setMenuValue(string menuValue)
@@ -79,7 +80,7 @@ namespace RESToran.PresentationLayer.UserControls
         }
         private void SubmitButton_Click_1(object sender, EventArgs e)
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/"+menuValue+"/Restaurant/create");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/" +menuValue+"/Restaurant/create");
             httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
             httpWebRequest.ContentType = "text/json";
             httpWebRequest.Accept = "*/*";
@@ -89,7 +90,19 @@ namespace RESToran.PresentationLayer.UserControls
             {
                 mainCourse = new MainCourse();
                 mainCourse.Name = NameBox.Text;
-                mainCourse.Price = Convert.ToDouble(PriceBox.Text);
+                try
+                {
+                    mainCourse.Price = Convert.ToDouble(PriceBox.Text);
+                    if (mainCourse.Price == 0)
+                    {
+                        throw new ArgumentNullException("Invalid value");
+                    }
+                }
+                catch (Exception error)
+                {
+                    ResultLabel.Text = "Price should be number.";
+                    return;
+                }
                 mainCourse.Description = DescriptionTextBox.Text;
                 mainCourse.Housespecial = HouseSpecialCheckBox.Checked;
                 json = Newtonsoft.Json.JsonConvert.SerializeObject(mainCourse);
@@ -97,7 +110,19 @@ namespace RESToran.PresentationLayer.UserControls
             {
                 salad = new Salad();
                 salad.Name = NameBox.Text;
-                salad.Price = Convert.ToDouble(PriceBox.Text);
+                try
+                {
+                    salad.Price = Convert.ToDouble(PriceBox.Text);
+                    if (salad.Price == 0)
+                    {
+                        throw new ArgumentNullException("Invalid value");
+                    }
+                }
+                catch (Exception error)
+                {
+                    ResultLabel.Text = "Price should be number.";
+                    return;
+                }
                 salad.Description = DescriptionTextBox.Text;
                 salad.HouseSpecial = HouseSpecialCheckBox.Checked;
                 salad.Topping = toppingBox.Text;
@@ -107,7 +132,19 @@ namespace RESToran.PresentationLayer.UserControls
             {
                 drink = new Drink();
                 drink.Name = NameBox.Text;
-                drink.Price = Convert.ToDouble(PriceBox.Text);
+                try
+                {
+                    drink.Price = Convert.ToDouble(PriceBox.Text);
+                    if (drink.Price == 0)
+                    {
+                        throw new ArgumentNullException("Invalid value");
+                    }
+                }
+                catch (Exception error)
+                {
+                    ResultLabel.Text = "Price should be number.";
+                    return;
+                }
                 drink.Description = DescriptionTextBox.Text;
                 drink.HouseSpecial = HouseSpecialCheckBox.Checked;
                 drink.AgeRestricted = ageRestrictedCheckbox.Checked;
@@ -127,13 +164,23 @@ namespace RESToran.PresentationLayer.UserControls
                 if (httpResponse.StatusCode.ToString() == "OK")
                 {
                     ResultLabel.Text = "SUCCESS!";
+                    clearBoxes();
                 }
             }
             catch (System.Net.WebException error)
             {
-                MessageBox.Show(error.ToString());
                 ResultLabel.Text = "Failed!";
             }
+        }
+
+        private void clearBoxes()
+        {
+            NameBox.Text = "";
+            PriceBox.Text = "";
+            DescriptionTextBox.Text = "";
+            HouseSpecialCheckBox.Checked = false;
+            ageRestrictedCheckbox.Checked = false;
+            toppingBox.Text = "";
         }
     }
 }

@@ -42,7 +42,7 @@ namespace RESToran.PresentationLayer.UserControls
 
         public void getJsonMenu()
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Table/Restaurant/all");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Table/Restaurant/all");
             httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
             HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
             string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
@@ -70,7 +70,7 @@ namespace RESToran.PresentationLayer.UserControls
                 table.Description = DescriptionTextBox.Text;
                 table.RestName_Number = old.RestName_Number;
                 string json = JsonConvert.SerializeObject(table);
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/Table/Restaurant/edit");
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.backendHostname + "/Table/Restaurant/edit");
                 httpWebRequest.Headers["Authorization"] = "Basic " + AuthValue;
                 httpWebRequest.Headers["tableNumber"] = table.RestName_Number.Split(' ')[1];
                 httpWebRequest.ContentType = "text/json";
