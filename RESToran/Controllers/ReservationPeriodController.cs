@@ -152,120 +152,188 @@ namespace RESToran.Controllers
                 });
             }
 
+            // zahtjev ispravan, provjeri postoji li u bazi rezervacija za taj datum i vrijeme
+            int counter = 0;
+            
             var restaurant = await _context.Restaurant
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            List<Table> tables =  _context.Table
-                    .Where(t => t.RestaurantId == id)
-                    .Where(t => t.Description.Equals(description))
-                    .ToList();
+            List<Table> tables = _context.Table
+                                .Where(t => t.RestaurantId == id)
+                                .Where(t => t.Description.Equals(description))
+                                .ToList();
 
-            List<long> tableIds = tables.Select(t => t.Id).ToList();
+            int[] reservedTables = new int[tables.Count];
 
-            List<long> reservationPeriodTablesIds = _context.ReservationPeriod
+            List <ReservationPeriod> reservationPeriods = _context.ReservationPeriod
                                     .Where(rp => rp.RestaurantId == id)
                                     .Where(rp => rp.TableDescription.Equals(reservationPeriod.TableDescription))
-                                    .Select(rp => rp.TableId)
-                                    .Distinct()
+                                    .Where(rp => rp.Date.Equals(reservationPeriod.Date))
                                     .ToList();
+            
+            foreach (ReservationPeriod period in reservationPeriods)
+            {
 
-            // TODO : implement reservation logic
-            bool found = false;
-             foreach (var table in tables) {
-                if (reservationPeriodTablesIds.Contains(table.Id))
+                string reservationPeriodDate = reservationPeriod.Date;
+                // get database reservation Period info
+                string dbReservatinPeriodDate = period.Date;
+                int dbYear = int.Parse(dbReservatinPeriodDate.Substring(6, 4));
+                int dbMonth = int.Parse(dbReservatinPeriodDate.Substring(3, 2));
+                int dbDay = int.Parse(dbReservatinPeriodDate.Substring(0, 2));
+
+                int rpYear = int.Parse(reservationPeriodDate.Substring(6, 4));
+                int rpMonth = int.Parse(reservationPeriodDate.Substring(3, 2));
+                int rpDay = int.Parse(reservationPeriodDate.Substring(0, 2));
+
+                bool sameDay = (dbYear == rpYear && dbMonth == rpMonth && dbDay == rpDay);
+                //if (NewPeriodMinuteStart >= NewPeriodMinuteEnd) break;
+
+                // datum su jednaki, usporedi vremena
+                if (sameDay)
                 {
-                    // vec postoji rezervacija za stol sa id-om table.Id, provjeri jel se moze napraviti nova rez.
-                    List<ReservationPeriod> reservationPeriods = _context.ReservationPeriod
-                                                .Where(rp => rp.RestaurantId == id)
-                                                .Where(rp => rp.TableId == table.Id)
-                                                .ToList();
-                    foreach (ReservationPeriod period in reservationPeriods)
+                    pom = period.StartTime.ToString("HH:mm");
+                    int DbPeriodMinuteStart = int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
+                    pom = period.EndTime.ToString("HH:mm");
+                    int DbPeriodMinuteEnd = int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
+
+                    if ((NewPeriodMinuteStart >= DbPeriodMinuteStart && NewPeriodMinuteStart <= DbPeriodMinuteEnd) ||
+                        (NewPeriodMinuteEnd >= DbPeriodMinuteStart && NewPeriodMinuteEnd <= DbPeriodMinuteEnd) ||
+                        (NewPeriodMinuteStart <= DbPeriodMinuteStart && NewPeriodMinuteEnd >= DbPeriodMinuteEnd) ||
+                        (NewPeriodMinuteStart >= DbPeriodMinuteStart && NewPeriodMinuteEnd <= DbPeriodMinuteEnd))
                     {
-
-                        string reservationPeriodDate = reservationPeriod.Date;
-                        // get database reservation Period info
-                        string dbReservatinPeriodDate = period.Date;
-                        int dbYear = int.Parse(dbReservatinPeriodDate.Substring(6, 4));
-                        int dbMonth = int.Parse(dbReservatinPeriodDate.Substring(3, 2));
-                        int dbDay = int.Parse(dbReservatinPeriodDate.Substring(0, 2));
-
-                        int rpYear = int.Parse(reservationPeriodDate.Substring(6, 4));
-                        int rpMonth = int.Parse(reservationPeriodDate.Substring(3, 2));
-                        int rpDay = int.Parse(reservationPeriodDate.Substring(0, 2));
-
-                        bool sameDay = (dbYear == rpYear && dbMonth == rpMonth && dbDay == rpDay); 
-                        //if (NewPeriodMinuteStart >= NewPeriodMinuteEnd) break;
-
-                        // datum su jednaki, usporedi vremena
-                        if (sameDay)
-                        {
-                            pom = period.StartTime.ToString("HH:mm");
-                            int DbPeriodMinuteStart= int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2)); 
-                            pom = period.EndTime.ToString("HH:mm");
-                            int DbPeriodMinuteEnd= int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
-
-                            if ((NewPeriodMinuteStart >= DbPeriodMinuteStart && NewPeriodMinuteStart <= DbPeriodMinuteEnd) ||
-                                (NewPeriodMinuteEnd >= DbPeriodMinuteStart && NewPeriodMinuteEnd <= DbPeriodMinuteEnd) ||
-                                (NewPeriodMinuteStart <= DbPeriodMinuteStart && NewPeriodMinuteEnd >= DbPeriodMinuteEnd) ||
-                                (NewPeriodMinuteStart >= DbPeriodMinuteStart && NewPeriodMinuteEnd <= DbPeriodMinuteEnd))
-                            {
-                                // preklapa se sa postojecim terminom
-                                continue;
-                            } else
-                            {
-                                // termin je slobodan za stol 
-                                found = true;
-                                reservationPeriod.TableId = table.Id;
-                                break;
-                            }
-                        }
-
-                        // stol je slobodan na taj datum, rezerviraj ga 
-                        found = true;
-                        reservationPeriod.TableId = table.Id;
-                        break;
-
+                        // preklapa se sa postojecim terminom
+                        reservedTables[counter++] = (int) reservationPeriod.TableId;
+                        continue;
                     }
-                    // ako si rezervirao termin , izadi
-                    if (found == true)
+                    else
                     {
-                        break; 
+                        // termin se ne preklapa za novu rezervaciju
+                        continue;
                     }
-                } else
-                {
-                    // uopce ne postoji rezervation period za ovaj stol, odmah rezerviraj stol
-
-                    pom = reservationPeriod.Date;
-
-                    int yearToSave = int.Parse(reservationPeriod.Date.Substring(6, 4));
-                    int monthToSave = int.Parse(reservationPeriod.Date.Substring(3, 2));
-                    int dayToSave = int.Parse(reservationPeriod.Date.Substring(0, 2));
-
-                    string str_dayToSave = day.ToString("D2");
-                    string str_monthToSave = month.ToString("D2");
-                    string str_yearToSave = year.ToString("D4");
-
-                    // formatiraj datum dd/MM/yyyy
-
-                    reservationPeriod.Date = str_day + "/" + str_month + "/" + str_year;
-                    
-                    reservationPeriod.TableId = table.Id;
-                    found = true;
-                    break;
                 }
-             }
 
-             if (found == false)
+                // rezervacija u bazi nije na taj datum, nastavi 
+            }
+
+            if (counter >= tables.Count)
             {
                 // odi na bad request view i posalji potrebne paramtre
-                return RedirectToAction(nameof(BadTimeRequest), new {
+                return RedirectToAction(nameof(BadTimeRequest), new
+                {
                     id = id,
                     date = reservationPeriod.Date,
                     startTime = reservationPeriod.StartTime,
                     endTime = reservationPeriod.EndTime
                 });
-            }
+            } 
 
+            foreach (Table table in tables)
+            {
+                if (reservedTables.Contains((int) table.Id)) continue;
+                // found table that is free, reserve it
+                reservationPeriod.TableId = table.Id;
+                break;
+            }
+            /*
+                        List<Table> tables =  _context.Table
+                                .Where(t => t.RestaurantId == id)
+                                .Where(t => t.Description.Equals(description))
+                                .ToList();
+
+                        List<long> tableIds = tables.Select(t => t.Id).ToList();
+
+                        List<long> reservationPeriodTablesIds = _context.ReservationPeriod
+                                                .Where(rp => rp.RestaurantId == id)
+                                                .Where(rp => rp.TableDescription.Equals(reservationPeriod.TableDescription))
+                                                .Select(rp => rp.TableId)
+                                                .Distinct()
+                                                .ToList();*/
+
+            /*            // TODO : implement reservation logic
+                        bool found = false;
+                         foreach (var table in tables) {
+                            if (reservationPeriodTablesIds.Contains(table.Id))
+                            {
+                                // vec postoji rezervacija za stol sa id-om table.Id, provjeri jel se moze napraviti nova rez.
+                                List<ReservationPeriod> reservationPeriods = _context.ReservationPeriod
+                                                            .Where(rp => rp.RestaurantId == id)
+                                                            .Where(rp => rp.TableId == table.Id)
+                                                            .ToList();
+
+                                foreach (ReservationPeriod period in reservationPeriods)
+                                {
+
+                                    string reservationPeriodDate = reservationPeriod.Date;
+                                    // get database reservation Period info
+                                    string dbReservatinPeriodDate = period.Date;
+                                    int dbYear = int.Parse(dbReservatinPeriodDate.Substring(6, 4));
+                                    int dbMonth = int.Parse(dbReservatinPeriodDate.Substring(3, 2));
+                                    int dbDay = int.Parse(dbReservatinPeriodDate.Substring(0, 2));
+
+                                    int rpYear = int.Parse(reservationPeriodDate.Substring(6, 4));
+                                    int rpMonth = int.Parse(reservationPeriodDate.Substring(3, 2));
+                                    int rpDay = int.Parse(reservationPeriodDate.Substring(0, 2));
+
+                                    bool sameDay = (dbYear == rpYear && dbMonth == rpMonth && dbDay == rpDay); 
+                                    //if (NewPeriodMinuteStart >= NewPeriodMinuteEnd) break;
+
+                                    // datum su jednaki, usporedi vremena
+                                    if (sameDay)
+                                    {
+                                        pom = period.StartTime.ToString("HH:mm");
+                                        int DbPeriodMinuteStart= int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2)); 
+                                        pom = period.EndTime.ToString("HH:mm");
+                                        int DbPeriodMinuteEnd= int.Parse(pom.Substring(0, 2)) * 60 + int.Parse(pom.Substring(3, 2));
+
+                                        if ((NewPeriodMinuteStart >= DbPeriodMinuteStart && NewPeriodMinuteStart <= DbPeriodMinuteEnd) ||
+                                            (NewPeriodMinuteEnd >= DbPeriodMinuteStart && NewPeriodMinuteEnd <= DbPeriodMinuteEnd) ||
+                                            (NewPeriodMinuteStart <= DbPeriodMinuteStart && NewPeriodMinuteEnd >= DbPeriodMinuteEnd) ||
+                                            (NewPeriodMinuteStart >= DbPeriodMinuteStart && NewPeriodMinuteEnd <= DbPeriodMinuteEnd))
+                                        {
+                                            // preklapa se sa postojecim terminom
+                                            continue;
+                                        } else
+                                        {
+                                            // termin je slobodan za stol 
+                                            found = true;
+                                            reservationPeriod.TableId = table.Id;
+                                            break;
+                                        }
+                                    }
+
+                                    // rezervacija u bazi nije na taj datum, nastavi 
+
+
+                                }
+                                // ako si rezervirao termin , izadi
+                                if (found == true)
+                                {
+                                    break; 
+                                }
+                            } else
+                            {
+                                // uopce ne postoji rezervation period za ovaj stol, odmah rezerviraj stol
+
+                                pom = reservationPeriod.Date;
+
+                                int yearToSave = int.Parse(reservationPeriod.Date.Substring(6, 4));
+                                int monthToSave = int.Parse(reservationPeriod.Date.Substring(3, 2));
+                                int dayToSave = int.Parse(reservationPeriod.Date.Substring(0, 2));
+
+                                string str_dayToSave = day.ToString("D2");
+                                string str_monthToSave = month.ToString("D2");
+                                string str_yearToSave = year.ToString("D4");
+
+                                // formatiraj datum dd/MM/yyyy
+
+                                reservationPeriod.Date = str_day + "/" + str_month + "/" + str_year;
+
+                                reservationPeriod.TableId = table.Id;
+                                found = true;
+                                break;
+                            }
+                         }*/
+ 
             reservationPeriod.RestaurantId = id;
 
             if (ModelState.IsValid)
