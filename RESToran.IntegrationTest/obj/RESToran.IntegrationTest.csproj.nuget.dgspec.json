@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran.IntegrationTest\\RESToran.IntegrationTest.csproj": {}
+    "C:\\Users\\Tomislav\\OO Seminar\\RESToran\\RESToran.IntegrationTest\\RESToran.IntegrationTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran.IntegrationTest\\RESToran.IntegrationTest.csproj": {
+    "C:\\Users\\Tomislav\\OO Seminar\\RESToran\\RESToran.IntegrationTest\\RESToran.IntegrationTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran.IntegrationTest\\RESToran.IntegrationTest.csproj",
+        "projectUniqueName": "C:\\Users\\Tomislav\\OO Seminar\\RESToran\\RESToran.IntegrationTest\\RESToran.IntegrationTest.csproj",
         "projectName": "RESToran.IntegrationTest",
-        "projectPath": "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran.IntegrationTest\\RESToran.IntegrationTest.csproj",
-        "packagesPath": "C:\\Users\\misla\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran.IntegrationTest\\obj\\",
+        "projectPath": "C:\\Users\\Tomislav\\OO Seminar\\RESToran\\RESToran.IntegrationTest\\RESToran.IntegrationTest.csproj",
+        "packagesPath": "C:\\Users\\Tomislav\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Tomislav\\OO Seminar\\RESToran\\RESToran.IntegrationTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\misla\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Tomislav\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,15 +22,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://packagesource": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran\\RESToran.csproj": {
-                "projectPath": "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran\\RESToran.csproj"
+              "C:\\Users\\Tomislav\\OO Seminar\\RESToran\\RESToran\\RESToran.csproj": {
+                "projectPath": "C:\\Users\\Tomislav\\OO Seminar\\RESToran\\RESToran\\RESToran.csproj"
               }
             }
           }
@@ -104,17 +103,17 @@
         }
       }
     },
-    "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran\\RESToran.csproj": {
+    "C:\\Users\\Tomislav\\OO Seminar\\RESToran\\RESToran\\RESToran.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran\\RESToran.csproj",
+        "projectUniqueName": "C:\\Users\\Tomislav\\OO Seminar\\RESToran\\RESToran\\RESToran.csproj",
         "projectName": "RESToran",
-        "projectPath": "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran\\RESToran.csproj",
-        "packagesPath": "C:\\Users\\misla\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran\\obj\\",
+        "projectPath": "C:\\Users\\Tomislav\\OO Seminar\\RESToran\\RESToran\\RESToran.csproj",
+        "packagesPath": "C:\\Users\\Tomislav\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Tomislav\\OO Seminar\\RESToran\\RESToran\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\misla\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Tomislav\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -122,8 +121,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://packagesource": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {

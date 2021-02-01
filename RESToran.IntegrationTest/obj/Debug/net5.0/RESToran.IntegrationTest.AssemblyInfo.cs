@@ -11,7 +11,7 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("RESToran, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran", "RESToran.csproj", "0")]
+[assembly: Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryContentRootAttribute("RESToran, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", "C:\\Users\\Tomislav\\OO Seminar\\RESToran\\RESToran", "RESToran.csproj", "0")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("RESToran.IntegrationTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]

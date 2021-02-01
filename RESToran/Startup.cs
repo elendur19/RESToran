@@ -26,7 +26,7 @@ namespace RESToran
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //NAMJERNO HARDKODIRANO, UNIT TESTOVI NE BI RADILI BEZ TOGA
             services.AddDbContext<PostgreSqlContext>(options =>
                             options.UseNpgsql("Server = 127.0.0.1;Database = restoran;Port = 5432;User Id = postgres;Password = password;"));
 
