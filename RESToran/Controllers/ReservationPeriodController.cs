@@ -202,7 +202,7 @@ namespace RESToran.Controllers
                         (NewPeriodMinuteStart >= DbPeriodMinuteStart && NewPeriodMinuteEnd <= DbPeriodMinuteEnd))
                     {
                         // preklapa se sa postojecim terminom
-                        reservedTables[counter++] = (int) reservationPeriod.TableId;
+                        reservedTables[counter++] = (int) period.TableId;
                         continue;
                     }
                     else

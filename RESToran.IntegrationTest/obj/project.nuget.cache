@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qVw3W7ZNlYHfsP80FCv9KbWEe/jVRdhgBCrV+MG9PtRS110l9rdKtf3x+UKJRh63TEgEot3S2Or7l3bzQ1sEgA==",
+  "dgSpecHash": "x89H09nSXmLl8ao8tixunw6fInpOtzRydWN6i+rh9sQvhKQ9PHqs4cs6g6kiecgoKhhkI0pSZRT8xPjqYvlpCA==",
   "success": true,
   "projectFilePath": "C:\\Users\\misla\\fer\\1.semestar_diplomski\\OO\\seminar\\web-app\\RESToran\\RESToran.IntegrationTest\\RESToran.IntegrationTest.csproj",
   "expectedPackageFiles": [
@@ -211,6 +211,7 @@
     "C:\\Users\\misla\\.nuget\\packages\\xunit.core\\2.4.1\\xunit.core.2.4.1.nupkg.sha512",
     "C:\\Users\\misla\\.nuget\\packages\\xunit.extensibility.core\\2.4.1\\xunit.extensibility.core.2.4.1.nupkg.sha512",
     "C:\\Users\\misla\\.nuget\\packages\\xunit.extensibility.execution\\2.4.1\\xunit.extensibility.execution.2.4.1.nupkg.sha512",
+    "C:\\Users\\misla\\.nuget\\packages\\xunit.priority\\1.1.6\\xunit.priority.1.1.6.nupkg.sha512",
     "C:\\Users\\misla\\.nuget\\packages\\xunit.runner.visualstudio\\2.4.3\\xunit.runner.visualstudio.2.4.3.nupkg.sha512"
   ],
   "logs": [

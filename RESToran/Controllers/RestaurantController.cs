@@ -90,15 +90,17 @@ namespace RESToran.Controllers
          }*/
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] Restaurant restaurant)
+        public async Task<JsonResult> Create([FromBody] Restaurant restaurant)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(restaurant);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                
             }
-            return View(restaurant);
+            //return View(restaurant);
+            HttpContext.Response.StatusCode = 201;
+            return new JsonResult("Restaurant successfully created");
         }
 
         //[Authorize]

@@ -455,3 +455,4 @@ C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran.Int
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran.IntegrationTest\obj\Debug\net5.0\RESToran.IntegrationTest.genruntimeconfig.cache
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran.IntegrationTest\bin\Debug\net5.0\Castle.Core.dll
 C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran.IntegrationTest\bin\Debug\net5.0\Moq.dll
+C:\Users\misla\fer\1.semestar_diplomski\OO\seminar\web-app\RESToran\RESToran.IntegrationTest\bin\Debug\net5.0\Xunit.Priority.dll
